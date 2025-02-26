@@ -715,6 +715,7 @@ textarea:-ms-input-placeholder {
   position: absolute;
   left: 0;
   top: 0;
+  /* background: #111; */
   background: #ffffff;
   width: 100%;
   z-index: 999;
@@ -733,11 +734,19 @@ textarea:-ms-input-placeholder {
 }
 
 .header-logo a img {
-  width: 150px;
+  width: 250px;
+}
+
+.header-logo a svg {
+  width: 250px;
 }
 
 @media only screen and (max-width: 1199px) {
   .header-logo a img {
+    width: 130px;
+  }
+
+  .header-logo a svg {
     width: 130px;
   }
 }
