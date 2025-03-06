@@ -39,6 +39,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Route::get('/sliders', [SliderController::class, 'index'])->name('sliders.index');
+// Route::get('/sliders/create', [SliderController::class, 'create'])->name('sliders.create');
+// Route::post('/sliders', [SliderController::class, 'store'])->name('sliders.store');
+// Route::get('/sliders/{slider}', [SliderController::class, 'show'])->name('sliders.show');
+// Route::get('/sliders/{slider}/edit', [SliderController::class, 'edit'])->name('sliders.edit');
+// Route::post('/sliders/{slider}/update', [SliderController::class, 'update'])->name('sliders.update');
+// Route::delete('/sliders/{slider}', [SliderController::class, 'delete'])->name('sliders.delete');
+
 Route::resources([
     'sliders' => SliderController::class,
     'hero-areas' => HeroAreaController::class,

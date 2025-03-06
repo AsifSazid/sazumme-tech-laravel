@@ -11,6 +11,7 @@ class SliderController extends Controller
 {
     public function index()
     {
+        dd('i\'m from index');
         $sliders = Slider::all();
         return response()->json($sliders);
     }
@@ -22,6 +23,7 @@ class SliderController extends Controller
 
     public function store(SliderRequest $request)
     {
+        dd("store");
         $slider = Slider::create($request->validated());
         if ($request->hasFile('slider_pic')) {
             $this->unlink($request->slider_pic);
