@@ -78,13 +78,25 @@
         <x-frontend.sections.welcome-section.skill />
     <!-- Skill End -->
 
+    <!-- Case Study Start -->
+        <x-frontend.sections.welcome-section.case-study />
+    <!-- Case Study End -->
+
     <!-- Testimonial Start  -->
         <x-frontend.sections.welcome-section.testimonials />
     <!-- Testimonial End  -->
 
+    <!-- Brand Logo Start -->
+        <x-frontend.sections.welcome-section.brand-logos />
+    <!-- Brand Logo End -->
+
     <!-- Team Start -->
         <x-frontend.sections.welcome-section.team />
     <!-- Team End -->
+
+    <!-- Blog Start -->
+        <x-frontend.sections.welcome-section.blog />
+    <!-- Blog End -->
 
     <!-- Cta Start -->
         <x-frontend.layouts.partials.cta />

@@ -7,7 +7,7 @@
 
             <div class="header-logo">
                 <a href="{{route('welcome')}}">
-                    <img src="{{ asset('ui/frontend/assets') }}/images/logos/written-logo.png" alt="">
+                    <img src="{{ asset('ui/frontend/assets') }}/images/logos/full-logo.png" alt="">
                 </a>
             </div>
 
@@ -51,7 +51,7 @@
             <!-- Header Meta Start -->
             <div class="header-meta">
                 <!-- Header Cart Start -->
-                <div class="header-cart dropdown">
+                {{-- <div class="header-cart dropdown">
                     <button class="cart-btn" data-bs-toggle="dropdown">
                         <i class="flaticon-shopping-cart"></i>
                         <span class="count">0</span>
@@ -115,7 +115,7 @@
                         <!-- Dropdown Cart Button End -->
                     </div>
                     <!-- Header Dropdown Cart End -->
-                </div>
+                </div> --}}
                 <!-- Header Cart End -->
                 <!-- Header Search Start -->
                 <div class="header-search">
@@ -137,7 +137,7 @@
                 <!-- Header Search End -->
 
                 <div class="header-btn d-none d-xl-block">
-                    <a class="btn" href="login-register.html">Get Started</a>
+                    <a class="btn" href="{{ route('login') }}">Get Started</a>
                 </div>
                 <!-- Header Toggle Start -->
                 <div class="header-toggle d-lg-none">
