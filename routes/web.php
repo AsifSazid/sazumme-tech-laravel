@@ -37,6 +37,26 @@ Route::get('/our-team', function () {
     return view('frontend.our-team');
 })->name('our-team');
 
+Route::get('/our-services', function () {
+    return view('frontend.services');
+})->name('our-services');
+
+Route::get('/choose-us', function () {
+    return view('frontend.choose-us');
+})->name('choose-us');
+
+Route::get('/clients-testimonial', function () {
+    return view('frontend.testimonials');
+})->name('clients-testimonial');
+
+Route::get('/pricing', function () {
+    return view('frontend.pricing');
+})->name('pricing');
+
+Route::get('/contact-us', function () {
+    return view('frontend.contact-us');
+})->name('contact-us');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -61,7 +81,7 @@ Route::resources([
     'hero-areas' => HeroAreaController::class,
     'who-we-are' => WhoWeAreController::class,
     'counters' => CounterController::class,
-    'reason-to-choose-us' => ReasonsToChooseUsController::class,
+    // 'reason-to-choose-us' => ReasonsToChooseUsController::class,
     'our-expertise' => OurExpertiseController::class,
     'case-studies' => CaseStudyController::class,
     'testimonials' => TestimonialController::class,

@@ -44,4 +44,8 @@
             </x-primary-button>
         </div>
     </form>
+    <hr class="mt-3">
+    <div class="mt-3 text-center">
+        <p>Didn't Register? <i><a href="{{route('register')}}">Register Here</a></i></p>
+    </div>
 </x-guest-layout>

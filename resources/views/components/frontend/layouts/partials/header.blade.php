@@ -16,27 +16,26 @@
                     <li class="active-menu">
                         <a href="{{ route('welcome') }}">Home</a>
                     </li>
-                    <li>
-                        <a href="{{ route('about-us') }}">Aboute Us</a>
-                    </li>
-                    <li><a href="#">Pages</a>
+                    <li><a href="#">About</a>
                         <ul class="sub-menu">
-                            <li><a href="team.html">Our Team</a></li>
-                            <li><a href="service.html">Service</a></li>
-                            <li><a href="choose-us.html">Why Choose Us</a></li>
-                            <li><a href="testimonial.html">Testimonial</a></li>
-                            <li><a href="pricing.html">Pricing</a></li>
-                            <li><a href="login-register.html">Login & Register</a></li>
+                            <li><a href="{{ route('about-us') }}">Aboute Us</a></li>
+                            <li><a href="{{ route('our-team') }}">Our Team</a></li>
+                            <li><a href="{{ route('choose-us') }}">Why Choose Us</a></li>
+                            <li><a href="{{ route('clients-testimonial') }}">Testimonial</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">Blog</a>
+                    <li>
+                        <a href="{{ route('our-services') }}">Our Service</a>
+                    </li>
+                    <li><a href="{{ route('pricing') }}">Pricing</a></li>
+                    {{-- <li><a href="#">Blog</a>
                         <ul class="sub-menu">
                             <li><a href="blog.html">Blog Grid</a></li>
                             <li><a href="blog-standard.html">Blog List</a></li>
                             <li><a href="blog-details.html">Blog Single</a></li>
                         </ul>
-                    </li>
-                    <li><a href="contact.html">Contact</a></li>
+                    </li> --}}
+                    <li><a href="{{ route('contact-us') }}">Contact</a></li>
                 </ul>
             </div>
 
