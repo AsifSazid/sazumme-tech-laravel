@@ -38,18 +38,19 @@
 </head>
 
 <body>
-    
+
 
     <div class="main-wrapper">
 
         <!-- Preloader start -->
         <x-frontend.layouts.partials.preloader />
         <!-- Preloader End -->
-        
+
         <!-- Header Start  -->
         <x-frontend.layouts.partials.header />
         <!-- Header End -->
 
+        
         {{ $slot }}
 
 

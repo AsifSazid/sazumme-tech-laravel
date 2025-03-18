@@ -29,6 +29,14 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+Route::get('/about-us', function () {
+    return view('frontend.about-us');
+})->name('about-us');
+
+Route::get('/our-team', function () {
+    return view('frontend.our-team');
+})->name('our-team');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -48,6 +56,7 @@ Route::middleware('auth')->group(function () {
 // Route::delete('/sliders/{slider}', [SliderController::class, 'delete'])->name('sliders.delete');
 
 Route::resources([
+    // admin panel er jonno
     'sliders' => SliderController::class,
     'hero-areas' => HeroAreaController::class,
     'who-we-are' => WhoWeAreController::class,

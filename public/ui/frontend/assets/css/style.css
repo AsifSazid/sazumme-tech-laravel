@@ -1803,7 +1803,7 @@ textarea:-ms-input-placeholder {
 /*  2.3 - Header Top CSS
 /*----------------------------------------*/
 .offcanvas {
-  background: #000c29;
+  background: #ffffff;
   width: 320px;
 }
 
@@ -1817,7 +1817,7 @@ textarea:-ms-input-placeholder {
   background: none;
   border: 0;
   font-size: 18px;
-  color: #ffffff;
+  color: #000c29;
   transition: all 0.3s linear;
 }
 
@@ -1843,7 +1843,7 @@ textarea:-ms-input-placeholder {
   font-size: 16px;
   font-weight: 600;
   font-family: "Barlow", sans-serif;
-  color: #ffffff;
+  color: #000c29;
   padding: 5px 0px;
   position: relative;
 }
@@ -1855,7 +1855,8 @@ textarea:-ms-input-placeholder {
   width: 30px;
   height: 30px;
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.1);
+  background: #000c29;
+  /* background: rgba(255, 255, 255, 0.1); */
   border-radius: 3px;
 }
 
