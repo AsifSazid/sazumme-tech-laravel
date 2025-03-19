@@ -3,5 +3,5 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
-Route::get('/send-otp', [RegisteredUserController::class, 'sendOtp']);
-Route::post('/verify-otp', [RegisteredUserController::class, 'verifyOtp']);
+// Route::post('/send-otp', [RegisteredUserController::class, 'sendOtp']);
+// Route::post('/verify-otp', [RegisteredUserController::class, 'verifyOtp']);

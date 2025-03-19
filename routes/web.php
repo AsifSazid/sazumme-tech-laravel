@@ -24,6 +24,7 @@ use App\Http\Controllers\TermsAndConditionsController;
 use App\Http\Controllers\AboutCompanyController;
 use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\RequestAQuoteController;
+use App\Http\Middleware\EnsurePhoneIsVerified;
 
 Route::get('/', function () {
     return view('welcome');
@@ -59,7 +60,7 @@ Route::get('/contact-us', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', EnsurePhoneIsVerified::class])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
