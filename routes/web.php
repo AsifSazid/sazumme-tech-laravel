@@ -27,8 +27,8 @@ use App\Http\Controllers\RequestAQuoteController;
 use App\Http\Middleware\EnsurePhoneIsVerified;
 
 Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+    return view('under-maintenance');
+})->name('under-maintenance');
 
 Route::get('/about-us', function () {
     return view('frontend.about-us');
