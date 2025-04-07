@@ -7,7 +7,6 @@ use App\Http\Controllers\SliderController;
 use App\Http\Controllers\HeroAreaController;
 use App\Http\Controllers\WhoWeAreController;
 use App\Http\Controllers\CounterController;
-use App\Http\Controllers\ReasonsToChooseUsController;
 use App\Http\Controllers\OurExpertiseController;
 use App\Http\Controllers\CaseStudyController;
 use App\Http\Controllers\TestimonialController;
@@ -27,8 +26,12 @@ use App\Http\Controllers\RequestAQuoteController;
 use App\Http\Middleware\EnsurePhoneIsVerified;
 
 Route::get('/', function () {
-    return view('under-maintenance');
-})->name('under-maintenance');
+    return view('welcome');
+})->name('welcome');
+
+// Route::get('/', function () {
+//     return view('under-maintenance');
+// })->name('under-maintenance');
 
 Route::get('/about-us', function () {
     return view('frontend.about-us');
@@ -38,21 +41,13 @@ Route::get('/our-team', function () {
     return view('frontend.our-team');
 })->name('our-team');
 
-Route::get('/our-services', function () {
-    return view('frontend.services');
-})->name('our-services');
+Route::get('/our-wings', function () {
+    return view('frontend.wings');
+})->name('our-wings');
 
 Route::get('/choose-us', function () {
     return view('frontend.choose-us');
 })->name('choose-us');
-
-Route::get('/clients-testimonial', function () {
-    return view('frontend.testimonials');
-})->name('clients-testimonial');
-
-Route::get('/pricing', function () {
-    return view('frontend.pricing');
-})->name('pricing');
 
 Route::get('/contact-us', function () {
     return view('frontend.contact-us');

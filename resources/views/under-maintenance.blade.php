@@ -73,7 +73,7 @@
   <div class="footer-note">Thank you for your patience and support ❤️</div>
 
   <script>
-    const targetDate = new Date("2025-04-10T12:00:00").getTime();
+    const targetDate = new Date("2025-04-14T06:00:00Z").getTime();
     const countdown = document.getElementById("countdown");
 
     function updateCountdown() {

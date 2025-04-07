@@ -1,6 +1,6 @@
 <x-frontend.layouts.master>
     <!-- Page Banner Start -->
-        <x-frontend.layouts.partials.page-banner :pageTitle="'About Us'" />
+    <x-frontend.layouts.partials.page-banner :pageTitle="'About Us'" />
     <!-- Page Banner End -->
 
     <!-- About Start -->
@@ -13,12 +13,15 @@
                     <div class="col-lg-6">
                         <!-- About Image Wrap Start -->
                         <div class="about-img-wrap">
-                            <img class="shape-1" src="{{ asset('ui/frontend/assets') }}/images/shape/about-shape2.png" alt="">
+                            <img class="shape-1" src="{{ asset('ui/frontend/assets') }}/images/shape/about-shape2.png"
+                                alt="">
                             <div class="about-img">
-                                <img src="{{ asset('ui/frontend/assets') }}/images/about-big2-ai-300x453.png" alt="">
+                                <img src="{{ asset('ui/frontend/assets') }}/images/about-big2-ai-300x453.png"
+                                    alt="">
                             </div>
                             <div class="about-img about-img-2">
-                                <img src="{{ asset('ui/frontend/assets') }}/images/about-4-ai-300x453.png" alt="">
+                                <img src="{{ asset('ui/frontend/assets') }}/images/about-4-ai-300x453.png"
+                                    alt="">
                             </div>
                         </div>
                         <!-- About Image Wrap End -->
@@ -28,26 +31,27 @@
                         <div class="about-content-wrap">
                             <div class="section-title">
                                 <h3 class="sub-title">Who we are</h3>
-                                <h2 class="title">Highly Tailored IT Design, Management & Support Services.</h2>
+                                <h2 class="title">Empowering the Future through Innovation</h2>
                             </div>
-                            <p class="text">Accelerate innovation with world-class tech teams We’ll match you to an
-                                entire remote team of incredible freelance talent for all your software development
-                                needs.</p>
+                            <p class="text">SazUmme is a visionary ecosystem with 12 dynamic wings working across
+                                technology, education, AI, agritech, branding, robotics, charity and more. Our mission
+                                is to create innovative, impactful, and sustainable solutions that address real-world
+                                challenges and empower communities.</p>
                             <!-- About List Start -->
                             <div class="about-list-03">
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="about-list-item-03">
                                             <h3 class="title">Our Mission</h3>
-                                            <p>Accelerate innovation with world-class tech teams. We help businesses
-                                                elevate their value.</p>
+                                            <p>To build a smart, inclusive and future-ready society through innovation,
+                                                education and entrepreneurship.</p>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="about-list-item-03">
                                             <h3 class="title">Custom Code</h3>
-                                            <p>Accelerate innovation with world-class tech teams. We help businesses
-                                                elevate their value.</p>
+                                            <p>We combine technology, human-centered design, and social good to create
+                                                long-term value across industries.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -66,7 +70,8 @@
     <!-- Counter Start -->
     <div class="section techwix-counter-section-03 techwix-counter-section-04">
         <div class="container">
-            <div class="counter-wrap" style="background-image: url({{ asset('ui/frontend/assets') }}/images/bg/counter-bg2.jpg);">
+            <div class="counter-wrap"
+                style="background-image: url({{ asset('ui/frontend/assets') }}/images/bg/counter-bg2.jpg);">
                 <div class="row">
                     <div class="col-lg-3 col-sm-6">
                         <!-- Single Counter Start -->
@@ -107,137 +112,7 @@
     <!-- Counter End -->
 
     <!-- Choose Us Start -->
-    <div class="section techwix-choose-us-section section-padding"
-        style="background-image: url({{ asset('ui/frontend/assets') }}/images/bg/choose-us-bg3.jpg);">
-        <div class="container">
-            <!-- Choose Us Wrap Start -->
-            <div class="choose-us-wrap">
-                <div class="section-title text-center">
-                    <h3 class="sub-title">REASON TO CHOOSE US</h3>
-                    <h2 class="title">We provide truly prominent IT solutions.</h2>
-                </div>
-                <div class="choose-us-content-wrap">
-                    <div class="row">
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <!-- Choose Us Item Start -->
-                            <div class="choose-us-item-02">
-                                <div class="choose-us-img">
-                                    <img src="{{ asset('ui/frontend/assets') }}/images/ser-icon9.png" alt="">
-                                </div>
-                                <div class="choose-us-content">
-                                    <h3 class="title"><a href="service.html">Infrustructure <br> Technology</a></h3>
-                                    <p>Accelerate innovation with world-class tech teams We’ll match you to an entire.
-                                    </p>
-                                </div>
-                            </div>
-                            <!-- Choose Us Item End -->
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <!-- Choose Us Item Start -->
-                            <div class="choose-us-item-02">
-                                <div class="choose-us-img">
-                                    <img src="{{ asset('ui/frontend/assets') }}/images/counter-3.png" alt="">
-                                </div>
-                                <div class="choose-us-content">
-                                    <h3 class="title"><a href="service.html">Highly professional team members</a>
-                                    </h3>
-                                    <p>Accelerate innovation with world-class tech teams We’ll match you to an entire.
-                                    </p>
-                                </div>
-                            </div>
-                            <!-- Choose Us Item End -->
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <!-- Choose Us Item Start -->
-                            <div class="choose-us-item-02">
-                                <div class="choose-us-img">
-                                    <img src="{{ asset('ui/frontend/assets') }}/images/ser-icon10.png" alt="">
-                                </div>
-                                <div class="choose-us-content">
-                                    <h3 class="title"><a href="service.html">Security <br> Management</a></h3>
-                                    <p>Accelerate innovation with world-class tech teams We’ll match you to an entire.
-                                    </p>
-                                </div>
-                            </div>
-                            <!-- Choose Us Item End -->
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <!-- Choose Us Item Start -->
-                            <div class="choose-us-item-02">
-                                <div class="choose-us-img">
-                                    <img src="{{ asset('ui/frontend/assets') }}/images/ser-icon12.png" alt="">
-                                </div>
-                                <div class="choose-us-content">
-                                    <h3 class="title"><a href="service.html">Desktop <br> Computing</a></h3>
-                                    <p>Accelerate innovation with world-class tech teams We’ll match you to an entire.
-                                    </p>
-                                </div>
-                            </div>
-                            <!-- Choose Us Item End -->
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <!-- Choose Us Item Start -->
-                            <div class="choose-us-item-02">
-                                <div class="choose-us-img">
-                                    <img src="{{ asset('ui/frontend/assets') }}/images/counter-1.png" alt="">
-                                </div>
-                                <div class="choose-us-content">
-                                    <h3 class="title"><a href="service.html">Infrustructure <br> Technology</a></h3>
-                                    <p>Accelerate innovation with world-class tech teams We’ll match you to an entire.
-                                    </p>
-                                </div>
-                            </div>
-                            <!-- Choose Us Item End -->
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <!-- Choose Us Item Start -->
-                            <div class="choose-us-item-02">
-                                <div class="choose-us-img">
-                                    <img src="{{ asset('ui/frontend/assets') }}/images/counter-2.png" alt="">
-                                </div>
-                                <div class="choose-us-content">
-                                    <h3 class="title"><a href="service.html">Ideas for high return investment</a>
-                                    </h3>
-                                    <p>Accelerate innovation with world-class tech teams We’ll match you to an entire.
-                                    </p>
-                                </div>
-                            </div>
-                            <!-- Choose Us Item End -->
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <!-- Choose Us Item Start -->
-                            <div class="choose-us-item-02">
-                                <div class="choose-us-img">
-                                    <img src="{{ asset('ui/frontend/assets') }}/images/ser-icon21.png" alt="">
-                                </div>
-                                <div class="choose-us-content">
-                                    <h3 class="title"><a href="service.html">Fully high IT <br> Managment</a></h3>
-                                    <p>Accelerate innovation with world-class tech teams We’ll match you to an entire.
-                                    </p>
-                                </div>
-                            </div>
-                            <!-- Choose Us Item End -->
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <!-- Choose Us Item Start -->
-                            <div class="choose-us-item-02">
-                                <div class="choose-us-img">
-                                    <img src="{{ asset('ui/frontend/assets') }}/images/ser-icon22.png" alt="">
-                                </div>
-                                <div class="choose-us-content">
-                                    <h3 class="title"><a href="service.html">Data secure & Managment</a></h3>
-                                    <p>Accelerate innovation with world-class tech teams We’ll match you to an entire.
-                                    </p>
-                                </div>
-                            </div>
-                            <!-- Choose Us Item End -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Choose Us Wrap End -->
-        </div>
-    </div>
+    <x-frontend.sections.choose-us />
     <!-- Choose Us End -->
 
     <!-- Skill Start -->
@@ -249,24 +124,22 @@
                         <!-- Skill Left Start -->
                         <div class="skill-left">
                             <div class="section-title">
-                                <h2 class="title">Preparing for your success, we provide truly prominent IT solutions
+                                <h2 class="title">Our Capabilities at a Glance
                                 </h2>
                             </div>
                             <div class="about-list">
                                 <ul>
                                     <li>
                                         <span class="about-icon"><i class="fas fa-check"></i></span>
-                                        <span class="about-text">We always focus on technical excellence </span>
+                                        <span class="about-text">Commitment to technical excellence </span>
                                     </li>
                                     <li>
                                         <span class="about-icon"><i class="fas fa-check"></i></span>
-                                        <span class="about-text"> Wherever you’re going, we bring ideas and excitement
-                                        </span>
+                                        <span class="about-text">Innovation-driven mindset across all projects</span>
                                     </li>
                                     <li>
                                         <span class="about-icon"><i class="fas fa-check"></i></span>
-                                        <span class="about-text">We’re consultants, guides, and partners for brands
-                                        </span>
+                                        <span class="about-text">Strategic partnership for long-term growth</span>
                                     </li>
                                 </ul>
                             </div>
@@ -274,12 +147,12 @@
                             <div class="about-author-info-wrap">
                                 <div class="about-author">
                                     <img src="{{ asset('ui/frontend/assets') }}/images/sign.png" alt="">
-                                    <h3 class="name">Alen Morno sin</h3>
-                                    <span class="designation">CEO, Techmax</span>
+                                    <h3 class="name">Asif M. Sazid</h3>
+                                    <span class="designation">CEO, SazUmme</span>
                                 </div>
                                 <div class="about-info">
                                     <p>Call to ask any question </p>
-                                    <h3 class="number">0123-456-7890</h3>
+                                    <h3 class="number">+880 1684 576 384</h3>
                                 </div>
                             </div>
                             <!-- About Author Info Wrap End -->
@@ -289,10 +162,7 @@
                     <div class="col-lg-6">
                         <!-- Skill Right Start -->
                         <div class="skill-right">
-                            <p class="text">Accelerate innovation with world-class tech teams We’ll match you to an
-                                entire remote team of incredible freelance talent for all your software development
-                                needs. building cloud, infrastructure, network, etc. We put a strong focus on the needs
-                                of your business to figure out solutions that best fits your demand and nail it</p>
+                            <p class="text">Accelerate innovation with world-class tech teams. We’ll match you with remote experts tailored to your project—whether it's software development, infrastructure, cloud, or automation. We focus on aligning with your business goals to deliver precise and impactful solutions.</p>
                             <div class="counter-bar">
                                 <!-- Skill Item Start -->
                                 <div class="skill-item">
@@ -341,14 +211,26 @@
     <!-- Skill End -->
 
     <!-- Team Start -->
-        <x-frontend.sections.welcome-section.team />
+    <x-frontend.sections.welcome-section.team />
     <!-- Team End -->
 
     <!-- Testimonial Start  -->
-        <x-frontend.sections.welcome-section.testimonials />
+    <x-frontend.sections.welcome-section.testimonials />
     <!-- Testimonial End  -->
 
     <!-- Cta Start -->
-        <x-frontend.layouts.partials.cta />
+    <x-frontend.layouts.partials.cta />
     <!-- Cta End -->
+
+    @push('css')
+        <style>
+            .choose-us-img .icon {
+                color: #3b82f6;
+                /* soft blue */
+                font-size: 40px;
+                flex-shrink: 0;
+                margin-top: 4px;
+            }
+        </style>
+    @endpush
 </x-frontend.layouts.master>

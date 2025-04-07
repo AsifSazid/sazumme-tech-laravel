@@ -30,6 +30,7 @@
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="{{ asset('ui/frontend/assets') }}/css/style.css">
 
+    @stack('css')
 
     <!--====== Use the minified version files listed below for better performance and remove the files listed above ======-->
     <!-- <link rel="stylesheet" href="{{ asset('ui/frontend/assets') }}/css/vendor/plugins.min.css">

@@ -19,15 +19,13 @@
                     <li><a href="#">About</a>
                         <ul class="sub-menu">
                             <li><a href="{{ route('about-us') }}">Aboute Us</a></li>
-                            <li><a href="{{ route('our-team') }}">Our Team</a></li>
                             <li><a href="{{ route('choose-us') }}">Why Choose Us</a></li>
-                            <li><a href="{{ route('clients-testimonial') }}">Testimonial</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="{{ route('our-services') }}">Our Service</a>
+                        <a href="{{ route('our-wings') }}">Our Wings</a>
                     </li>
-                    <li><a href="{{ route('pricing') }}">Pricing</a></li>
+                    <li><a href="{{ route('our-team') }}">Our Team</a></li>
                     {{-- <li><a href="#">Blog</a>
                         <ul class="sub-menu">
                             <li><a href="blog.html">Blog Grid</a></li>
