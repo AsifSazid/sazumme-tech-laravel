@@ -49,6 +49,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified', EnsurePhoneIsVerified::class])->name('dashboard');
 
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -66,7 +67,7 @@ Route::middleware('auth')->group(function () {
 Route::resources([
     // admin panel er jonno
     'counters' => CounterController::class,
-    'reason-to-choose-us' => ReasonsToChooseUsController::class,
+    // 'reason-to-choose-us' => ReasonsToChooseUsController::class,
     'testimonials' => TestimonialController::class,
     'teams' => TeamController::class,
     'blogs' => BlogController::class,
@@ -79,10 +80,6 @@ Route::resources([
     'request-a-quote' => RequestAQuoteController::class,
 ]);
 
-Route::domain('ebook.sazumme-tech-laravel.test')->group(function () {
-    Route::get('/', function () {
-        return 'hello';
-    });
-});
 
-require __DIR__.'/auth.php';
+
+require __DIR__ . '/auth.php';

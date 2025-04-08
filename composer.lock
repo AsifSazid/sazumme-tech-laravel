@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d6c083b04e73afd8ea1cc978bddab18d",
+    "content-hash": "688dca8a5dd8b4fde669e4b50a664b34",
     "packages": [
         {
             "name": "brick/math",
@@ -3298,6 +3298,47 @@
                 }
             ],
             "time": "2024-04-27T21:32:50+00:00"
+        },
+        {
+            "name": "sazumme/publication",
+            "version": "1.0.0",
+            "dist": {
+                "type": "path",
+                "url": "../applets/sazumme-publication",
+                "reference": "8c619f4a96a6a4dfa259d665344a158e8352d09c"
+            },
+            "type": "library",
+            "extra": {
+                "copyright": "www.sazumme.com",
+                "laravel": {
+                    "providers": [
+                        "SazUmme\\Publication\\PublicationServiceProvider"
+                    ],
+                    "aliases": []
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SazUmme\\Publication\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "SazUmme",
+                    "email": "info@sazumme.com",
+                    "homepage": "www.sazumme.com"
+                }
+            ],
+            "description": "This package is made for the SazUmme Publication Site.",
+            "keywords": [
+                "Laravel"
+            ],
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "symfony/clock",

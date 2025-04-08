@@ -11,7 +11,8 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^11.31",
-        "laravel/tinker": "^2.9"
+        "laravel/tinker": "^2.9",
+        "sazumme/publication": "^1.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -71,5 +72,11 @@
         }
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "repositories": {
+        "sazumme-publication": {
+            "type": "path",
+            "url": "../applets/sazumme-publication"
+        }
+    }
 }

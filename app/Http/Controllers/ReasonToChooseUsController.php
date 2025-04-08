@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ReasonsToChooseUsRequest;
 use App\Models\ReasonsToChooseUs;
-use Illuminate\Http\Request;
 
 class ReasonsToChooseUsController extends Controller
 {
