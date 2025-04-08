@@ -127,7 +127,7 @@
     @push('css')
         <style>
             .choose-us-img .icon {
-                color: #3b82f6;
+                color: #89c4e6;
                 /* soft blue */
                 font-size: 40px;
                 flex-shrink: 0;

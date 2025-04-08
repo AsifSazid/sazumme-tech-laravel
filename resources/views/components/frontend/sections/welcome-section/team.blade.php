@@ -1,5 +1,6 @@
-
-<div class="section techwix-team-section section-padding-02">
+{{-- <div class="section techwix-team-section section-padding-02"> --}}
+<div class="section techwix-choose-us-section section-padding"
+    style="background-image: url({{ asset('ui/frontend/assets') }}/images/bg/choose-us-bg.jpg);">
     <div class="container">
         <!-- Team Wrap Start -->
         <div class="team-wrap">

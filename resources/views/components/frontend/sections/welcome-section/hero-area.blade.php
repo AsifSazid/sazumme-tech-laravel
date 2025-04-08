@@ -56,7 +56,7 @@
                     <p data-aos="fade-up" data-aos-delay="900">We provide the most responsive and functional
                         IT design for companies and businesses worldwide.</p>
                     <div class="hero-btn" data-aos="fade-up" data-aos-delay="1000">
-                        <a class="btn" href="about.html">Read More</a>
+                        <a class="btn" href="{{ route('about-us') }}">Read More</a>
                     </div>
                 </div>
                 <!-- Hero Content End -->

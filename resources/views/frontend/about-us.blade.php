@@ -162,7 +162,7 @@
                     <div class="col-lg-6">
                         <!-- Skill Right Start -->
                         <div class="skill-right">
-                            <p class="text">Accelerate innovation with world-class tech teams. We’ll match you with remote experts tailored to your project—whether it's software development, infrastructure, cloud, or automation. We focus on aligning with your business goals to deliver precise and impactful solutions.</p>
+                            <p class="text">Accelerate innovation with world-class tech teams. At SazUmme, we connect you with exceptional freelance talent to meet all your software and digital infrastructure needs — from cloud, automation, and network solutions to IT strategy. We deeply understand your business goals and craft solutions that not only meet expectations but exceed them.</p>
                             <div class="counter-bar">
                                 <!-- Skill Item Start -->
                                 <div class="skill-item">
@@ -225,7 +225,7 @@
     @push('css')
         <style>
             .choose-us-img .icon {
-                color: #3b82f6;
+                color: #89c4e6;
                 /* soft blue */
                 font-size: 40px;
                 flex-shrink: 0;

@@ -1,12 +1,12 @@
 <x-frontend.layouts.master>
     <x-frontend.layouts.partials.page-banner :pageTitle="'Our Wings'" />
 
-    <x-frontend.sections.our-services />
+    <x-frontend.sections.wings />
 
     @push('css')
         <style>
             .choose-us-img .icon {
-                color: #3b82f6;
+                color: #89c4e6;
                 /* soft blue */
                 font-size: 40px;
                 flex-shrink: 0;

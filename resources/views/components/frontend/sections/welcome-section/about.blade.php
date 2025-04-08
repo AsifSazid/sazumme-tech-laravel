@@ -11,19 +11,17 @@
                             <h3 class="sub-title">Who we are</h3>
                             <h2 class="title">Highly Tailored IT Design, Management & Support Services.</h2>
                         </div>
-                        <p class="text">Accelerate innovation with world-class tech teams We’ll match you to
-                            an entire remote team of incredible freelance talent for all your software
-                            development needs.</p>
+                        <p class="text">Accelerate innovation with world-class tech teams. At SazUmme, we connect you with exceptional freelance talent to meet all your software and digital infrastructure needs — from cloud, automation, and network solutions to IT strategy. We deeply understand your business goals and craft solutions that not only meet expectations but exceed them.</p>
                         <!-- About Author Info Wrap Start -->
                         <div class="about-author-info-wrap">
                             <div class="about-author">
                                 <img src="{{ asset('ui/frontend/assets') }}/images/sign.png" alt="">
-                                <h3 class="name">Alen Morno sin</h3>
-                                <span class="designation">CEO, Techmax</span>
+                                <h3 class="name">Asif M. Sazid</h3>
+                                <span class="designation">CEO, SazUmme</span>
                             </div>
                             <div class="about-info">
                                 <p>Call to ask any question </p>
-                                <h3 class="number">0123-456-7890</h3>
+                                <h3 class="number">+880 1684 576 384</h3>
                             </div>
                         </div>
                         <!-- About Author Info Wrap End -->

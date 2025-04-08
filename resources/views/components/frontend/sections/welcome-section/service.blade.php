@@ -8,12 +8,12 @@
                     <!-- Service Item Start -->
                     <div class="service-item-03">
                         <div class="service-img">
-                            <img src="{{ asset('ui/frontend/assets') }}/images/ser-icon9.png" alt="">
+                            {{-- <img src="{{ asset('ui/frontend/assets') }}/images/ser-icon9.png" alt=""> --}}
+                            <i class="fas fa-code icon"></i>
                         </div>
                         <div class="service-content">
-                            <h3 class="title"><a href="service.html">Infrastructure Technology</a></h3>
-                            <p>Accelerate innovation with world-class tech teams We’ll match you to an entire
-                                remote team of incredible freelance talent.</p>
+                            <h3 class="title">SazTech<br><span class="sub">Software Firm</span></h3>
+                            <p>Building modern web application that scales with your vision.</p>
                             <div class="read-more">
                                 <a href="service.html"><i class="fas fa-plus"></i> Read More</a>
                             </div>
@@ -25,12 +25,11 @@
                     <!-- Service Item Start -->
                     <div class="service-item-03">
                         <div class="service-img">
-                            <img src="{{ asset('ui/frontend/assets') }}/images/ser-icon10.png" alt="">
+                            <i class="fas fa-graduation-cap icon"></i>
                         </div>
                         <div class="service-content">
-                            <h3 class="title"><a href="service.html">IT Consultancy & solution</a></h3>
-                            <p>Accelerate innovation with world-class tech teams We’ll match you to an entire
-                                remote team of incredible freelance talent.</p>
+                            <h3 class="title">SazEdify<br><span class="sub">Edutech</span></h3>
+                            <p>Empowering learners with next-gen educational tools.</p>
                             <div class="read-more">
                                 <a href="service.html"><i class="fas fa-plus"></i> Read More</a>
                             </div>
@@ -42,12 +41,11 @@
                     <!-- Service Item Start -->
                     <div class="service-item-03">
                         <div class="service-img">
-                            <img src="{{ asset('ui/frontend/assets') }}/images/ser-icon11.png" alt="">
+                            <i class="fas fa-book-open icon"></i>
                         </div>
                         <div class="service-content">
-                            <h3 class="title"><a href="service.html">Cloud managed services</a></h3>
-                            <p>Accelerate innovation with world-class tech teams We’ll match you to an entire
-                                remote team of incredible freelance talent.</p>
+                            <h3 class="title">SazVerse<br><span class="sub">Publication</span></h3>
+                            <p>Publishing voices, ideas, and impact-driven stories.</p>
                             <div class="read-more">
                                 <a href="service.html"><i class="fas fa-plus"></i> Read More</a>
                             </div>
@@ -59,12 +57,11 @@
                     <!-- Service Item Start -->
                     <div class="service-item-03">
                         <div class="service-img">
-                            <img src="{{ asset('ui/frontend/assets') }}/images/ser-icon12.png" alt="">
+                            <i class="fas fa-heart icon"></i>
                         </div>
                         <div class="service-content">
-                            <h3 class="title"><a href="service.html">Blockchain technology</a></h3>
-                            <p>Accelerate innovation with world-class tech teams We’ll match you to an entire
-                                remote team of incredible freelance talent.</p>
+                            <h3 class="title">SazHope<br><span class="sub">Charity</span></h3>
+                            <p>Lighting lives with hope and <br> heart.</p>
                             <div class="read-more">
                                 <a href="service.html"><i class="fas fa-plus"></i> Read More</a>
                             </div>
@@ -77,3 +74,15 @@
         <!-- Service Wrap End -->
     </div>
 </div>
+
+@push('css')
+    <style>
+        .service-img .icon {
+            color: #89c4e6;
+            /* soft blue */
+            font-size: 40px;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+    </style>
+@endpush

@@ -23,6 +23,7 @@ use App\Http\Controllers\TermsAndConditionsController;
 use App\Http\Controllers\AboutCompanyController;
 use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\RequestAQuoteController;
+use App\Http\Controllers\WingController;
 use App\Http\Middleware\EnsurePhoneIsVerified;
 
 Route::get('/', function () {
@@ -42,7 +43,7 @@ Route::get('/our-team', function () {
 })->name('our-team');
 
 Route::get('/our-wings', function () {
-    return view('frontend.wings');
+    return view('frontend.our-wings');
 })->name('our-wings');
 
 Route::get('/choose-us', function () {
@@ -87,7 +88,7 @@ Route::resources([
     'subscribers' => SubscribeController::class,
     'footers' => FooterController::class,
     'headers' => HeaderController::class,
-    'services' => ServicesController::class,
+    'wings' => WingController::class,
     'links' => LinksController::class,
     'contact-info' => ContactInfoController::class,
     'terms-and-conditions' => TermsAndConditionsController::class,

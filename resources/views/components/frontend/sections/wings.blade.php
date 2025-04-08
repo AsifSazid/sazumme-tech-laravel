@@ -16,7 +16,7 @@
                                 <div class="choose-us-img"><i class="fas fa-code icon"></i></div>
                                 <div class="choose-us-content">
                                     <h3 class="title">SazTech<br><span class="sub">Software Firm</span></h3>
-                                    <p>Building modern software that scales with your vision.</p>
+                                    <p>Building modern web application that scales with your vision.</p>
                                 </div>
                             </div>
                         </a>

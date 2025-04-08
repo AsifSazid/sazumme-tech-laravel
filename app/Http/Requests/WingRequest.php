@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class HeroAreaRequest extends FormRequest
+class WingRequest extends FormRequest
 {
     public function authorize()
     {
@@ -15,8 +15,8 @@ class HeroAreaRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'subtitle' => 'nullable|string|max:255',
-            'image_id' => 'nullable|exists:images,id',
+            'description' => 'required|string',
         ];
     }
 }
+
