@@ -14,6 +14,7 @@ use App\Http\Controllers\TermsAndConditionsController;
 use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\ReasonsToChooseUsController;
 use App\Http\Controllers\RequestAQuoteController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\WingController;
 use App\Http\Middleware\EnsurePhoneIsVerified;
 
@@ -66,18 +67,19 @@ Route::middleware('auth')->group(function () {
 
 Route::resources([
     // admin panel er jonno
-    'counters' => CounterController::class,
-    // 'reason-to-choose-us' => ReasonsToChooseUsController::class,
-    'testimonials' => TestimonialController::class,
-    'teams' => TeamController::class,
     'blogs' => BlogController::class,
-    'get-appointments' => GetAppointmentController::class,
-    'subscribers' => SubscribeController::class,
-    'wings' => WingController::class,
     'contact-info' => ContactInfoController::class,
-    'terms-and-conditions' => TermsAndConditionsController::class,
+    'counters' => CounterController::class,
+    'get-appointments' => GetAppointmentController::class,
+    // 'reason-to-choose-us' => ReasonsToChooseUsController::class,
     'policies' => PolicyController::class,
     'request-a-quote' => RequestAQuoteController::class,
+    'roles' => RoleController::class,
+    'subscribers' => SubscribeController::class,
+    'teams' => TeamController::class,
+    'terms-and-conditions' => TermsAndConditionsController::class,
+    'testimonials' => TestimonialController::class,
+    'wings' => WingController::class,
 ]);
 
 

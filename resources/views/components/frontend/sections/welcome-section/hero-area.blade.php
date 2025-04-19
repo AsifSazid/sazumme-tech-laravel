@@ -49,12 +49,9 @@
             <div class="col-lg-6">
                 <!-- Hero Content Start -->
                 <div class="hero-content">
-                    <h3 class="sub-title" data-aos-delay="600" data-aos="fade-up">Technology Releted
-                        Consultancy</h3>
-                    <h2 class="title" data-aos="fade-up" data-aos-delay="800">We transform ideas into
-                        technology</h2>
-                    <p data-aos="fade-up" data-aos-delay="900">We provide the most responsive and functional
-                        IT design for companies and businesses worldwide.</p>
+                    <h3 class="sub-title" data-aos-delay="600" data-aos="fade-up">Technology-Related Consulting Services</h3>
+                    <h2 class="title" data-aos="fade-up" data-aos-delay="800">We develop your thoughts into technology.</h2>
+                    <p data-aos="fade-up" data-aos-delay="900">For organizations and companies all around the globe, we offer the best IT design in terms of responsiveness and functionality.</p>
                     <div class="hero-btn" data-aos="fade-up" data-aos-delay="1000">
                         <a class="btn" href="{{ route('about-us') }}">Read More</a>
                     </div>

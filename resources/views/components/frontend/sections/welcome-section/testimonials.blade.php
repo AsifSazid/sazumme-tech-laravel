@@ -5,7 +5,7 @@
         <div class="testimonial-wrap-02">
             <div class="section-title text-center">
                 <h3 class="sub-title">Testimonial</h3>
-                <h2 class="title">20k+ satisfied clients worldwide</h2>
+                <h2 class="title">2+ satisfied clients worldwide</h2>
             </div>
             <div class="testimonial-content-wrap-02">
                 <div class="swiper-container testimonial-02-active">

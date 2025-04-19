@@ -20,7 +20,7 @@
     <!-- Choose Us End -->
 
     <!-- Skill Start -->
-        <x-frontend.sections.welcome-section.skill />
+        {{-- <x-frontend.sections.welcome-section.skill /> --}}
     <!-- Skill End -->
 
     <!-- Testimonial Start  -->

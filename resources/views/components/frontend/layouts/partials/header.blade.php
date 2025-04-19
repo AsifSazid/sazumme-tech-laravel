@@ -13,19 +13,20 @@
 
             <div class="header-menu d-none d-lg-block">
                 <ul class="main-menu">
-                    <li class="active-menu">
+                    <li class="{{ request()->routeIs('welcome') ? 'active-menu' : '' }}">
                         <a href="{{ route('welcome') }}">Home</a>
                     </li>
-                    <li><a href="#">About</a>
+                    {{-- <li><a href="#">About</a>
                         <ul class="sub-menu">
                             <li><a href="{{ route('about-us') }}">Aboute Us</a></li>
                             <li><a href="{{ route('choose-us') }}">Why Choose Us</a></li>
                         </ul>
-                    </li>
-                    <li>
+                    </li> --}}
+                    <li class="{{ request()->routeIs('about-us') ? 'active-menu' : '' }}"><a href="{{ route('about-us') }}">Aboute Us</a></li>
+                    <li class="{{ request()->routeIs('our-wings') ? 'active-menu' : '' }}">
                         <a href="{{ route('our-wings') }}">Our Wings</a>
                     </li>
-                    <li><a href="{{ route('our-team') }}">Our Team</a></li>
+                    <li class="{{ request()->routeIs('our-team') ? 'active-menu' : '' }}"><a href="{{ route('our-team') }}">Our Team</a></li>
                     {{-- <li><a href="#">Blog</a>
                         <ul class="sub-menu">
                             <li><a href="blog.html">Blog Grid</a></li>
@@ -33,7 +34,7 @@
                             <li><a href="blog-details.html">Blog Single</a></li>
                         </ul>
                     </li> --}}
-                    <li><a href="{{ route('contact-us') }}">Contact</a></li>
+                    <li class="{{ request()->routeIs('contact-us') ? 'active-menu' : '' }}"><a href="{{ route('contact-us') }}">Contact</a></li>
                 </ul>
             </div>
 

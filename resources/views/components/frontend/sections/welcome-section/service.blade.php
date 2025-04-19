@@ -15,7 +15,7 @@
                             <h3 class="title">SazTech<br><span class="sub">Software Firm</span></h3>
                             <p>Building modern web application that scales with your vision.</p>
                             <div class="read-more">
-                                <a href="service.html"><i class="fas fa-plus"></i> Read More</a>
+                                <a href="#"><i class="fas fa-plus"></i> Read More</a>
                             </div>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                             <h3 class="title">SazEdify<br><span class="sub">Edutech</span></h3>
                             <p>Empowering learners with next-gen educational tools.</p>
                             <div class="read-more">
-                                <a href="service.html"><i class="fas fa-plus"></i> Read More</a>
+                                <a href="#"><i class="fas fa-plus"></i> Read More</a>
                             </div>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                             <h3 class="title">SazVerse<br><span class="sub">Publication</span></h3>
                             <p>Publishing voices, ideas, and impact-driven stories.</p>
                             <div class="read-more">
-                                <a href="service.html"><i class="fas fa-plus"></i> Read More</a>
+                                <a href="{{route('publication.about-us')}}"><i class="fas fa-plus"></i> Read More</a>
                             </div>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                             <h3 class="title">SazHope<br><span class="sub">Charity</span></h3>
                             <p>Lighting lives with hope and <br> heart.</p>
                             <div class="read-more">
-                                <a href="service.html"><i class="fas fa-plus"></i> Read More</a>
+                                <a href="#"><i class="fas fa-plus"></i> Read More</a>
                             </div>
                         </div>
                     </div>

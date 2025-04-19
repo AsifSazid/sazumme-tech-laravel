@@ -166,7 +166,7 @@
                             <div class="counter-bar">
                                 <!-- Skill Item Start -->
                                 <div class="skill-item">
-                                    <span class="title">IT Managment</span>
+                                    <span class="title">IT Consultancy</span>
                                     <div class="skill-bar">
                                         <div class="bar-inner">
                                             <div class="bar progress-line color-1" data-width="80">
@@ -190,7 +190,7 @@
                                 <!-- Skill Item End -->
                                 <!-- Skill Item Start -->
                                 <div class="skill-item">
-                                    <span class="title">Information Technology</span>
+                                    <span class="title">Web Design and Development</span>
                                     <div class="skill-bar">
                                         <div class="bar-inner">
                                             <div class="bar progress-line color-1" data-width="80">

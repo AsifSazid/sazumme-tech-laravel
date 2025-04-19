@@ -17,7 +17,7 @@
                                 <i class="fas fa-layer-group icon"></i>
                             </div>
                             <div class="choose-us-content">
-                                <h3 class="title"><a href="service.html">Multi-industry Ecosystem</a></h3>
+                                <h3 class="title"><a href="#">Multi-industry Ecosystem</a></h3>
                                 <p>Unified under one strategic brand vision.</p>
                             </div>
                         </div>
@@ -31,7 +31,7 @@
                                 <i class="fas fa-users icon"></i>
                             </div>
                             <div class="choose-us-content">
-                                <h3 class="title"><a href="service.html">People-first <br> Solutions</a>
+                                <h3 class="title"><a href="#">People-first <br> Solutions</a>
                                 </h3>
                                 <p>Designed to prioritize human experience and usability.</p>
                             </div>
@@ -46,7 +46,7 @@
                                 <i class="fas fa-bolt icon"></i>
                             </div>
                             <div class="choose-us-content">
-                                <h3 class="title"><a href="service.html">Impact-driven Innovation</a></h3>
+                                <h3 class="title"><a href="#">Impact-driven Innovation</a></h3>
                                 <p>Focused on measurable and meaningful change.</p>
                             </div>
                         </div>
@@ -60,7 +60,7 @@
                                 <i class="fas fa-user-astronaut icon"></i>
                             </div>
                             <div class="choose-us-content">
-                                <h3 class="title"><a href="service.html">Future-ready <br> Team</a></h3>
+                                <h3 class="title"><a href="#">Future-ready <br> Team</a></h3>
                                 <p>Skilled, diverse, and aligned with tomorrow's needs.</p>
                             </div>
                         </div>
@@ -74,7 +74,7 @@
                                 <i class="fas fa-leaf icon"></i>
                             </div>
                             <div class="choose-us-content">
-                                <h3 class="title"><a href="service.html">Sustainability & Empowerment</a></h3>
+                                <h3 class="title"><a href="#">Sustainability & Empowerment</a></h3>
                                 <p>Committed to ethical and responsible innovation.</p>
                             </div>
                         </div>
@@ -88,7 +88,7 @@
                                 <i class="fas fa-chart-line icon"></i>
                             </div>
                             <div class="choose-us-content">
-                                <h3 class="title"><a href="service.html">Data-Driven Strategy</a></h3>
+                                <h3 class="title"><a href="#">Data-Driven Strategy</a></h3>
                                 <p>Decisions powered by analytics, insights, and real-time metrics.</p>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
                                 <i class="fas fa-handshake icon"></i>
                             </div>
                             <div class="choose-us-content">
-                                <h3 class="title"><a href="service.html">Client-Centric Approach</a></h3>
+                                <h3 class="title"><a href="#">Client-Centric Approach</a></h3>
                                 <p>Flexible collaboration tailored to each brand's journey.</p>
                             </div>
                         </div>
@@ -116,7 +116,7 @@
                                 <i class="fas fa-globe icon"></i>
                             </div>
                             <div class="choose-us-content">
-                                <h3 class="title"><a href="service.html">Global Perspective</a></h3>
+                                <h3 class="title"><a href="#">Global Perspective</a></h3>
                                 <p>Solutions crafted with worldwide impact and inclusivity in mind.</p>
                             </div>
                         </div>
