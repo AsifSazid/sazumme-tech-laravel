@@ -141,7 +141,7 @@
 
                     <!-- 11. SazVerse -->
                     <div class="col-xl-3 col-lg-4 col-md-6">
-                        <a href="#" class="choose-us-link">
+                        <a href="{{ route('publication.landing') }}" target="_blank" class="choose-us-link">
                             <div class="choose-us-item-02">
                                 <div class="choose-us-img"><i class="fas fa-book-open icon"></i></div>
                                 <div class="choose-us-content">
