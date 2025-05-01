@@ -68,7 +68,7 @@
     <!-- About End -->
 
     <!-- Counter Start -->
-    <div class="section techwix-counter-section-03 techwix-counter-section-04">
+    {{-- <div class="section techwix-counter-section-03 techwix-counter-section-04">
         <div class="container">
             <div class="counter-wrap"
                 style="background-image: url({{ asset('ui/frontend/assets') }}/images/bg/counter-bg2.jpg);">
@@ -108,7 +108,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- Counter End -->
 
     <!-- Choose Us Start -->
@@ -146,7 +146,7 @@
                             <!-- About Author Info Wrap Start -->
                             <div class="about-author-info-wrap">
                                 <div class="about-author">
-                                    <img src="{{ asset('ui/frontend/assets') }}/images/sign.png" alt="">
+                                    {{-- <img src="{{ asset('ui/frontend/assets') }}/images/sign.png" alt=""> --}}
                                     <h3 class="name">Asif M. Sazid</h3>
                                     <span class="designation">CEO, SazUmme</span>
                                 </div>
@@ -178,7 +178,7 @@
                                 <!-- Skill Item End -->
                                 <!-- Skill Item Start -->
                                 <div class="skill-item">
-                                    <span class="title">Data Security</span>
+                                    <span class="title">Web Design and Development</span>
                                     <div class="skill-bar">
                                         <div class="bar-inner">
                                             <div class="bar progress-line color-1" data-width="95">
@@ -190,11 +190,11 @@
                                 <!-- Skill Item End -->
                                 <!-- Skill Item Start -->
                                 <div class="skill-item">
-                                    <span class="title">Web Design and Development</span>
+                                    <span class="title">AI and Automation</span>
                                     <div class="skill-bar">
                                         <div class="bar-inner">
-                                            <div class="bar progress-line color-1" data-width="80">
-                                                <span class="skill-percent"><span class="counter">80</span>%</span>
+                                            <div class="bar progress-line color-1" data-width="70">
+                                                <span class="skill-percent"><span class="counter">70</span>%</span>
                                             </div>
                                         </div>
                                     </div>
@@ -211,11 +211,11 @@
     <!-- Skill End -->
 
     <!-- Team Start -->
-    <x-frontend.sections.welcome-section.team />
+    {{-- <x-frontend.sections.welcome-section.team /> --}}
     <!-- Team End -->
 
     <!-- Testimonial Start  -->
-    <x-frontend.sections.welcome-section.testimonials />
+    {{-- <x-frontend.sections.welcome-section.testimonials /> --}}
     <!-- Testimonial End  -->
 
     <!-- Cta Start -->

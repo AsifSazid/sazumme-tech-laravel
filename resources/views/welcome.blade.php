@@ -12,7 +12,7 @@
     <!-- About End -->
 
     <!-- Counter Start -->
-        <x-frontend.sections.welcome-section.counter />
+        {{-- <x-frontend.sections.welcome-section.counter /> --}}
     <!-- Counter End -->
 
     <!-- Choose Us Start -->
@@ -24,11 +24,11 @@
     <!-- Skill End -->
 
     <!-- Testimonial Start  -->
-        <x-frontend.sections.welcome-section.testimonials />
+        {{-- <x-frontend.sections.welcome-section.testimonials /> --}}
     <!-- Testimonial End  -->
 
     <!-- Team Start -->
-        <x-frontend.sections.welcome-section.team />
+        {{-- <x-frontend.sections.welcome-section.team /> --}}
     <!-- Team End -->
 
     <!-- Cta Start -->

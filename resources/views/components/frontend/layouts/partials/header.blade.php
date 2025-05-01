@@ -127,7 +127,7 @@
                 <!-- Header Search End -->
 
                 <div class="header-btn d-none d-xl-block">
-                    <a class="btn" href="{{ route('login') }}">Get Started</a>
+                    {{-- <a class="btn" href="{{ route('login') }}">Get Started</a> --}}
                 </div>
                 <!-- Header Toggle Start -->
                 <div class="header-toggle d-lg-none">

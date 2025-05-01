@@ -15,7 +15,7 @@
                         <!-- About Author Info Wrap Start -->
                         <div class="about-author-info-wrap">
                             <div class="about-author">
-                                <img src="{{ asset('ui/frontend/assets') }}/images/sign.png" alt="">
+                                {{-- <img src="{{ asset('ui/frontend/assets') }}/images/sign.png" alt=""> --}}
                                 <h3 class="name">Asif M. Sazid</h3>
                                 <span class="designation">CEO, SazUmme</span>
                             </div>

@@ -1,10 +1,11 @@
 <x-frontend.layouts.master>
     <!-- Page Banner Start -->
-        <x-frontend.layouts.partials.page-banner :pageTitle="'Our Team'" />
+    <x-frontend.layouts.partials.page-banner :pageTitle="'Our Team'" />
     <!-- Page Banner End -->
 
+    <x-frontend.sections.undermaintainace :pageTitle="'Our Team'" />
     <!-- Team Start -->
-    <div class="section techwix-team-section techwix-team-section-03 section-padding">
+    {{-- <div class="section techwix-team-section techwix-team-section-03 section-padding">
         <div class="container">
             <!-- Team Wrap Start -->
             <div class="team-wrap">
@@ -179,6 +180,6 @@
             </div>
             <!-- Team Wrap End -->
         </div>
-    </div>
+    </div> --}}
     <!-- Team End -->
 </x-frontend.layouts.master>
