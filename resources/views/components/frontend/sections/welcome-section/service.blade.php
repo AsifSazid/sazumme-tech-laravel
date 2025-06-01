@@ -47,7 +47,7 @@
                             <h3 class="title">SazVerse<br><span class="sub">Publication</span></h3>
                             <p>Publishing voices, ideas, and impact-driven stories.</p>
                             <div class="read-more">
-                                <a href="{{route('publication.about-us')}}"><i class="fas fa-plus"></i> Read More</a>
+                                <a href="#"><i class="fas fa-plus"></i> Read More</a>
                             </div>
                         </div>
                     </div>

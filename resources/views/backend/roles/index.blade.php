@@ -13,61 +13,39 @@
                         <table id="roleTable" class="w-full table-striped table-bordered text-sm">
                             <thead class="bg-gray-100 text-gray-700 uppercase">
                                 <tr>
-                                    <th>Sl No.</th>
-                                    <th>Role Name</th>
-                                    <th>Created By</th>
-                                    <th>Action</th>
+                                    <th class="px-6 py-4">Sl No.</th>
+                                    <th class="px-6 py-4">Role Name</th>
+                                    <th class="px-6 py-4">Created By</th>
+                                    <th class="px-6 py-4">Access Control</th>
+                                    <th class="px-6 py-4">Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="px-6 py-4">1</td>
-                                    <td class="px-6 py-4">Admin</td>
-                                    <td class="px-6 py-4">John Doe</td>
-                                    <td class="px-6 py-4">
-                                        <button class="text-blue-500 hover:text-blue-700 mx-1" title="Show"><i
-                                                class="fas fa-eye"></i></button>
-                                        <button class="text-yellow-500 hover:text-yellow-700 mx-1" title="Edit"><i
-                                                class="fas fa-edit"></i></button>
-                                        <button class="text-red-500 hover:text-red-700 mx-1" title="Delete"><i
-                                                class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4">2</td>
-                                    <td class="px-6 py-4">Manager</td>
-                                    <td class="px-6 py-4">Jane Smith</td>
-                                    <td class="px-6 py-4">
-                                        <button class="text-blue-500 hover:text-blue-700 mx-1" title="Show"><i
-                                                class="fas fa-eye"></i></button>
-                                        <button class="text-yellow-500 hover:text-yellow-700 mx-1" title="Edit"><i
-                                                class="fas fa-edit"></i></button>
-                                        <button class="text-red-500 hover:text-red-700 mx-1" title="Delete"><i
-                                                class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4">3</td>
-                                    <td class="px-6 py-4">Editor</td>
-                                    <td class="px-6 py-4">Mark Lee</td>
-                                    <td class="px-6 py-4">
-                                        <button class="text-blue-500 hover:text-blue-700" title="Show">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                        <button class="text-yellow-500 hover:text-yellow-700" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="text-red-500 hover:text-red-700" title="Delete">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                            <tbody class="text-center">
+                                @forelse ($roles as $role)
+                                    <tr>
+                                        <td class="px-6 py-4">{{ $loop->iteration }}</td>
+                                        <td class="px-6 py-4">{{$role->name}}</td>
+                                        <td class="px-6 py-4">{{$role->created_by}}</td>
+                                        <td class="px-6 py-4">{{$role->access_control}}</td>
+                                        <td class="px-6 py-4">
+                                            {{-- <button class="text-blue-500 hover:text-blue-700 mx-1" title="Show"><i
+                                                    class="fas fa-eye"></i></button> --}}
+                                            <button class="text-yellow-500 hover:text-yellow-700 mx-1" title="Edit"><i
+                                                    class="fas fa-edit"></i></button>
+                                            <button class="text-red-500 hover:text-red-700 mx-1" title="Delete"><i
+                                                    class="fas fa-trash-alt"></i></button>
+                                        </td>
+                                    </tr>
+
+                                @empty
+                                @endforelse
                             </tbody>
                         </table>
+                        {{ $roles->links() }}
 
 
                         <!-- Pagination -->
-                        <div class="flex justify-between items-center mt-4">
+                        {{-- <div class="flex justify-between items-center mt-4">
                             <p class="text-sm text-gray-600">Showing 1 to 3 of 10 results</p>
                             <nav class="inline-flex space-x-1">
                                 <button
@@ -92,7 +70,7 @@
                                     Next
                                 </button>
                             </nav>
-                        </div>
+                        </div> --}}
                     </div>
 
                 </div>
@@ -102,17 +80,17 @@
 
     @push('js')
         <script>
-            $(document).ready(function() {
-                $('#roleTable').DataTable({
-                    responsive: true,
-                    autoWidth: false, // Prevent automatic column width
-                    columnDefs: [{
-                            orderable: false,
-                            targets: 3
-                        } // Disable sorting for Action column
-                    ]
-                });
-            });
+            // $(document).ready(function() {
+            //     $('#roleTable').DataTable({
+            //         responsive: true,
+            //         autoWidth: false, // Prevent automatic column width
+            //         columnDefs: [{
+            //                 orderable: false,
+            //                 targets: 3
+            //             } // Disable sorting for Action column
+            //         ]
+            //     });
+            // });
         </script>
     @endpush
 </x-app-layout>

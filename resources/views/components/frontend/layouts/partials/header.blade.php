@@ -22,11 +22,13 @@
                             <li><a href="{{ route('choose-us') }}">Why Choose Us</a></li>
                         </ul>
                     </li> --}}
-                    <li class="{{ request()->routeIs('about-us') ? 'active-menu' : '' }}"><a href="{{ route('about-us') }}">Aboute Us</a></li>
+                    <li class="{{ request()->routeIs('about-us') ? 'active-menu' : '' }}"><a
+                            href="{{ route('about-us') }}">Aboute Us</a></li>
                     <li class="{{ request()->routeIs('our-wings') ? 'active-menu' : '' }}">
                         <a href="{{ route('our-wings') }}">Our Wings</a>
                     </li>
-                    <li class="{{ request()->routeIs('our-team') ? 'active-menu' : '' }}"><a href="{{ route('our-team') }}">Our Team</a></li>
+                    <li class="{{ request()->routeIs('our-team') ? 'active-menu' : '' }}"><a
+                            href="{{ route('our-team') }}">Our Team</a></li>
                     {{-- <li><a href="#">Blog</a>
                         <ul class="sub-menu">
                             <li><a href="blog.html">Blog Grid</a></li>
@@ -34,7 +36,8 @@
                             <li><a href="blog-details.html">Blog Single</a></li>
                         </ul>
                     </li> --}}
-                    <li class="{{ request()->routeIs('contact-us') ? 'active-menu' : '' }}"><a href="{{ route('contact-us') }}">Contact</a></li>
+                    <li class="{{ request()->routeIs('contact-us') ? 'active-menu' : '' }}"><a
+                            href="{{ route('contact-us') }}">Contact</a></li>
                 </ul>
             </div>
 
@@ -162,30 +165,18 @@
     <div class="offcanvas-body">
         <div class="offcanvas-menu">
             <ul class="main-menu">
-                <li class="active-menu">
-                    <a href="index.html">Home</a>
+                <li class="{{ request()->routeIs('welcome') ? 'active-menu' : '' }}">
+                    <a href="{{ route('welcome') }}">Home</a>
                 </li>
-                <li>
-                    <a href="about.html">Aboute Us</a>
+                <li class="{{ request()->routeIs('about-us') ? 'active-menu' : '' }}"><a
+                        href="{{ route('about-us') }}">Aboute Us</a></li>
+                <li class="{{ request()->routeIs('our-wings') ? 'active-menu' : '' }}">
+                    <a href="{{ route('our-wings') }}">Our Wings</a>
                 </li>
-                <li><a href="#">Pages</a>
-                    <ul class="sub-menu">
-                        <li><a href="team.html">Our Team</a></li>
-                        <li><a href="service.html">Service</a></li>
-                        <li><a href="choose-us.html">Why Choose Us</a></li>
-                        <li><a href="testimonial.html">Testimonial</a></li>
-                        <li><a href="pricing.html">Pricing</a></li>
-                        <li><a href="login-register.html">Login & Register</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">Blog</a>
-                    <ul class="sub-menu">
-                        <li><a href="blog.html">Blog Grid</a></li>
-                        <li><a href="blog-standard.html">Blog List</a></li>
-                        <li><a href="blog-details.html">Blog Single</a></li>
-                    </ul>
-                </li>
-                <li><a href="contact.html">Contact</a></li>
+                <li class="{{ request()->routeIs('our-team') ? 'active-menu' : '' }}"><a
+                        href="{{ route('our-team') }}">Our Team</a></li>
+                <li class="{{ request()->routeIs('contact-us') ? 'active-menu' : '' }}"><a
+                        href="{{ route('contact-us') }}">Contact</a></li>
             </ul>
         </div>
     </div>

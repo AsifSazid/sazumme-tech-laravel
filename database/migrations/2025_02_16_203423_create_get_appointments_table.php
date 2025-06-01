@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('phone');
             $table->date('appointment_date');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

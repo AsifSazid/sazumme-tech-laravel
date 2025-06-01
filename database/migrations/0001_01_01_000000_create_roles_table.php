@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('uuid', '36')->unique();
+            $table->string('alias');
             $table->string('created_by');
-            $table->string('access_control');
+            $table->string('access_control')->nullable();
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -12,7 +12,9 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return view('backend.roles.index');
+        $roleCollection = Role::latest();
+        $roles = $roleCollection->paginate(10);
+        return view('backend.roles.index', compact('roles'));
     }
 
     /**

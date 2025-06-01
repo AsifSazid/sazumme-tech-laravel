@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->id();
             $table->string('uuid', 36)->unique();
-            $table->string('title'); // Image title
             $table->string('url'); // Image path
             $table->morphs('imageable'); // Polymorphic relationship
             $table->timestamps();

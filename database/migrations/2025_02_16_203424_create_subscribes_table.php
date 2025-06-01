@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('subscribes', function (Blueprint $table) {
             $table->id();
             $table->string('email')->unique();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

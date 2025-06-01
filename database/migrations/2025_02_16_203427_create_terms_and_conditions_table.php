@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('terms_and_conditions', function (Blueprint $table) {
             $table->id();
             $table->text('content');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
