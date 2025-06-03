@@ -70,14 +70,27 @@ Route::middleware('auth')->group(function () {
 // Route::post('/sliders/{slider}/update', [SliderController::class, 'update'])->name('sliders.update');
 // Route::delete('/sliders/{slider}', [SliderController::class, 'delete'])->name('sliders.delete');
 
-// Announcement
-Route::get('/announcements/trash', [AnnouncementController::class, 'trash'])->name('announcements.trash');
-Route::post('/announcements/{id}/restore', [AnnouncementController::class, 'restore'])->name('announcements.restore');
-Route::delete('/announcements/{id}/force-delete', [AnnouncementController::class, 'forceDelete'])->name('announcements.forceDelete');
+
+// admin panel er jonno middlewere diye
+// Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'role:Super Admin'])->group(function () {
+    // Announcement
+    Route::get('/announcements/list', [AnnouncementController::class, 'getData'])->name('announcements.getData');
+    Route::get('/announcements/download/pdf', [AnnouncementController::class, 'downloadPdf'])->name('announcements.download.pdf');
+    Route::get('/announcements/trash', [AnnouncementController::class, 'trash'])->name('announcements.trash');
+    Route::post('/announcements/{id}/restore', [AnnouncementController::class, 'restore'])->name('announcements.restore');
+    Route::delete('/announcements/{id}/force-delete', [AnnouncementController::class, 'forceDelete'])->name('announcements.forceDelete');
+    Route::resources([
+        'announcements' => AnnouncementController::class,
+        'roles' => RoleController::class,
+        'users' => UserController::class,
+    ]);
+    Route::get('/{user}/assign-roles', [UserController::class, 'assignRoles'])->name('users.assign-roles');
+    Route::post('/{user}/assign-roles', [UserController::class, 'storeAssignedRoles'])->name('users.assign.roles');
+});
 
 Route::resources([
     // admin panel er jonno
-    'announcements' => AnnouncementController::class,
     'blogs' => BlogController::class,
     'contact-info' => ContactInfoController::class,
     'counters' => CounterController::class,
@@ -85,8 +98,6 @@ Route::resources([
     // 'reason-to-choose-us' => ReasonsToChooseUsController::class,
     'policies' => PolicyController::class,
     'request-a-quote' => RequestAQuoteController::class,
-    'roles' => RoleController::class,
-    'users' => UserController::class,
     'subscribers' => SubscribeController::class,
     'teams' => TeamController::class,
     'terms-and-conditions' => TermsAndConditionsController::class,
@@ -94,9 +105,6 @@ Route::resources([
     'wings' => WingController::class,
 ]);
 
-// routes/web.php
-Route::get('/{user}/assign-roles', [UserController::class, 'assignRoles'])->name('users.assign-roles');
-Route::post('/{user}/assign-roles', [UserController::class, 'storeAssignedRoles'])->name('users.assign.roles');
 
 
 

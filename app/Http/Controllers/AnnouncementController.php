@@ -147,4 +147,38 @@ class AnnouncementController extends Controller
 
         return redirect()->route('announcements.trash')->with('success', 'Announcement permanently deleted.');
     }
+
+    public function getData(Request $request)
+    {
+        $query = Announcement::with('user');
+
+        if ($request->has('search') && !empty($request->search)) {
+            $search = $request->search;
+            $query->where('title', 'like', "%{$search}%");
+        }
+
+        $announcements = $query->orderBy('created_at', 'desc')->paginate(10);
+
+        return response()->json($announcements);
+    }
+
+    public function downloadPdf(Request $request)
+    {
+        $search = $request->get('search');
+
+        $query = Announcement::with('user');
+
+        if ($search) {
+            $query->where('title', 'like', "%{$search}%");
+        }
+
+        $announcements = $query->get();
+
+        $mpdf = new \Mpdf\Mpdf();
+        $mpdf->SetHeader("<div style='text-align:center'>Announcement List!</div>");
+        $mpdf->SetFooter("This is a system generated document(s). So no need to show external signature or seal!");
+        $view = view('backend.announcements.pdf', compact('announcements'));
+        $mpdf->WriteHTML($view);
+        $mpdf->Output();
+    }
 }
