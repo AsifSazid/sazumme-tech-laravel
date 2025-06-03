@@ -72,18 +72,26 @@ Route::middleware('auth')->group(function () {
 
 
 // admin panel er jonno middlewere diye
-// Route::middleware(['auth'])->group(function () {
-Route::middleware(['auth', 'role:Super Admin'])->group(function () {
+Route::middleware(['auth'])->group(function () {
+// Route::middleware(['auth', 'role:Super Admin'])->group(function () {
     // Announcement
     Route::get('/announcements/list', [AnnouncementController::class, 'getData'])->name('announcements.getData');
     Route::get('/announcements/download/pdf', [AnnouncementController::class, 'downloadPdf'])->name('announcements.download.pdf');
     Route::get('/announcements/trash', [AnnouncementController::class, 'trash'])->name('announcements.trash');
     Route::post('/announcements/{id}/restore', [AnnouncementController::class, 'restore'])->name('announcements.restore');
     Route::delete('/announcements/{id}/force-delete', [AnnouncementController::class, 'forceDelete'])->name('announcements.forceDelete');
+    // Wing
+    Route::get('/wings/list', [WingController::class, 'getData'])->name('wings.getData');
+    Route::get('/wings/download/pdf', [WingController::class, 'downloadPdf'])->name('wings.download.pdf');
+    Route::get('/wings/trash', [WingController::class, 'trash'])->name('wings.trash');
+    Route::post('/wings/{id}/restore', [WingController::class, 'restore'])->name('wings.restore');
+    Route::delete('/wings/{id}/force-delete', [WingController::class, 'forceDelete'])->name('wings.forceDelete');
+    //Resources
     Route::resources([
         'announcements' => AnnouncementController::class,
         'roles' => RoleController::class,
         'users' => UserController::class,
+        'wings' => WingController::class,
     ]);
     Route::get('/{user}/assign-roles', [UserController::class, 'assignRoles'])->name('users.assign-roles');
     Route::post('/{user}/assign-roles', [UserController::class, 'storeAssignedRoles'])->name('users.assign.roles');
@@ -102,7 +110,6 @@ Route::resources([
     'teams' => TeamController::class,
     'terms-and-conditions' => TermsAndConditionsController::class,
     'testimonials' => TestimonialController::class,
-    'wings' => WingController::class,
 ]);
 
 

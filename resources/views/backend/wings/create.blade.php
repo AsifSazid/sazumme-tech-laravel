@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Create Announcement') }}
+            {{ __('Create Wing') }}
         </h2>
     </x-slot>
 
@@ -20,50 +20,37 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('announcements.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('wings.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
                             <div class="mb-4">
-                                <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+                                <label for="title" class="block text-sm font-medium text-gray-700">Wing Title</label>
                                 <input type="text" name="title" id="title" required
                                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                             </div>
 
                             <div class="mb-4">
-                                <label for="announcement_for"
-                                    class="block text-sm font-medium text-gray-700">Announcement For</label>
-                                <select name="announcement_for" id="announcement_for" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                                </div>">
-                                    <option value="" selected disabled>Select Any One</option>
-                                    <option value="">Main Website</option>
-                                    @foreach ($wings as $wing)
-                                        <option value="{{$wing->id}}">{{$wing->title}}</option>
-                                    @endforeach
-                                </select>
+                                <label for="icon_code" class="block text-sm font-medium text-gray-700">Icon Code</label>
+                                <input type="text" name="title" id="title" required
+                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                             </div>
 
                             <div class="mb-4">
-                                <label for="body" class="block text-sm font-medium text-gray-700">Body</label>
-                                <textarea name="body" id="body" rows="5" required
+                                <label for="short_description" class="block text-sm font-medium text-gray-700">Short Description</label>
+                                <textarea name="short_description" id="short_description" rows="5" required
                                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"></textarea>
                             </div>
 
                             <div class="mb-4">
-                                <label for="image" class="block text-sm font-medium text-gray-700">Image</label>
+                                <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                                <textarea name="description" id="description" rows="5"
+                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"></textarea>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="image" class="block text-sm font-medium text-gray-700">Wing Image</label>
                                 <input type="file" name="image" id="image"
                                     class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border file:border-gray-300 file:rounded-md file:text-sm file:font-semibold file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100">
-                            </div>
-
-                            <div class="mb-4">
-                                <label for="starts_at" class="block text-sm font-medium text-gray-700">Starts At</label>
-                                <input type="datetime-local" name="starts_at" id="starts_at"
-                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                            </div>
-
-                            <div class="mb-4">
-                                <label for="ends_at" class="block text-sm font-medium text-gray-700">Ends At</label>
-                                <input type="datetime-local" name="ends_at" id="ends_at"
-                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                             </div>
 
                             <div class="mb-4 flex items-center">
@@ -75,7 +62,7 @@
                             <div class="mt-6">
                                 <button type="submit"
                                     class="inline-flex items-center px-4 py-2 bg-blue-600 text-sm font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                    Create Announcement
+                                    Create Wing
                                 </button>
                             </div>
                         </form>

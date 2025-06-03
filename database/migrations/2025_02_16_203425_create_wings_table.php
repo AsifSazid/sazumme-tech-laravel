@@ -13,10 +13,17 @@ return new class extends Migration
     {
         Schema::create('wings', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid', '36')->unique();
             $table->string('title');
-            $table->text('description');
+            $table->string('icon_code');
+            $table->text('short_description');
+            $table->text('description')->nullable();
+            $table->unsignedBigInteger('created_by'); // Better to use user ID (foreign key)
+            $table->boolean('is_active')->default(true); // Quick toggle for visibility
             $table->softDeletes();
             $table->timestamps();
+            
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

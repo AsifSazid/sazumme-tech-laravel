@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Announcement;
+use App\Models\Wing;
 use Illuminate\Http\Request;
 
 class AnnouncementController extends Controller
@@ -16,7 +17,8 @@ class AnnouncementController extends Controller
 
     public function create()
     {
-        return view('backend.announcements.create');
+        $wings = Wing::get();
+        return view('backend.announcements.create', compact('wings'));
     }
 
     public function store(Request $request)
@@ -25,7 +27,7 @@ class AnnouncementController extends Controller
 
         $request->validate([
             'title' => 'required|string',
-            'announcement_for' => 'required|string',
+            // 'announcement_for' => 'required|string',
             'body' => 'required|string',
             'image' => 'nullable|image|max:2048',
             'starts_at' => 'nullable|date',

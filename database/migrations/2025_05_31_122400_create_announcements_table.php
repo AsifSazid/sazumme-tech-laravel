@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('uuid', '36')->unique();
             $table->string('title');
-            $table->string('announcement_for');
+            $table->foreignId('announcement_for')->nullable()->constrained('wings')->nullOnDelete();
             $table->text('body'); // Use 'text' instead of 'string' for longer announcements
             $table->unsignedBigInteger('created_by'); // Better to use user ID (foreign key)
             $table->timestamp('starts_at')->nullable(); // When the announcement should start showing

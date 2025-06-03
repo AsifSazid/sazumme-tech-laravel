@@ -15,7 +15,7 @@
                             <div class="px-4 py-2 bg-gray-100 border-t text-sm text-gray-500 flex justify-between items-center">
                                 <div class="flex justify-between items-center">
                                     <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ $announcement->title }}</h3>
-                                    <p class="px-4"><strong>{{ $announcement->announcement_for }}</strong> </p>
+                                    <p class="px-4"><strong>{{ $announcement->wing->title ?? 'Main Website' }}</strong> </p>
                                 </div>
                                 <p><strong>Status:</strong>
                                     @if ($announcement->is_active)

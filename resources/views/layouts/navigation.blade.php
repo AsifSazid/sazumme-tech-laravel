@@ -62,6 +62,10 @@
                                     class="block px-4 py-2 text-sm hover:bg-gray-100 {{ request()->routeIs('users.index') ? 'bg-gray-100 font-semibold text-gray-900' : 'text-gray-700' }}">
                                     Users
                                 </a>
+                                <a href="{{ route('wings.index') }}"
+                                    class="block px-4 py-2 text-sm hover:bg-gray-100 {{ request()->routeIs('wings.index') ? 'bg-gray-100 font-semibold text-gray-900' : 'text-gray-700' }}">
+                                    Wings
+                                </a>
                             </div>
                         </div>
                     </div>

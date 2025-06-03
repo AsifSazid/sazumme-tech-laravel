@@ -13,6 +13,7 @@ class HomeController extends Controller
         // dd($now);
 
         $announcements = Announcement::where('is_active', true)
+            ->where('announcement_for', NULL)
             ->where(function ($query) use ($now) {
                 $query->whereNull('starts_at')->orWhere('starts_at', '<=', $now);
             })

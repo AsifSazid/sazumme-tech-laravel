@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Announcement extends Model
 {
     use SoftDeletes;
-    
+
     protected $guarded = [];
 
     protected $casts = [
@@ -25,5 +25,10 @@ class Announcement extends Model
     public function image()
     {
         return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public function wing()
+    {
+        return $this->belongsTo(Wing::class, 'announcement_for');
     }
 }
