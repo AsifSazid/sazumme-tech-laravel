@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('short_description');
             $table->text('description')->nullable();
             $table->unsignedBigInteger('created_by'); // Better to use user ID (foreign key)
+            $table->string('created_by_uuid')->nullable(); 
             $table->boolean('is_active')->default(true); // Quick toggle for visibility
             $table->softDeletes();
             $table->timestamps();

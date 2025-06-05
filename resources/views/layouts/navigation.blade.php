@@ -16,12 +16,12 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('blogs.index')" :active="request()->routeIs('blogs.index')">
+                        {{ __('Blogs') }}
+                    </x-nav-link>
+                </div>
                 {{-- @if (userHasRole('Super Admin'))
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('announcements.index')" :active="request()->routeIs('announcements.index')">
-                            {{ __('Announcements') }}
-                        </x-nav-link>
-                    </div>
 
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('roles.index')" :active="request()->routeIs('roles.index')">

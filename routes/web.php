@@ -80,6 +80,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/announcements/trash', [AnnouncementController::class, 'trash'])->name('announcements.trash');
     Route::post('/announcements/{id}/restore', [AnnouncementController::class, 'restore'])->name('announcements.restore');
     Route::delete('/announcements/{id}/force-delete', [AnnouncementController::class, 'forceDelete'])->name('announcements.forceDelete');
+    // Blog
+    Route::get('/blogs/list', [BlogController::class, 'getData'])->name('blogs.getData');
+    Route::get('/blogs/download/pdf', [BlogController::class, 'downloadPdf'])->name('blogs.download.pdf');
+    Route::get('/blogs/trash', [BlogController::class, 'trash'])->name('blogs.trash');
+    Route::post('/blogs/{id}/restore', [BlogController::class, 'restore'])->name('blogs.restore');
+    Route::delete('/blogs/{id}/force-delete', [BlogController::class, 'forceDelete'])->name('blogs.forceDelete');
     // Wing
     Route::get('/wings/list', [WingController::class, 'getData'])->name('wings.getData');
     Route::get('/wings/download/pdf', [WingController::class, 'downloadPdf'])->name('wings.download.pdf');
@@ -89,6 +95,7 @@ Route::middleware(['auth'])->group(function () {
     //Resources
     Route::resources([
         'announcements' => AnnouncementController::class,
+        'blogs' => BlogController::class,
         'roles' => RoleController::class,
         'users' => UserController::class,
         'wings' => WingController::class,
@@ -99,7 +106,6 @@ Route::middleware(['auth'])->group(function () {
 
 Route::resources([
     // admin panel er jonno
-    'blogs' => BlogController::class,
     'contact-info' => ContactInfoController::class,
     'counters' => CounterController::class,
     'get-appointments' => GetAppointmentController::class,

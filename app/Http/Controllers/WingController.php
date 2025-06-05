@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Wing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WingController extends Controller
 {
@@ -27,7 +28,8 @@ class WingController extends Controller
             'title' => 'required|string',
             'icon_code' => 'required|string',
             'short_description' => 'required|string',
-            'description' => 'nullable|image|max:2048',
+            'description' => 'required|string',
+            'image' => 'nullable|image|max:2048',
             'is_active' => 'nullable|boolean',
         ]);
 
@@ -38,7 +40,8 @@ class WingController extends Controller
                 'icon_code' => $request->icon_code,
                 'short_description' => $request->short_description,
                 'description' => $request->description,
-                'created_by' => auth()->id(),
+                'created_by' => Auth::user()->id,
+                'created_by_uuid' => Auth::user()->uuid,
                 'is_active' => $request->has('is_active'),
             ]);
 

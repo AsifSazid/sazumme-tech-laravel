@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Announcement;
 use App\Models\Wing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AnnouncementController extends Controller
 {
@@ -27,7 +28,6 @@ class AnnouncementController extends Controller
 
         $request->validate([
             'title' => 'required|string',
-            // 'announcement_for' => 'required|string',
             'body' => 'required|string',
             'image' => 'nullable|image|max:2048',
             'starts_at' => 'nullable|date',
@@ -36,12 +36,18 @@ class AnnouncementController extends Controller
         ]);
 
         try {
+            $wing = $request->announcement_for
+                ? Wing::find($request->announcement_for)
+                : null;
             $announcement = Announcement::create([
                 'uuid' => (string) \Str::uuid(),
                 'title' => $request->title,
-                'announcement_for' => $request->announcement_for,
+                'announcement_for' => $wing->id,
+                'announcement_for_title' => $wing->title,
+                'announcement_for_uuid' => $wing->uuid,
                 'body' => $request->body,
-                'created_by' => auth()->id(),
+                'created_by' => Auth::user()->id,
+                'created_by_uuid' => Auth::user()->uuid,
                 'starts_at' => $request->starts_at,
                 'ends_at' => $request->ends_at,
                 'is_active' => $request->has('is_active'),
@@ -80,7 +86,6 @@ class AnnouncementController extends Controller
 
         $request->validate([
             'title' => 'required|string',
-            'announcement_for' => 'required|string',
             'body' => 'required|string',
             'image' => 'nullable|image|max:2048',
             'starts_at' => 'nullable|date',
@@ -89,9 +94,14 @@ class AnnouncementController extends Controller
         ]);
 
         try {
+            $wing = $request->announcement_for
+                ? Wing::find($request->announcement_for)
+                : null;
             $announcement->update([
                 'title' => $request->title,
-                'announcement_for' => $request->announcement_for,
+                'announcement_for' => $wing->id,
+                'announcement_for_title' => $wing->title,
+                'announcement_for_uuid' => $wing->uuid,
                 'body' => $request->body,
                 'starts_at' => $request->starts_at,
                 'ends_at' => $request->ends_at,
