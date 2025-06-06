@@ -86,6 +86,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/blogs/trash', [BlogController::class, 'trash'])->name('blogs.trash');
     Route::post('/blogs/{id}/restore', [BlogController::class, 'restore'])->name('blogs.restore');
     Route::delete('/blogs/{id}/force-delete', [BlogController::class, 'forceDelete'])->name('blogs.forceDelete');
+    // Role
+    Route::get('/roles/list', [RoleController::class, 'getData'])->name('roles.getData');
+    Route::get('/roles/download/pdf', [RoleController::class, 'downloadPdf'])->name('roles.download.pdf');
     // Wing
     Route::get('/wings/list', [WingController::class, 'getData'])->name('wings.getData');
     Route::get('/wings/download/pdf', [WingController::class, 'downloadPdf'])->name('wings.download.pdf');

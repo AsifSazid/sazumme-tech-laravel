@@ -24,6 +24,7 @@ class AnnouncementController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $request['is_active'] = $request->has('is_active') ? 1 : 0;
 
         $request->validate([
@@ -39,12 +40,13 @@ class AnnouncementController extends Controller
             $wing = $request->announcement_for
                 ? Wing::find($request->announcement_for)
                 : null;
+
             $announcement = Announcement::create([
                 'uuid' => (string) \Str::uuid(),
                 'title' => $request->title,
-                'announcement_for' => $wing->id,
-                'announcement_for_title' => $wing->title,
-                'announcement_for_uuid' => $wing->uuid,
+                'announcement_for' => $wing->id ?? null,
+                'announcement_for_title' => $wing->title ?? null,
+                'announcement_for_uuid' => $wing->uuid ?? null,
                 'body' => $request->body,
                 'created_by' => Auth::user()->id,
                 'created_by_uuid' => Auth::user()->uuid,
@@ -77,7 +79,8 @@ class AnnouncementController extends Controller
     public function edit($announcement)
     {
         $announcement = Announcement::where('uuid', $announcement)->first();
-        return view('backend.announcements.edit', compact('announcement'));
+        $wings = Wing::get();
+        return view('backend.announcements.edit', compact('announcement', 'wings'));
     }
 
     public function update(Request $request, Announcement $announcement)
@@ -99,9 +102,9 @@ class AnnouncementController extends Controller
                 : null;
             $announcement->update([
                 'title' => $request->title,
-                'announcement_for' => $wing->id,
-                'announcement_for_title' => $wing->title,
-                'announcement_for_uuid' => $wing->uuid,
+                'announcement_for' => $wing->id ?? null,
+                'announcement_for_title' => $wing->title ?? null,
+                'announcement_for_uuid' => $wing->uuid ?? null,
                 'body' => $request->body,
                 'starts_at' => $request->starts_at,
                 'ends_at' => $request->ends_at,

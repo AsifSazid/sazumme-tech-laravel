@@ -49,7 +49,7 @@
 
                             <div class="mt-6">
                                 <button type="submit"
-                                    class="inline-flex items-center px-4 py-2 bg-blue-600 text-sm font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                    class="inline-flex items-center px-4 py-2 bg-indigo-600 border rounded-md font-semibold text-sm hover:bg-indigo-700 transition ease-in-out duration-150">
                                     Create Blog
                                 </button>
                             </div>

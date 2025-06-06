@@ -32,8 +32,15 @@
 
                             <div class="mb-4">
                                 <label for="announcement_for" class="block text-sm font-medium text-gray-700">Announcement For</label>
-                                <input type="text" name="announcement_for" id="announcement_for" value="{{ old('announcement_for', $announcement->announcement_for) }}" required
-                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                <select name="announcement_for" id="announcement_for" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="" disabled>Select Any One</option>
+                                    <option value="main_website" {{ old('announcement_for', $announcement->announcement_for) === 'main_website' ? 'selected' : '' }}>Main Website</option>
+                                    @foreach ($wings as $wing)
+                                        <option value="{{ $wing->id }}" {{ old('announcement_for', $announcement->announcement_for) == $wing->id ? 'selected' : '' }}>
+                                            {{ $wing->title }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="mb-4">
@@ -75,7 +82,7 @@
 
                             <div class="mt-6">
                                 <button type="submit"
-                                    class="inline-flex items-center px-4 py-2 bg-blue-600 text-sm font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                    class="inline-flex items-center px-4 py-2 bg-indigo-600 border rounded-md font-semibold text-sm hover:bg-indigo-700 transition ease-in-out duration-150">
                                     Update Announcement
                                 </button>
                             </div>

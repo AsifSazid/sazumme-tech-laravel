@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('alias');
             $table->string('created_by');
             $table->string('access_control')->nullable();
+            $table->string('is_active')->nullable();
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

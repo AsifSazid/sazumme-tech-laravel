@@ -1,0 +1,19 @@
+
+| Version Part | Meaning                              | Notes                                                                                |
+| ------------ | ------------------------------------ | ------------------------------------------------------------------------------------ |
+| `1`          | **Major version**                    | Big, breaking changes. Often linked to product milestones.                           |
+| `2`          | **Minor version**                    | New features, improvements. Still backward-compatible.                               |
+| `3`          | **Patch version**                    | Small fixes, bug patches, performance updates.                                       |
+| `4`          | **Build / revision / deployment ID** | Often used internally to track CI/CD deploys, hotfixes, or platform-specific builds. |
+
+
+In 1.0.0.1
+- We just do design the website and connect to the Laravel Project.
+
+In 1.1.0.1
+- Login/Registration Introduced. (But User end theke dibo na)
+- Basic Role Management.
+- Basic User Management.
+- Announcement Management.
+- Wing Management
+- Blog Management
