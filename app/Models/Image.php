@@ -16,4 +16,9 @@ class Image extends Model
     {
         return $this->morphTo();
     }
+
+    // public function getUrlAttribute()
+    // {
+    //     return asset('storage/' . $this->path);
+    // }
 }
