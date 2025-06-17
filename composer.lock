@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0a3d52399ab0253f285696527b245ade",
+    "content-hash": "27765b2522cd966f93c5a938da224661",
     "packages": [
         {
             "name": "brick/math",
@@ -3581,6 +3581,47 @@
                 }
             ],
             "time": "2024-04-27T21:32:50+00:00"
+        },
+        {
+            "name": "sazumme/packagegenerator",
+            "version": "1.0.0",
+            "dist": {
+                "type": "path",
+                "url": "../applets/sazumme-packagegenerator",
+                "reference": "5f093027a27cdfe7abe7b7008f6c9d0f9ac0b747"
+            },
+            "type": "library",
+            "extra": {
+                "copyright": "www.sazumme.com",
+                "laravel": {
+                    "providers": [
+                        "Sazumme\\Packagegenerator\\PackagegeneratorServiceProvider"
+                    ],
+                    "aliases": []
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sazumme\\Packagegenerator\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Asif M Sazid, CEO, SazTech",
+                    "email": "asifsazid83umy@gmail.com",
+                    "homepage": "www.sazumme.com"
+                }
+            ],
+            "description": "This package will help you for creating a package cover within a short time (with composer.json, License and Service Provider)\r\n\r\nThanks for using and your Contribution!!! ❤ \r\n\r\nLove from SazTech, a sister concern of SazUmme Technology...",
+            "keywords": [
+                "Laravel"
+            ],
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "sazumme/publication",
