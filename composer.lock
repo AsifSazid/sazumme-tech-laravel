@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "27765b2522cd966f93c5a938da224661",
+    "content-hash": "72f705e7cac5e8beba6be5748e70b9fb",
     "packages": [
         {
             "name": "brick/math",
@@ -3588,7 +3588,7 @@
             "dist": {
                 "type": "path",
                 "url": "../applets/sazumme-packagegenerator",
-                "reference": "5f093027a27cdfe7abe7b7008f6c9d0f9ac0b747"
+                "reference": "1ab974fd983232bc8a50d317e9d62725cdc0e0c9"
             },
             "type": "library",
             "extra": {
@@ -3629,7 +3629,7 @@
             "dist": {
                 "type": "path",
                 "url": "../applets/sazumme-publication",
-                "reference": "8108a26735a92c9c6a022df63e753c1af8372a49"
+                "reference": "0acb69932049fb39599bbb705237dc6e52e38788"
             },
             "type": "library",
             "extra": {
@@ -3657,6 +3657,47 @@
                 }
             ],
             "description": "This package is made for the SazUmme Publication Site.",
+            "keywords": [
+                "Laravel"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "sazumme/themeadmin",
+            "version": "1.0.0",
+            "dist": {
+                "type": "path",
+                "url": "../applets/sazumme-themeadmin",
+                "reference": "72859f640b0556dc1ec53566c3e63bf08fcfe1f3"
+            },
+            "type": "library",
+            "extra": {
+                "copyright": "www.sazumme.com",
+                "laravel": {
+                    "providers": [
+                        "Sazumme\\Themeadmin\\ThemeadminServiceProvider"
+                    ],
+                    "aliases": []
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sazumme\\Themeadmin\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Asif M Sazid, CEO, SazTech",
+                    "email": "asifsazid83umy@gmail.com",
+                    "homepage": "www.sazumme.com"
+                }
+            ],
+            "description": "This package will help us to create an Admin Panel UI.\r\n\r\n Thanks for using it and contribution ❤❤\r\n\r\nLove from SazTech, a sister concern of SazUmme. All copyright reserve 2025, Sazumme.",
             "keywords": [
                 "Laravel"
             ],

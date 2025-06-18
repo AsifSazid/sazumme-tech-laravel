@@ -1,0 +1,32 @@
+{
+    "name": "sazumme/themeadmin",
+    "type": "library",
+    "description": "This package will help us to create an Admin Panel UI.\r\n\r\n Thanks for using it and contribution \u2764\u2764\r\n\r\nLove from SazTech, a sister concern of SazUmme. All copyright reserve 2025, Sazumme.",
+    "keywords": [
+        "Laravel"
+    ],
+    "authors": [
+        {
+            "name": "Asif M Sazid, CEO, SazTech",
+            "email": "asifsazid83umy@gmail.com",
+            "homepage": "www.sazumme.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Sazumme\\Themeadmin\\": "src/"
+        }
+    },
+    "autoload-dev": {},
+    "extra": {
+        "copyright": "www.sazumme.com",
+        "laravel": {
+            "providers": [
+                "Sazumme\\Themeadmin\\ThemeadminServiceProvider"
+            ],
+            "aliases": {}
+        }
+    },
+    "version": "1.0.0",
+    "license": "MIT"
+}
