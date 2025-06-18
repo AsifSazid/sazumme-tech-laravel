@@ -49,9 +49,9 @@
                                     <span class="px-4">Updated on: {{ $announcement->updated_at->format('d-M-Y H:i') }}</span>
                                 </div>
                                 <div>
-                                    <a href="{{ route('announcements.index') }}"
+                                    <a href="{{ route('admin.announcements.index') }}"
                                         class="inline-block text-blue-600 hover:underline px-2">← Back to list</a>
-                                    <a href="{{ route('announcements.edit', $announcement->uuid) }}" class="text-blue-600 hover:underline px-2">Edit</a>
+                                    <a href="{{ route('admin.announcements.edit', $announcement->uuid) }}" class="text-blue-600 hover:underline px-2">Edit</a>
                                     <button class="text-blue-600 hover:underline px-2">Delete</button>
                                 </div>
                             </div>

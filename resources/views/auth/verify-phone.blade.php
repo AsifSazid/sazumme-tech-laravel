@@ -21,7 +21,7 @@
             {{ __('Please wait') }} <span id="timeLeft">5:00</span>
         </span>
 
-        <form method="POST" action="{{ route('logout') }}">
+        <form method="POST" action="{{ route('user.logout', ['subdomain' => request()->route('subdomain')]) }}">
             @csrf
 
             <button type="submit"
@@ -35,7 +35,7 @@
     <!-- Add this below your Send OTP button -->
     <p id="otp-status" class="text-green-500 mt-2"></p>
 
-    <form method="POST" action="{{ route('verify-otp') }}">
+    <form method="POST" action="{{ route('user.verify-otp', ['subdomain' => request()->route('subdomain')]) }}">
         @csrf
         <div class="mt-4">
             <x-input-label for="otp" :value="__('Your OTP Number')" />
@@ -81,7 +81,8 @@
             }, 1000);
 
             // Send the OTP request to the server
-            fetch("{{ route('phone-no.verification.send') }}", {
+            const phoneVerificationUrl = "{{ route('user.phone-no.verification.send', ['subdomain' => request()->route('subdomain')]) }}";
+            fetch(phoneVerificationUrl, {
                     method: "POST",
                     headers: {
                         "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),

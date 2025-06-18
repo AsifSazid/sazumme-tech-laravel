@@ -64,7 +64,7 @@ class AnnouncementController extends Controller
                 ]);
             }
 
-            return redirect()->route('announcements.index')->with('success', 'Announcement created successfully!');
+            return redirect()->route('admin.announcements.index')->with('success', 'Announcement created successfully!');
         } catch (\Throwable $th) {
             dd($th);
         }
@@ -126,7 +126,7 @@ class AnnouncementController extends Controller
                 ]);
             }
 
-            return redirect()->route('announcements.index')->with('success', 'Announcement updated successfully!');
+            return redirect()->route('admin.announcements.index')->with('success', 'Announcement updated successfully!');
         } catch (\Throwable $th) {
             dd($th);
         }
@@ -137,7 +137,7 @@ class AnnouncementController extends Controller
         $announcement = Announcement::where('uuid', $uuid);
         $announcement->delete(); // this is soft delete
 
-        return redirect()->route('announcements.index')->with('success', 'Announcement moved to trash.');
+        return redirect()->route('admin.announcements.index')->with('success', 'Announcement moved to trash.');
     }
 
     public function trash()
@@ -152,7 +152,7 @@ class AnnouncementController extends Controller
         $announcement = Announcement::onlyTrashed()->where('uuid', $uuid);
         $announcement->restore();
 
-        return redirect()->route('announcements.trash')->with('success', 'Announcement restored successfully.');
+        return redirect()->route('admin.announcements.trash')->with('success', 'Announcement restored successfully.');
     }
 
     public function forceDelete($uuid)
@@ -160,7 +160,7 @@ class AnnouncementController extends Controller
         $announcement = Announcement::onlyTrashed()->where('uuid', $uuid);
         $announcement->forceDelete();
 
-        return redirect()->route('announcements.trash')->with('success', 'Announcement permanently deleted.');
+        return redirect()->route('admin.announcements.trash')->with('success', 'Announcement permanently deleted.');
     }
 
     public function getData(Request $request)

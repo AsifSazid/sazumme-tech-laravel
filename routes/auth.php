@@ -16,9 +16,18 @@ use App\Http\Controllers\Admin\Auth\AdminForgotPasswordController;
 use App\Http\Controllers\Admin\Auth\AdminResetPasswordController;
 use App\Http\Controllers\Admin\Auth\AdminPasswordController;
 
-Route::prefix('admin')->name('admin.')->group(function () {
+/*
+|--------------------------------------------------------------------------
+| Admin routes for main domain
+|--------------------------------------------------------------------------
+*/
+Route::domain('sazumme-tech-laravel.test')->name('admin.')->group(function () {
+
     Route::middleware('guest:admin')->group(function () {
         Route::middleware(['admin.guest'])->group(function () {
+            Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');  // admin.login
+            Route::post('login', [AuthenticatedSessionController::class, 'store']);
+
             Route::get('forgot-password', [AdminForgotPasswordController::class, 'create'])->name('password.request');
             Route::post('forgot-password', [AdminForgotPasswordController::class, 'store'])->name('password.email');
             Route::get('reset-password/{token}', [AdminResetPasswordController::class, 'create'])->name('password.reset');
@@ -29,34 +38,29 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('auth:admin')->group(function () {
         Route::get('change-password', [AdminPasswordController::class, 'edit'])->name('password.edit');
         Route::put('change-password', [AdminPasswordController::class, 'update'])->name('password.change');
-    });
-});
 
-
-Route::domain('maindomain.test')->group(function () {
-    Route::middleware('guest')->group(function () {
-        // Only login for admins
-        Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('admin.login');
-        Route::post('login', [AuthenticatedSessionController::class, 'store']);
-    });
-
-    Route::middleware('auth')->group(function () {
-        // You may redirect to a separate admin dashboard controller
         Route::get('/admin/dashboard', function () {
             return view('admin.dashboard');
-        })->name('admin.dashboard');
+        })->name('dashboard');
 
-        Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('admin.logout');
+        Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
     });
 });
 
-// Subdomain user registration/login
-Route::domain('{subdomain}.maindomain.test')->group(function () {
+/*
+|--------------------------------------------------------------------------
+| Subdomain routes for user registration/login
+|--------------------------------------------------------------------------
+*/
+Route::domain('{subdomain}.sazumme-tech-laravel.test')->name('user.')->group(function () {
+
     Route::middleware('guest')->group(function () {
         Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
         Route::post('register', [RegisteredUserController::class, 'store']);
+
         Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
         Route::post('login', [AuthenticatedSessionController::class, 'store']);
+
         Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])->name('password.request');
         Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
         Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])->name('password.reset');
@@ -75,9 +79,9 @@ Route::domain('{subdomain}.maindomain.test')->group(function () {
         Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])->name('password.confirm');
         Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
         Route::put('password', [PasswordController::class, 'update'])->name('password.update');
+
         Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
-        // Subdomain-specific user dashboard
         Route::get('/dashboard', function () {
             return view('dashboard'); // user dashboard blade
         })->name('dashboard');

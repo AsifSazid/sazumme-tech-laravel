@@ -58,7 +58,7 @@ class BlogController extends Controller
                 ]);
             }
 
-            return redirect()->route('blogs.index')->with('success', 'Blog created successfully!');
+            return redirect()->route('admin.blogs.index')->with('success', 'Blog created successfully!');
         } catch (\Throwable $th) {
             dd($th);
         }
@@ -111,7 +111,7 @@ class BlogController extends Controller
                 ]);
             }
 
-            return redirect()->route('blogs.index')->with('success', 'Blog updated successfully!');
+            return redirect()->route('admin.blogs.index')->with('success', 'Blog updated successfully!');
         } catch (\Throwable $th) {
             dd($th);
         }
@@ -122,7 +122,7 @@ class BlogController extends Controller
         $blog = Blog::where('uuid', $uuid);
         $blog->delete(); // this is soft delete
 
-        return redirect()->route('blogs.index')->with('success', 'Blog moved to trash.');
+        return redirect()->route('admin.blogs.index')->with('success', 'Blog moved to trash.');
     }
 
     public function trash()
@@ -137,7 +137,7 @@ class BlogController extends Controller
         $blog = Blog::onlyTrashed()->where('uuid', $uuid);
         $blog->restore();
 
-        return redirect()->route('blogs.trash')->with('success', 'Blog restored successfully.');
+        return redirect()->route('admin.blogs.trash')->with('success', 'Blog restored successfully.');
     }
 
     public function forceDelete($uuid)
@@ -145,7 +145,7 @@ class BlogController extends Controller
         $blog = Blog::onlyTrashed()->where('uuid', $uuid);
         $blog->forceDelete();
 
-        return redirect()->route('blogs.trash')->with('success', 'Blog permanently deleted.');
+        return redirect()->route('admin.blogs.trash')->with('success', 'Blog permanently deleted.');
     }
 
     public function getData(Request $request)

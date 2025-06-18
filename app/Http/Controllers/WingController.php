@@ -54,7 +54,7 @@ class WingController extends Controller
                 ]);
             }
 
-            return redirect()->route('wings.index')->with('success', 'Wing created successfully!');
+            return redirect()->route('admin.wings.index')->with('success', 'Wing created successfully!');
         } catch (\Throwable $th) {
             dd($th);
         }
@@ -109,7 +109,7 @@ class WingController extends Controller
                 ]);
             }
 
-            return redirect()->route('wings.index')->with('success', 'Wing updated successfully!');
+            return redirect()->route('admin.wings.index')->with('success', 'Wing updated successfully!');
         } catch (\Throwable $th) {
             dd($th);
         }
@@ -120,7 +120,7 @@ class WingController extends Controller
         $wing = Wing::where('uuid', $uuid);
         $wing->delete(); // this is soft delete
 
-        return redirect()->route('wings.index')->with('success', 'Wing moved to trash.');
+        return redirect()->route('admin.wings.index')->with('success', 'Wing moved to trash.');
     }
 
     public function trash()
@@ -135,7 +135,7 @@ class WingController extends Controller
         $wing = Wing::onlyTrashed()->where('uuid', $uuid);
         $wing->restore();
 
-        return redirect()->route('wings.trash')->with('success', 'Wing restored successfully.');
+        return redirect()->route('admin.wings.trash')->with('success', 'Wing restored successfully.');
     }
 
     public function forceDelete($uuid)
@@ -143,7 +143,7 @@ class WingController extends Controller
         $wing = Wing::onlyTrashed()->where('uuid', $uuid);
         $wing->forceDelete();
 
-        return redirect()->route('wings.trash')->with('success', 'Wing permanently deleted.');
+        return redirect()->route('admin.wings.trash')->with('success', 'Wing permanently deleted.');
     }
 
     public function getData(Request $request)

@@ -11,15 +11,20 @@ use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
 {
-    /**
-     * Display the login view.
-     */
+    // custom code
     public function create(): View
     {
+        $host = request()->getHost();
+    
+        if ($host === 'sazumme-tech-laravel.test') {
+            // Main domain - admin login view
+            return view('admin.auth.login');
+        }
+    
+        // Otherwise, assume subdomain user login
         return view('auth.login');
     }
 
-    // custom code
     public function store(Request $request)
     {
         $credentials = $request->only('email', 'password');
@@ -51,14 +56,21 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
+        $subdomain = request()->route('subdomain') ?? explode('.', request()->getHost())[0];
+
         return $guard === 'admin'
             ? redirect()->route('admin.login')
-            : redirect()->route('login');
+            : redirect()->route('user.login', ['subdomain' => $subdomain]);
     }
 
     
 
     // Breeze onujay
+    // public function create(): View
+    // {
+    //     return view('auth.login');
+    // }
+
     // public function store(LoginRequest $request): RedirectResponse
     // {
     //     $request->authenticate();

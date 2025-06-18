@@ -47,9 +47,9 @@
                                     <span class="px-2">Updated on: {{ $blog->updated_at->format('d-M-Y H:i') }}</span>
                                 </div>
                                 <div>
-                                    <a href="{{ route('blogs.index') }}"
+                                    <a href="{{ route('admin.blogs.index') }}"
                                         class="inline-block text-blue-600 hover:underline px-2">← Back to list</a>
-                                    <a href="{{ route('blogs.edit', $blog->uuid) }}" class="text-blue-600 hover:underline px-2">Edit</a>
+                                    <a href="{{ route('admin.blogs.edit', $blog->uuid) }}" class="text-blue-600 hover:underline px-2">Edit</a>
                                     <button class="text-blue-600 hover:underline px-2">Delete</button>
                                 </div>
                             </div>

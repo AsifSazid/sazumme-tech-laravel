@@ -31,14 +31,14 @@
                                         <td class="px-6 py-4">{{ $trashed->deleted_at->diffForHumans() }}</td>
                                         <td class="px-6 py-4">
                                             <div class="flex justify-center space-x-2">
-                                                <form action="{{ route('wings.restore', $trashed->uuid) }}"
+                                                <form action="{{ route('admin.wings.restore', $trashed->uuid) }}"
                                                     method="POST" class="d-inline">
                                                     @csrf
                                                     <button class="text-yellow-500 hover:text-yellow-700 mx-1"
                                                         title="Restore"><i class="fas fa-rotate"></i> </button>
                                                 </form>
     
-                                                <form action="{{ route('wings.forceDelete', $trashed->uuid) }}"
+                                                <form action="{{ route('admin.wings.forceDelete', $trashed->uuid) }}"
                                                     method="POST" class="inline ml-2"
                                                     onsubmit="return confirm('Permanently delete this wing?');">
                                                     @csrf
@@ -65,7 +65,7 @@
 
                         <div
                             class="mt-4 px-4 py-2 bg-gray-100 border-t text-sm text-gray-500 flex justify-between items-center">
-                            <a href="{{ route('wings.index') }}" class="text-blue-500 hover:text-blue-700 mx-1"
+                            <a href="{{ route('admin.wings.index') }}" class="text-blue-500 hover:text-blue-700 mx-1"
                                 title="Wing Lists"><i class="fas fa-trash-alt"></i> Wing Lists</a>
                         </div>
                     </div>

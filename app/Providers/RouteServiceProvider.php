@@ -35,6 +35,11 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/web.php'));
 
             Route::aliasMiddleware('admin.guest', \App\Http\Middleware\RedirectIfAdminAuthenticated::class);
+            Route::aliasMiddleware('custom.auth', \App\Http\Middleware\RedirectIfNotAuthenticated::class);
+
+            Route::middleware('web')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/admin.php'));
 
             // Route::middleware('web')
             //     ->namespace($this->namespace)

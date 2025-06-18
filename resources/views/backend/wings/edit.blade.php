@@ -20,7 +20,7 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('wings.update', $wing->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admin.wings.update', $wing->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 

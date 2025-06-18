@@ -24,6 +24,11 @@ class Wing extends Model
         return $this->hasMany(Announcement::class);
     }
 
+    public function navigations()
+    {
+        return $this->hasMany(Announcement::class);
+    }
+
     public function image()
     {
         return $this->morphOne(Image::class, 'imageable');

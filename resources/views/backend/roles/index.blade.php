@@ -4,7 +4,7 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('Roles') }}
             </h2>
-            <a href="{{ route('roles.create') }}" class="text-green-500 hover:text-green-700 mx-1" title="Create"><i
+            <a href="{{ route('admin.roles.create') }}" class="text-green-500 hover:text-green-700 mx-1" title="Create"><i
                     class="fas fa-plus"></i> Create New</a>
         </div>
     </x-slot>
@@ -87,7 +87,7 @@
                 const fetchRoles = async (search = '', page = 1) => {
                     try {
                         const response = await fetch(
-                            `{{ route('roles.getData') }}?search=${search}&page=${page}`);
+                            `{{ route('admin.roles.getData') }}?search=${search}&page=${page}`);
                         const result = await response.json();
                         renderTable(result);
                         renderPagination(result, search);
@@ -160,7 +160,7 @@
 
                 document.getElementById("downloadPdfBtn").addEventListener("click", () => {
                     const search = document.getElementById("searchInput").value.trim();
-                    let url = `{{ route('roles.download.pdf') }}`;
+                    let url = `{{ route('admin.roles.download.pdf') }}`;
                     if (search) {
                         url += `?search=${encodeURIComponent(search)}`;
                     }

@@ -58,6 +58,11 @@ class User extends Authenticatable
         return $this->hasMany(Announcement::class, 'created_by');
     }
 
+    public function navigations()
+    {
+        return $this->hasMany(Announcement::class, 'created_by');
+    }
+
     public function wings()
     {
         return $this->hasMany(Wing::class, 'created_by');

@@ -2,9 +2,9 @@
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Wing Lists') }}
+                {{ __('Announcement Lists') }}
             </h2>
-            <a href="{{ route('admin.wings.create') }}" class="text-green-500 hover:text-green-700 mx-1"
+            <a href="{{ route('admin.announcements.create') }}" class="text-green-500 hover:text-green-700 mx-1"
                 title="Create"><i class="fas fa-plus"></i> Create New</a>
         </div>
     </x-slot>
@@ -21,24 +21,60 @@
                             <thead class="bg-gray-100 text-gray-700 uppercase">
                                 <tr>
                                     <th class="px-6 py-4">Sl No.</th>
-                                    <th class="px-6 py-4">Wing Title</th>
-                                    <th class="px-6 py-4">Icon</th>
-                                    <th class="px-6 py-4">Short Description</th>
+                                    <th class="px-6 py-4">Announcement Title</th>
                                     <th class="px-6 py-4">Created By</th>
+                                    <th class="px-6 py-4">Started At</th>
+                                    <th class="px-6 py-4">Will be Ended</th>
                                     <th class="px-6 py-4">Activity</th>
                                     <th class="px-6 py-4">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="announcementTableBody" class="text-center">
-
+                                <!-- JS will inject rows here -->
                             </tbody>
+                            {{-- <tbody class="text-center">
+                                @forelse ($announcements as $announcement)
+                                    <tr>
+                                        <td class="px-6 py-4">{{ $loop->iteration }}</td>
+                                        <td class="px-6 py-4">{{ $announcement->title }}</td>
+                                        <td class="px-6 py-4">{{ $announcement->user->name }}</td>
+                                        <td class="px-6 py-4">{{ $announcement->starts_at }}</td>
+                                        <td class="px-6 py-4">{{ $announcement->ends_at }}</td>
+                                        <td class="px-6 py-4">{{ $announcement->is_active ? 'Active' : 'Inactive' }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex justify-center space-x-2">
+                                                <a href="{{ route('admin.announcements.show', $announcement->uuid) }}"
+                                                    class="text-blue-500 hover:text-blue-700 mx-1"
+                                                    title="View Profile"><i class="fas fa-eye"></i></a>
+                                                <a href="{{ route('admin.announcements.edit', $announcement->uuid) }}"
+                                                    class="text-yellow-500 hover:text-yellow-700 mx-1" title="Edit"><i
+                                                        class="fas fa-edit"></i></a>
+                                                <form
+                                                    action="{{ route('admin.announcements.destroy', $announcement->uuid) }}"
+                                                    method="POST" onsubmit="return confirm('Move to trash?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="text-red-500 hover:text-red-700 mx-1"
+                                                        title="Destroy"><i class="fas fa-trash-alt"></i></button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="7" class="py-4 text-center text-gray-500">No announcements found
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody> --}}
                         </table>
 
                         <div id="paginationLinks" class="mt-4 flex justify-center"></div>
 
                         <div
                             class="mt-4 px-4 py-2 bg-gray-100 border-t text-sm text-gray-500 flex justify-between items-center">
-                            <a href="{{ route('admin.wings.trash') }}" class="text-red-500 hover:text-red-700 mx-1"
+                            <a href="{{ route('admin.announcements.trash') }}" class="text-red-500 hover:text-red-700 mx-1"
                                 title="Trash Lists"><i class="fas fa-trash-alt"></i> Trash Lists</a>
                             <a id="downloadPdfBtn" class="text-blue-500 hover:text-blue-700 mx-1 cursor-pointer"
                                 title="Download as PDF"><i class="fa-solid fa-download"></i></a>
@@ -55,41 +91,53 @@
                 const input = document.getElementById("searchInput");
                 const tableBody = document.getElementById("announcementTableBody");
                 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                const formatDateTime = (dateStr) => {
+                    const date = new Date(dateStr);
+                    return date.toLocaleString('en-GB', {
+                        day: '2-digit',
+                        month: 'short',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: false,
+                        timeZone: 'UTC'
+                    }).replace(',', ' ||');
+                };
 
                 const fetchAnnouncements = async (search = '', page = 1) => {
                     try {
                         const response = await fetch(
-                            `{{ route('admin.wings.getData') }}?search=${search}&page=${page}`);
+                            `{{ route('admin.announcements.getData') }}?search=${search}&page=${page}`);
                         const result = await response.json();
                         renderTable(result.data);
                         renderPagination(result, search);
                     } catch (error) {
-                        console.error("Error fetching wings:", error);
+                        console.error("Error fetching announcements:", error);
                     }
                 };
 
-                const renderTable = (wings) => {
+                const renderTable = (announcements) => {
                     tableBody.innerHTML = "";
-                    if (wings.length === 0) {
+                    if (announcements.length === 0) {
                         tableBody.innerHTML =
-                            `<tr><td colspan="7" class="py-4 text-center text-gray-500">No wings found</td></tr>`;
+                            `<tr><td colspan="7" class="py-4 text-center text-gray-500">No announcements found</td></tr>`;
                         return;
                     }
 
-                    wings.forEach((wing, index) => {
+                    announcements.forEach((announcement, index) => {
                         const row = `
                         <tr>
                             <td class="px-6 py-4">${index + 1}</td>
-                            <td class="px-6 py-4">${wing.title}</td>
-                            <td class="px-6 py-4"><i class="${wing.icon_code}"></i></td>
-                            <td class="px-6 py-4">${wing.short_description}</td>
-                            <td class="px-6 py-4">${wing.user?.name ?? 'N/A'}</td>
-                            <td class="px-6 py-4">${wing.is_active ? 'Active' : 'Inactive'}</td>
+                            <td class="px-6 py-4">${announcement.title}</td>
+                            <td class="px-6 py-4">${announcement.user?.name ?? 'N/A'}</td>
+                            <td class="px-6 py-4">${formatDateTime(announcement.starts_at)}</td>
+                            <td class="px-6 py-4">${formatDateTime(announcement.ends_at)}</td>
+                            <td class="px-6 py-4">${announcement.is_active ? 'Active' : 'Inactive'}</td>
                             <td class="px-6 py-4">
                                 <div class="flex justify-center">
-                                    <a href="/wings/${wing.uuid}" class="px-1 text-blue-500 hover:text-blue-700" title="View"><i class="fas fa-eye"></i></a>
-                                    <a href="/wings/${wing.uuid}/edit" class="px-1 text-yellow-500 hover:text-yellow-700" title="Edit"><i class="fas fa-edit"></i></a>
-                                    <form action="/wings/${wing.uuid}" method="POST" onsubmit="return confirm('Move to trash?')">
+                                    <a href="/announcements/${announcement.uuid}" class="px-1 text-blue-500 hover:text-blue-700" title="View"><i class="fas fa-eye"></i></a>
+                                    <a href="/announcements/${announcement.uuid}/edit" class="px-1 text-yellow-500 hover:text-yellow-700" title="Edit"><i class="fas fa-edit"></i></a>
+                                    <form action="/announcements/${announcement.uuid}" method="POST" onsubmit="return confirm('Move to trash?')">
                                         <input type="hidden" name="_token" value="${csrfToken}">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <button type="submit" class="px-1 text-red-500 hover:text-red-700" title="Destroy">
@@ -131,7 +179,7 @@
 
                 document.getElementById("downloadPdfBtn").addEventListener("click", () => {
                     const search = document.getElementById("searchInput").value.trim();
-                    let url = `{{ route('admin.wings.download.pdf') }}`;
+                    let url = `{{ route('admin.announcements.download.pdf') }}`;
                     if (search) {
                         url += `?search=${encodeURIComponent(search)}`;
                     }

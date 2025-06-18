@@ -47,7 +47,7 @@ class RoleController extends Controller
                 // 'is_active' => $request->has('is_active'),
             ]);
 
-            return redirect()->route('roles.index')->with('success', 'Role created successfully!');
+            return redirect()->route('admin.roles.index')->with('success', 'Role created successfully!');
         } catch (\Throwable $th) {
             dd($th);
         }
@@ -87,7 +87,7 @@ class RoleController extends Controller
                 // 'is_active' => $request->has('is_active'),
             ]);
 
-            return redirect()->route('roles.index')->with('success', 'Role updated successfully!');
+            return redirect()->route('admin.roles.index')->with('success', 'Role updated successfully!');
         } catch (\Throwable $th) {
             dd($th);
         }
@@ -98,7 +98,7 @@ class RoleController extends Controller
         $role = Role::where('uuid', $uuid);
         $role->delete(); // this is soft delete
 
-        return redirect()->route('roles.index')->with('success', 'Role moved to trash.');
+        return redirect()->route('admin.roles.index')->with('success', 'Role moved to trash.');
     }
 
     public function trash()
@@ -113,7 +113,7 @@ class RoleController extends Controller
         $role = Role::onlyTrashed()->where('uuid', $uuid);
         $role->restore();
 
-        return redirect()->route('roles.trash')->with('success', 'Role restored successfully.');
+        return redirect()->route('admin.roles.trash')->with('success', 'Role restored successfully.');
     }
 
     public function forceDelete($uuid)
@@ -121,7 +121,7 @@ class RoleController extends Controller
         $role = Role::onlyTrashed()->where('uuid', $uuid);
         $role->forceDelete();
 
-        return redirect()->route('roles.trash')->with('success', 'Role permanently deleted.');
+        return redirect()->route('admin.roles.trash')->with('success', 'Role permanently deleted.');
     }
 
     public function getData(Request $request)

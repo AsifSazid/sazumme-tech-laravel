@@ -2,12 +2,12 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('user.login', ['subdomain' => request()->route('subdomain')]) }}">
+    <form method="POST" action="{{ route('admin.login') }}">
         @csrf
 
         <!-- Email Address -->
         <div>
-            <x-input-label for="email" :value="__('Email')" />
+            <x-input-label for="email" :value="__('Admin Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
@@ -44,8 +44,4 @@
             </x-primary-button>
         </div>
     </form>
-    <hr class="mt-3">
-    <div class="mt-3 text-center">
-        <p>Didn't Register? <i><a href="{{route('user.register', ['subdomain' => request()->route('subdomain')])}}">Register Here</a></i></p>
-    </div>
 </x-guest-layout>

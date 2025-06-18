@@ -15,7 +15,11 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next, ...$roles)
     {
-        if (!auth()->check() || !auth()->user()->roles()->whereIn('name', $roles)->exists()) {
+        $guard = $request->routeIs('admin.*') ? 'admin' : null;
+
+        $user = auth($guard)->user();
+
+        if (!$user || !$user->roles()->whereIn('name', $roles)->exists()) {
             abort(403, 'Unauthorized.');
         }
 

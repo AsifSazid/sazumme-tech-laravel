@@ -33,6 +33,6 @@ class UserController extends Controller
         $user = User::where('uuid', $user)->first();
         $user->roles()->sync($request->roles);
     
-        return redirect()->route('users.index')->with('success', 'Roles assigned successfully.');
+        return redirect()->route('admin.users.index')->with('success', 'Roles assigned successfully.');
     }
 }

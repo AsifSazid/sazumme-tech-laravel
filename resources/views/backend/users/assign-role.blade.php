@@ -13,7 +13,7 @@
                     {{ $user->roles->isNotEmpty() ? $user->roles->pluck('name')->implode(', ') : 'No Data Found' }}
                 </div>
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <form action="{{ route('users.assign.roles', $user->uuid) }}" method="POST">
+                    <form action="{{ route('admin.users.assign.roles', $user->uuid) }}" method="POST">
                         @csrf
                         <div class="mb-6">
                             <label for="roles" class="block text-sm font-medium text-gray-700 dark:text-gray-300">

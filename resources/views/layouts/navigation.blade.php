@@ -1,3 +1,7 @@
+@php
+    $subdomain = request()->route('subdomain') ?? explode('.', request()->getHost())[0];
+@endphp
+
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -17,7 +21,7 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('blogs.index')" :active="request()->routeIs('blogs.index')">
+                    <x-nav-link :href="route('admin.blogs.index')" :active="request()->routeIs('blogs.index')">
                         {{ __('Blogs') }}
                     </x-nav-link>
                 </div>
@@ -50,19 +54,19 @@
                         <div x-show="open" x-transition
                             class="absolute left-0 z-50 w-48 mt-2 bg-white rounded-md shadow-lg">
                             <div class="py-1">
-                                <a href="{{ route('announcements.index') }}"
+                                <a href="{{ route('admin.announcements.index') }}"
                                     class="block px-4 py-2 text-sm hover:bg-gray-100 {{ request()->routeIs('announcements.index') ? 'bg-gray-100 font-semibold text-gray-900' : 'text-gray-700' }}">
                                     Announcements
                                 </a>
-                                <a href="{{ route('roles.index') }}"
+                                <a href="{{ route('admin.roles.index') }}"
                                     class="block px-4 py-2 text-sm hover:bg-gray-100 {{ request()->routeIs('roles.index') ? 'bg-gray-100 font-semibold text-gray-900' : 'text-gray-700' }}">
                                     Roles
                                 </a>
-                                <a href="{{ route('users.index') }}"
+                                <a href="{{ route('admin.users.index') }}"
                                     class="block px-4 py-2 text-sm hover:bg-gray-100 {{ request()->routeIs('users.index') ? 'bg-gray-100 font-semibold text-gray-900' : 'text-gray-700' }}">
                                     Users
                                 </a>
-                                <a href="{{ route('wings.index') }}"
+                                <a href="{{ route('admin.wings.index') }}"
                                     class="block px-4 py-2 text-sm hover:bg-gray-100 {{ request()->routeIs('wings.index') ? 'bg-gray-100 font-semibold text-gray-900' : 'text-gray-700' }}">
                                     Wings
                                 </a>
@@ -97,12 +101,10 @@
                         </x-dropdown-link>
 
                         <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
+                        <form method="POST" action="{{ route('user.logout', ['subdomain' => $subdomain]) }}">
                             @csrf
-
-                            <x-dropdown-link :href="route('logout')"
-                                onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                            <x-dropdown-link href="#"
+                                onclick="event.preventDefault(); this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
@@ -147,14 +149,12 @@
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
+                <form method="POST" action="{{ route('user.logout', ['subdomain' => $subdomain]) }}">
                     @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                        onclick="event.preventDefault();
-                                        this.closest('form').submit();">
+                    <x-dropdown-link href="#"
+                        onclick="event.preventDefault(); this.closest('form').submit();">
                         {{ __('Log Out') }}
-                    </x-responsive-nav-link>
+                    </x-dropdown-link>
                 </form>
             </div>
         </div>

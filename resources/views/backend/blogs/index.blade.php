@@ -4,7 +4,7 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('Blog Lists') }}
             </h2>
-            <a href="{{ route('blogs.create') }}" class="text-green-500 hover:text-green-700 mx-1"
+            <a href="{{ route('admin.blogs.create') }}" class="text-green-500 hover:text-green-700 mx-1"
                 title="Create"><i class="fas fa-plus"></i> Create New</a>
         </div>
     </x-slot>
@@ -38,7 +38,7 @@
 
                         <div
                             class="mt-4 px-4 py-2 bg-gray-100 border-t text-sm text-gray-500 flex justify-between items-center">
-                            <a href="{{ route('blogs.trash') }}" class="text-red-500 hover:text-red-700 mx-1"
+                            <a href="{{ route('admin.blogs.trash') }}" class="text-red-500 hover:text-red-700 mx-1"
                                 title="Trash Lists"><i class="fas fa-trash-alt"></i> Trash Lists</a>
                             <a id="downloadPdfBtn" class="text-blue-500 hover:text-blue-700 mx-1 cursor-pointer"
                                 title="Download as PDF"><i class="fa-solid fa-download"></i></a>
@@ -71,7 +71,7 @@
                 const fetchAnnouncements = async (search = '', page = 1) => {
                     try {
                         const response = await fetch(
-                            `{{ route('blogs.getData') }}?search=${search}&page=${page}`);
+                            `{{ route('admin.blogs.getData') }}?search=${search}&page=${page}`);
                         const result = await response.json();
                         renderTable(result.data);
                         renderPagination(result, search);
@@ -143,7 +143,7 @@
 
                 document.getElementById("downloadPdfBtn").addEventListener("click", () => {
                     const search = document.getElementById("searchInput").value.trim();
-                    let url = `{{ route('blogs.download.pdf') }}`;
+                    let url = `{{ route('admin.blogs.download.pdf') }}`;
                     if (search) {
                         url += `?search=${encodeURIComponent(search)}`;
                     }

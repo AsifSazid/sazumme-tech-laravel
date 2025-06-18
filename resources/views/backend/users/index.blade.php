@@ -35,7 +35,7 @@
                                             @else
                                                 Not Selected by Admin
                                             @endif
-                                            <a href="{{ route('users.assign-roles', $user->uuid) }}" target="_blank"
+                                            <a href="{{ route('admin.users.assign-roles', $user->uuid) }}" target="_blank"
                                                 class="text-blue-500 hover:text-blue-700 mx-1" title="Add Role">
                                                 <i class="fas fa-plus"></i>
                                             </a>

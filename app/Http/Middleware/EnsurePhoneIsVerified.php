@@ -11,11 +11,14 @@ class EnsurePhoneIsVerified
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
-
+    
+        $fullHost = $request->getHost(); // e.g. publication.sazumme-tech-laravel.test
+        $subdomain = explode('.', $fullHost)[0];
+    
         if ($user && !$user->is_phone_verified) {
-            return redirect()->route('verify.phone');
+            return redirect()->route('user.verify.phone', ['subdomain' => $subdomain]);
         }
-
+    
         return $next($request);
     }
 }

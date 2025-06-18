@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('navigations', function (Blueprint $table) {
+            $table->id();
+            $table->string('uuid', '36')->unique();
+            $table->string('title');
+            $table->foreignId('navigation_for')->nullable()->constrained('wings')->nullOnDelete();
+            $table->string('navigation_for_title')->nullable();
+            $table->string('navigation_for_uuid')->nullable();
+            $table->unsignedBigInteger('created_by'); // Better to use user ID (foreign key)
+            $table->string('created_by_uuid')->nullable(); 
+            $table->timestamp('url')->nullable(); // When the announcement should start showing
+            $table->boolean('is_active')->default(true); // Quick toggle for visibility
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('navigations');
+    }
+};

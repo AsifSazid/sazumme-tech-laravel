@@ -53,11 +53,11 @@
                                     <span class="ml-4">Updated: {{ $wing->updated_at->format('d-M-Y H:i') }}</span>
                                 </div>
                                 <div class="space-x-2">
-                                    <a href="{{ route('wings.index') }}"
+                                    <a href="{{ route('admin.wings.index') }}"
                                         class="text-blue-600 hover:underline">← Back</a>
-                                    <a href="{{ route('wings.edit', $wing->uuid) }}"
+                                    <a href="{{ route('admin.wings.edit', $wing->uuid) }}"
                                         class="text-yellow-600 hover:underline">Edit</a>
-                                    <form action="{{ route('wings.destroy', $wing->uuid) }}" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this wing?');">
+                                    <form action="{{ route('admin.wings.destroy', $wing->uuid) }}" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this wing?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-red-600 hover:underline">Delete</button>
