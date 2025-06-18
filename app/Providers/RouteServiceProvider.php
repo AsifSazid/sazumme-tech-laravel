@@ -34,6 +34,8 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
 
+            Route::aliasMiddleware('admin.guest', \App\Http\Middleware\RedirectIfAdminAuthenticated::class);
+
             // Route::middleware('web')
             //     ->namespace($this->namespace)
             //     ->group(base_path('routes/ebook.php'));

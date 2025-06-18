@@ -20,3 +20,8 @@ if (!function_exists('userHasRole')) {
         return Auth::user()->roles->contains('name', $roleName);
     }
 }
+
+function isAdminDomain(): bool
+{
+    return request()->getHost() === 'sazumme-tech-laravel.test';
+}
