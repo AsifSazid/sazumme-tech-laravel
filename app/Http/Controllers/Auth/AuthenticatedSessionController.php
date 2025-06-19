@@ -16,7 +16,8 @@ class AuthenticatedSessionController extends Controller
     {
         $host = request()->getHost();
     
-        if ($host === 'sazumme-tech-laravel.test') {
+        // if ($host === 'sazumme-tech-laravel.test') {
+        if ($host === 'sazumme.com') {
             // Main domain - admin login view
             return view('admin.auth.login');
         }

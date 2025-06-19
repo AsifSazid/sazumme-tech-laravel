@@ -21,7 +21,8 @@ use App\Http\Controllers\Admin\Auth\AdminPasswordController;
 | Admin routes for main domain
 |--------------------------------------------------------------------------
 */
-Route::domain('sazumme-tech-laravel.test')->name('admin.')->group(function () {
+// Route::domain('sazumme-tech-laravel.test')->name('admin.')->group(function () {
+Route::domain('sazumme.com')->name('admin.')->group(function () {
 
     Route::middleware('guest:admin')->group(function () {
         Route::middleware(['admin.guest'])->group(function () {
@@ -52,7 +53,8 @@ Route::domain('sazumme-tech-laravel.test')->name('admin.')->group(function () {
 | Subdomain routes for user registration/login
 |--------------------------------------------------------------------------
 */
-Route::domain('{subdomain}.sazumme-tech-laravel.test')->name('user.')->group(function () {
+// Route::domain('{subdomain}.sazumme-tech-laravel.test')->name('user.')->group(function () {
+Route::domain('{subdomain}.sazumme.com')->name('user.')->group(function () {
 
     Route::middleware('guest')->group(function () {
         Route::get('register', [RegisteredUserController::class, 'create'])->name('register');

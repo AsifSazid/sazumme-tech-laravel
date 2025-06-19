@@ -23,5 +23,6 @@ if (!function_exists('userHasRole')) {
 
 function isAdminDomain(): bool
 {
-    return request()->getHost() === 'sazumme-tech-laravel.test';
+    return request()->getHost() === 'sazumme.com';
+    // return request()->getHost() === 'sazumme-tech-laravel.test';
 }
