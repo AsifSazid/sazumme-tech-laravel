@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Wing;
@@ -42,7 +43,7 @@ class DatabaseSeeder extends Seeder
 
         // User::factory(10)->create();
 
-        User::factory()->create([
+        Admin::create([
             'uuid' => (string) \Illuminate\Support\Str::uuid(),
             'name' => 'Super Admin',
             'email' => 'superadmin@sazumme.com',

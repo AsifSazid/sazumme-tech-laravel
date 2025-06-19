@@ -51,9 +51,9 @@ Route::get('/contact-us', function () {
     return view('frontend.contact-us');
 })->name('contact-us');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified', EnsurePhoneIsVerified::class])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified', EnsurePhoneIsVerified::class])->name('dashboard');
 
 
 Route::middleware('auth')->group(function () {

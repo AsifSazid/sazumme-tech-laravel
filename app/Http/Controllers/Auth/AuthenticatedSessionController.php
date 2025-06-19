@@ -29,7 +29,6 @@ class AuthenticatedSessionController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        // Check if trying to login as admin (maindomain.com) or user (subdomain)
         if (isAdminDomain()) {
             if (Auth::guard('admin')->attempt($credentials)) {
                 $request->session()->regenerate();
@@ -38,13 +37,14 @@ class AuthenticatedSessionController extends Controller
         } else {
             if (Auth::guard('web')->attempt($credentials)) {
                 $request->session()->regenerate();
-                return redirect()->intended(route('dashboard'));
+                return redirect()->intended(route('user.dashboard', ['subdomain' => $this->getSubdoamin()]));
             }
         }
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ]);
+
     }
 
     public function destroy(Request $request)
@@ -56,11 +56,18 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        $subdomain = request()->route('subdomain') ?? explode('.', request()->getHost())[0];
-
         return $guard === 'admin'
             ? redirect()->route('admin.login')
-            : redirect()->route('user.login', ['subdomain' => $subdomain]);
+            : redirect()->route('user.login', ['subdomain' => $this->getSubdoamin()]);
+    }
+
+    private function getSubdoamin()
+    {
+        $host = request()->getHost();
+        $parts = explode('.', $host);
+        $subdomain = count($parts) > 2 ? $parts[0] : null;
+
+        return $subdomain;
     }
 
     

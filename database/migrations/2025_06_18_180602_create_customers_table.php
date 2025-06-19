@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('subdomain_id')->constrained();
+            $table->foreignId('announcement_for')->nullable()->constrained('wings')->nullOnDelete();
+            $table->string('announcement_for_title')->nullable();
+            $table->string('announcement_for_uuid')->nullable();
             $table->timestamps();
         });
     }
