@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 // admin panel er jonno middlewere diye
 // Route::middleware(['web', 'auth:admin'])->prefix('/admin')->name('admin.')->group(function () {
-Route::middleware(['web', 'custom.auth:admin'])->prefix('/admin')->name('admin.')->group(function () {
+Route::middleware(['web', 'auth:admin'])->prefix('/admin')->name('admin.')->group(function () {
     // Route::middleware(['role:Super Admin'])->group(function () {
         // Announcement
         Route::get('/announcements/list', [AnnouncementController::class, 'getData'])->name('announcements.getData');
