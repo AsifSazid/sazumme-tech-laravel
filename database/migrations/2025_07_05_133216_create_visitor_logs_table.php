@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('visitor_logs', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid', '36')->unique();
             $table->string('ip_address');
             $table->dateTime('visit_date'); // full timestamp
             $table->date('visit_day');      // for uniqueness
@@ -20,8 +21,11 @@ return new class extends Migration
             $table->string('country')->nullable();      // geo
             $table->string('browser')->nullable();      // user agent
             $table->string('device')->nullable();       // optional
+
+            $table->decimal('latitude', 10, 7)->nullable();
+            $table->decimal('longitude', 10, 7)->nullable();
             $table->timestamps();
-    
+
             $table->unique(['ip_address', 'visit_day', 'browser'], 'visitor_unique_combination');
         });
     }

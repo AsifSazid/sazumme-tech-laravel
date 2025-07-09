@@ -4,6 +4,7 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VisitorLogController;
 use App\Http\Controllers\WingController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,11 @@ Route::middleware(['web', 'auth:admin'])->prefix('/admin')->name('admin.')->grou
         // Role
         Route::get('/roles/list', [RoleController::class, 'getData'])->name('roles.getData');
         Route::get('/roles/download/pdf', [RoleController::class, 'downloadPdf'])->name('roles.download.pdf');
+        // Visitor Log
+        Route::get('/visitorlogs/index', [VisitorLogController::class, 'index'])->name('visitorlogs.index');
+        Route::get('/visitorlogs/list', [VisitorLogController::class, 'getData'])->name('visitorlogs.getData');
+        Route::get('/visitorlogs/download/pdf', [VisitorLogController::class, 'downloadPdf'])->name('visitorlogs.download.pdf');
+        Route::get('/visitorlogs/{id}', [VisitorLogController::class, 'show'])->name('visitorlogs.show');
         // Wing
         Route::get('/wings/list', [WingController::class, 'getData'])->name('wings.getData');
         Route::get('/wings/download/pdf', [WingController::class, 'downloadPdf'])->name('wings.download.pdf');
