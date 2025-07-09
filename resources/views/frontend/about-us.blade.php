@@ -146,13 +146,13 @@
                             <!-- About Author Info Wrap Start -->
                             <div class="about-author-info-wrap">
                                 <div class="about-author">
-                                    {{-- <img src="{{ asset('ui/frontend/assets') }}/images/sign.png" alt=""> --}}
+                                    <img src="{{ asset('ui/frontend/assets') }}/images/asif-sign.jpg" width="100" alt="Sign of Asif M. Sazid">
                                     <h3 class="name">Asif M. Sazid</h3>
                                     <span class="designation">CEO, SazUmme</span>
                                 </div>
                                 <div class="about-info">
                                     <p>Call to ask any question </p>
-                                    <h3 class="number">+880 1684 576 384</h3>
+                                    <h3 class="number"><x-frontend.layouts.partials.phone-no /></h3>
                                 </div>
                             </div>
                             <!-- About Author Info Wrap End -->

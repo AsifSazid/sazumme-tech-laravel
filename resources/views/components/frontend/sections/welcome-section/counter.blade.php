@@ -45,11 +45,11 @@
                     <!-- Single Counter Start -->
                     <div class="single-counter single-counter-4">
                         <div class="counter-img">
-                            <img src="{{ asset('ui/frontend/assets') }}/images/counter-1.png" alt="">
+                            <img src="{{ asset('ui/frontend/assets') }}/images/click-counter.png" alt="">
                         </div>
                         <div class="counter-content">
-                            <span class="counter">1090</span>
-                            <p>Media Posts</p>
+                            <span class="counter">{{$todaysVisit}}</span>
+                            <p>Total Visits Today</p>
                         </div>
                     </div>
                     <!-- Single Counter End -->

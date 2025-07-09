@@ -23,7 +23,7 @@
                         </ul>
                     </li> --}}
                     <li class="{{ request()->routeIs('about-us') ? 'active-menu' : '' }}"><a
-                            href="{{ route('about-us') }}">Aboute Us</a></li>
+                            href="{{ route('about-us') }}">About Us</a></li>
                     <li class="{{ request()->routeIs('our-wings') ? 'active-menu' : '' }}">
                         <a href="{{ route('our-wings') }}">Our Wings</a>
                     </li>

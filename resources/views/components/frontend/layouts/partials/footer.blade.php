@@ -45,10 +45,10 @@ style="background-image: url({{ asset('ui/frontend/assets') }}/images/bg/footer-
 
                     <div class="widget-link">
                         <ul class="link">
-                            <li><a href="#">Data Security</a></li>
-                            <li><a href="#">IT Managment</a></li>
-                            <li><a href="#">Outsourcing</a></li>
-                            <li><a href="#">Networking</a></li>
+                            <li><a href="#">Web Design & Development</a></li>
+                            <li><a href="#">Education</a></li>
+                            <li><a href="#">AI & Automation</a></li>
+                            <li><a href="#">Publication</a></li>
                         </ul>
                     </div>
                 </div>
@@ -66,7 +66,7 @@ style="background-image: url({{ asset('ui/frontend/assets') }}/images/bg/footer-
                                     <i class="flaticon-phone-call"></i>
                                 </div>
                                 <div class="info-text">
-                                    <span><a href="#">+880 1684 576 384</a></span>
+                                    <span><a href="#"><x-frontend.layouts.partials.phone-no /></a></span>
                                 </div>
                             </li>
                             <li>

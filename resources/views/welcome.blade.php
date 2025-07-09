@@ -33,7 +33,7 @@
     <!-- About End -->
 
     <!-- Counter Start -->
-    {{-- <x-frontend.sections.welcome-section.counter /> --}}
+    <x-frontend.sections.welcome-section.counter todaysVisit={{$todaysVisit}}/>
     <!-- Counter End -->
 
     <!-- Choose Us Start -->

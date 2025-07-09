@@ -18,7 +18,7 @@
                 <div class="col-xl-3 col-lg-4">
                     <!-- Cta Button Start -->
                     <div class="cta-btn">
-                        <a class="btn btn-white" href="tel:+8801684576384">+880 1684 576 384</a>
+                        <a class="btn btn-white" href="tel:+8801937830046"><x-frontend.layouts.partials.phone-no /></a>
                     </div>
                     <!-- Cta Button End -->
                 </div>
