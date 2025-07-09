@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Announcement;
 use App\Models\VisitorLog;
-use Illuminate\Support\Carbon;
+use Jenssegers\Agent\Agent;
 use Illuminate\Support\Facades\Http;
 
 class HomeController extends Controller
@@ -25,26 +25,34 @@ class HomeController extends Controller
             ->with('image') // eager load image if needed
             ->get();
 
-        $todaysVisit = $this->visitorLog();
+        $todaysVisit = $this->visitorLog($now);
 
         return view('welcome', compact('announcements', 'todaysVisit'));
     }
 
-    private function visitorLog()
+    private function visitorLog($now)
     {
         $ip = request()->ip();
-        $today = Carbon::today();
+        $visitDay = $now->toDateString(); // '2025-07-10'
+        $userAgent = request()->userAgent();
+        $visitFrom = request()->query('from', 'direct');
     
-        $exists = VisitorLog::where('ip_address', $ip)->where('visit_date', $today)->exists();
+        // Device detection
+        $device = $userAgent; // fallback
+        if (class_exists(Agent::class)) {
+            $agent = new Agent();
+            $device = $agent->device() . ' - ' . $agent->platform() . ' - ' . $agent->browser();
+        }
     
-        // dd($exists);
-        
+        // Check for existing visitor with same IP, same day, same browser
+        $exists = VisitorLog::where('ip_address', $ip)
+            ->where('visit_day', $visitDay)
+            ->where('browser', $userAgent)
+            ->exists();
+    
         if (!$exists) {
             $country = null;
             $city = null;
-            $userAgent = request()->userAgent();
-            $visitFrom = request()->query('from', 'direct'); // default value
-            $device = $userAgent; // fallback
     
             try {
                 $response = Http::get("http://ip-api.com/json/{$ip}");
@@ -52,25 +60,22 @@ class HomeController extends Controller
                     $country = $response['country'];
                     $city = $response['city'];
                 }
-            } catch (\Exception $e) {}
-    
-            if (class_exists(\Jenssegers\Agent\Agent::class)) {
-                $agent = new \Jenssegers\Agent\Agent();
-                $device = $agent->device() . ' - ' . $agent->platform() . ' - ' . $agent->browser();
+            } catch (\Exception $e) {
+                // Fail silently
             }
     
             VisitorLog::create([
                 'ip_address' => $ip,
-                'visit_date' => $today,
+                'visit_date' => $now,
+                'visit_day' => $visitDay,
                 'country' => ($city && $country) ? "{$city}, {$country}" : ($city ?? $country),
                 'browser' => $userAgent,
                 'visit_from' => $visitFrom,
                 'device' => $device,
             ]);
-
         }
     
-        $todayVisits = VisitorLog::where('visit_date', $today)->count();
+        $todayVisits = VisitorLog::where('visit_day', $visitDay)->count();
 
         return $todayVisits;
     }

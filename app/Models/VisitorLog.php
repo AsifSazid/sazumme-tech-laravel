@@ -9,6 +9,7 @@ class VisitorLog extends Model
     protected $fillable = [
         'ip_address',
         'visit_date',
+        'visit_day',
         'country',
         'browser',
         'device',

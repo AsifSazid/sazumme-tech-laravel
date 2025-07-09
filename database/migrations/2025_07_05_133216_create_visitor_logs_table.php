@@ -14,14 +14,15 @@ return new class extends Migration
         Schema::create('visitor_logs', function (Blueprint $table) {
             $table->id();
             $table->string('ip_address');
-            $table->date('visit_date');
+            $table->dateTime('visit_date'); // full timestamp
+            $table->date('visit_day');      // for uniqueness
             $table->string('visit_from')->nullable();     // facebook, youtube, linkedin je jayga theke link e dhukche
             $table->string('country')->nullable();      // geo
             $table->string('browser')->nullable();      // user agent
             $table->string('device')->nullable();       // optional
             $table->timestamps();
     
-            $table->unique(['ip_address', 'visit_date']); // prevent duplicate
+            $table->unique(['ip_address', 'visit_day', 'browser'], 'visitor_unique_combination');
         });
     }
 
