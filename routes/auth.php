@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -10,7 +11,6 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\PhoneVerificationController;
-use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\Auth\AdminForgotPasswordController;
 use App\Http\Controllers\Admin\Auth\AdminResetPasswordController;
@@ -18,29 +18,30 @@ use App\Http\Controllers\Admin\Auth\AdminPasswordController;
 
 /*
 |--------------------------------------------------------------------------
-| Admin routes for main domain
+| Admin routes for main domain (admin.guard)
 |--------------------------------------------------------------------------
 */
+
 // Route::domain('sazumme-tech-laravel.test')->name('admin.')->group(function () {
 Route::domain('sazumme.com')->name('admin.')->group(function () {
 
-    Route::middleware('guest:admin')->group(function () {
-        Route::middleware(['admin.guest'])->group(function () {
-            Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');  // admin.login
-            Route::post('login', [AuthenticatedSessionController::class, 'store']);
+    // Guest routes (Login, Forgot Password, etc.)
+    Route::middleware(['multi.auth:guest,admin'])->group(function () {
+        Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
+        Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
-            Route::get('forgot-password', [AdminForgotPasswordController::class, 'create'])->name('password.request');
-            Route::post('forgot-password', [AdminForgotPasswordController::class, 'store'])->name('password.email');
-            Route::get('reset-password/{token}', [AdminResetPasswordController::class, 'create'])->name('password.reset');
-            Route::post('reset-password', [AdminResetPasswordController::class, 'store'])->name('password.update');
-        });
+        Route::get('forgot-password', [AdminForgotPasswordController::class, 'create'])->name('password.request');
+        Route::post('forgot-password', [AdminForgotPasswordController::class, 'store'])->name('password.email');
+        Route::get('reset-password/{token}', [AdminResetPasswordController::class, 'create'])->name('password.reset');
+        Route::post('reset-password', [AdminResetPasswordController::class, 'store'])->name('password.update');
     });
 
-    Route::middleware('auth:admin')->group(function () {
+    // Authenticated admin routes
+    Route::middleware(['multi.auth:auth,admin'])->group(function () {
         Route::get('change-password', [AdminPasswordController::class, 'edit'])->name('password.edit');
         Route::put('change-password', [AdminPasswordController::class, 'update'])->name('password.change');
 
-        Route::get('/admin/dashboard', function () {
+        Route::get('dashboard', function () {
             return view('admin.dashboard');
         })->name('dashboard');
 
@@ -48,15 +49,18 @@ Route::domain('sazumme.com')->name('admin.')->group(function () {
     });
 });
 
+
 /*
 |--------------------------------------------------------------------------
-| Subdomain routes for user registration/login
+| User routes for subdomains (user.guard)
 |--------------------------------------------------------------------------
 */
-// Route::domain('{subdomain}.sazumme-tech-laravel.test')->name('user.')->group(function () {
-Route::domain('{subdomain}.sazumme.com')->name('user.')->group(function () {
 
-    Route::middleware('guest')->group(function () {
+// Route::domain('{subdomain}.sazumme-tech-laravel.test')->name('user.')->group(function () {
+    Route::domain('{subdomain}.sazumme.com')->name('user.')->group(function () {
+
+    // Guest user routes (registration, login, forgot password)
+    Route::middleware(['multi.auth:guest,web'])->group(function () {
         Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
         Route::post('register', [RegisteredUserController::class, 'store']);
 
@@ -69,7 +73,8 @@ Route::domain('{subdomain}.sazumme.com')->name('user.')->group(function () {
         Route::post('reset-password', [NewPasswordController::class, 'store'])->name('password.store');
     });
 
-    Route::middleware('auth')->group(function () {
+    // Authenticated user routes
+    Route::middleware(['multi.auth:auth,web'])->group(function () {
         Route::get('/verify-phone', [PhoneVerificationController::class, 'verifyPhone'])->name('verify.phone');
         Route::post('/phone-no/verification', [PhoneVerificationController::class, 'sendOtp'])->middleware('throttle:6,1')->name('phone-no.verification.send');
         Route::post('/verify-otp', [PhoneVerificationController::class, 'verifyOtp'])->name('verify-otp');
@@ -85,7 +90,7 @@ Route::domain('{subdomain}.sazumme.com')->name('user.')->group(function () {
         Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
         Route::get('/dashboard', function () {
-            return view('dashboard'); // user dashboard blade
+            return view('dashboard'); // User dashboard view
         })->name('dashboard');
     });
 });
