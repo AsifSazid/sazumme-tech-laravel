@@ -16,9 +16,14 @@ class Authenticate extends Middleware
         }
 
         // If request is for admin domain
-        if ($request->getHost() === 'sazumme-tech-laravel.test') {
+        // if ($request->getHost() === 'sazumme-tech-laravel.test') {
+        //     return route('admin.login');
+        // }
+
+        if ($request->getHost() === 'sazumme-tech-laravel.test' || $request->getHost() === 'www.sazumme-tech-laravel.test') {
             return route('admin.login');
         }
+
 
         // If it's subdomain for user
         if (preg_match('/^(.+)\.sazumme-tech-laravel\.test$/', $request->getHost(), $matches)) {
