@@ -74,9 +74,9 @@
                         <tr>
                             <td class="px-6 py-4">${index + 1}</td>
                             <td class="px-6 py-4">${visitorlog.ip_address}</td>
-                            <td class="px-6 py-4"><i class="${visitorlog.visit_date}"></i></td>
+                            <td class="px-6 py-4">${visitorlog.visit_date}</td>
                             <td class="px-6 py-4">${visitorlog.visit_from}</td>
-                            <td class="px-6 py-4"><i class="${visitorlog.country}"></i></td>
+                            <td class="px-6 py-4">${visitorlog.country}</td>
                             <td class="px-6 py-4">
                                 <div class="flex justify-center">
                                     <a href="/admin/visitorlogs/${visitorlog.uuid}" class="px-1 text-blue-500 hover:text-blue-700" title="View"><i class="fas fa-eye"></i></a>
