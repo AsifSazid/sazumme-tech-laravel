@@ -38,6 +38,6 @@ class Authenticate extends Middleware
         }
 
         // Default fallback (if necessary)
-        return route('admin.login', ['subdomain' => 'www']);
+        return route('admin.login');
     }
 }
