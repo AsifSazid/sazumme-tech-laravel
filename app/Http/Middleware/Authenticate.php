@@ -30,7 +30,7 @@ class Authenticate extends Middleware
         //     return route('user.login', ['subdomain' => $matches[1]]);
         // }
 
-        if (preg_match('/^(.+)\.sazumme-tech-laravel\.test$/', $host, $matches)) {
+        if (preg_match('/^(.+)\.sazumme-tech-laravel\.test$/', $request->getHost(), $matches)) {
             // Exclude 'www' subdomain from this condition
             if ($matches[1] !== 'www') {
                 return route('user.login', ['subdomain' => $matches[1]]);
