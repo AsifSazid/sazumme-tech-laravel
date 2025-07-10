@@ -22,13 +22,16 @@ use App\Http\Controllers\Admin\Auth\AdminPasswordController;
 |--------------------------------------------------------------------------
 */
 
-// Route::domain('sazumme-tech-laravel.test')->name('admin.')->group(function () {
-Route::domain('sazumme.com')->name('admin.')->group(function () {
+Route::domain('sazumme-tech-laravel.test')->name('admin.')->group(function () {
+// Route::domain('sazumme.com')->name('admin.')->group(function () {
 
     // Guest routes (Login, Forgot Password, etc.)
     Route::middleware(['multi.auth:guest,admin'])->group(function () {
         Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
-        Route::post('login', [AuthenticatedSessionController::class, 'store']);
+        Route::post('login', function(){
+            dd(request()->all());
+        });
+        // Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
         Route::get('forgot-password', [AdminForgotPasswordController::class, 'create'])->name('password.request');
         Route::post('forgot-password', [AdminForgotPasswordController::class, 'store'])->name('password.email');
@@ -38,12 +41,13 @@ Route::domain('sazumme.com')->name('admin.')->group(function () {
 
     // Authenticated admin routes
     Route::middleware(['multi.auth:auth,admin'])->group(function () {
-        Route::get('change-password', [AdminPasswordController::class, 'edit'])->name('password.edit');
-        Route::put('change-password', [AdminPasswordController::class, 'update'])->name('password.change');
-
         Route::get('dashboard', function () {
             return view('admin.dashboard');
         })->name('dashboard');
+
+        Route::get('change-password', [AdminPasswordController::class, 'edit'])->name('password.edit');
+        Route::put('change-password', [AdminPasswordController::class, 'update'])->name('password.change');
+
 
         Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
     });
@@ -56,8 +60,8 @@ Route::domain('sazumme.com')->name('admin.')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-// Route::domain('{subdomain}.sazumme-tech-laravel.test')->name('user.')->group(function () {
-    Route::domain('{subdomain}.sazumme.com')->name('user.')->group(function () {
+Route::domain('{subdomain}.sazumme-tech-laravel.test')->name('user.')->group(function () {
+    // Route::domain('{subdomain}.sazumme.com')->name('user.')->group(function () {
 
     // Guest user routes (registration, login, forgot password)
     Route::middleware(['multi.auth:guest,web'])->group(function () {

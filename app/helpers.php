@@ -9,20 +9,20 @@ if (!function_exists('userHasRole')) {
      * @param string $roleName
      * @return bool
      */
-    
     function userHasRole(string $roleName): bool
     {
         if (!Auth::check()) {
             return false;
         }
 
-        // Assuming roles is a hasMany relationship returning a collection
         return Auth::user()->roles->contains('name', $roleName);
     }
 }
 
-function isAdminDomain(): bool
-{
-    return request()->getHost() === 'sazumme.com';
-    // return request()->getHost() === 'sazumme-tech-laravel.test';
+if (!function_exists('isAdminDomain')) {
+    function isAdminDomain(): bool
+    {
+        $mainDomain = config('domains.main');
+        return request()->getHost() === $mainDomain;
+    }
 }
