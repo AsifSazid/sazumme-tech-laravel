@@ -11,25 +11,31 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request): ?string
     {
+        $mainDomain = config('domains.main');
+
         if ($request->expectsJson()) {
             return null;
         }
 
-        // If request is for admin domain
-        if ($request->getHost() === 'sazumme-tech-laravel.test' || $request->getHost() === 'www.sazumme-tech-laravel.test') {
+        $host = $request->getHost();
+        $hostWithoutWWW = preg_replace('/^www\./', '', $host); // Remove 'www.'
+
+        // Admin domain check (with or without www)
+        if ($hostWithoutWWW === $mainDomain) {
             return route('admin.login');
         }
 
+        // Subdomain check
+        if (preg_match('/^(.+)\.' . $mainDomain . '$/', $host, $matches)) {
+            $sub = $matches[1];
 
-        // If it's subdomain for user
-        if (preg_match('/^(.+)\.sazumme-tech-laravel\.test$/', $request->getHost(), $matches)) {
-            // Exclude 'www' subdomain from this condition
-            if ($matches[1] !== 'www') {
-                return route('user.login', ['subdomain' => $matches[1]]);
+            // Prevent 'www' subdomain being treated as user
+            if ($sub !== 'www') {
+                return route('user.login', ['subdomain' => $sub]);
             }
         }
 
-        // Default fallback (if necessary)
+        // Fallback
         return route('admin.login');
     }
 }

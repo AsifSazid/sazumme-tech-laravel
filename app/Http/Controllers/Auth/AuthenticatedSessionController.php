@@ -3,26 +3,28 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
 {
-    // custom code
+    protected string $mainDomain;
+
+    public function __construct()
+    {
+        $this->mainDomain = config('domains.main');
+    }
+
     public function create(): View
     {
         $host = request()->getHost();
-    
-        // if ($host === 'sazumme-tech-laravel.test') {
-        if ($host === 'sazumme.com') {
-            // Main domain - admin login view
+
+        // Main domain or www subdomain
+        if ($host === $this->mainDomain || $host === 'www.' . $this->mainDomain) {
             return view('admin.auth.login');
         }
-    
-        // Otherwise, assume subdomain user login
+
         return view('auth.login');
     }
 
@@ -30,7 +32,7 @@ class AuthenticatedSessionController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        if (isAdminDomain()) {
+        if ($this->isAdminDomain()) {
             if (Auth::guard('admin')->attempt($credentials)) {
                 $request->session()->regenerate();
                 return redirect()->intended(route('admin.dashboard'));
@@ -38,19 +40,18 @@ class AuthenticatedSessionController extends Controller
         } else {
             if (Auth::guard('web')->attempt($credentials)) {
                 $request->session()->regenerate();
-                return redirect()->intended(route('user.dashboard', ['subdomain' => $this->getSubdoamin()]));
+                return redirect()->intended(route('user.dashboard', ['subdomain' => $this->getSubdomain()]));
             }
         }
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ]);
-
     }
 
     public function destroy(Request $request)
     {
-        $guard = isAdminDomain() ? 'admin' : 'web';
+        $guard = $this->isAdminDomain() ? 'admin' : 'web';
 
         Auth::guard($guard)->logout();
 
@@ -59,17 +60,24 @@ class AuthenticatedSessionController extends Controller
 
         return $guard === 'admin'
             ? redirect()->route('admin.login')
-            : redirect()->route('user.login', ['subdomain' => $this->getSubdoamin()]);
+            : redirect()->route('user.login', ['subdomain' => $this->getSubdomain()]);
     }
 
-    private function getSubdoamin()
+    private function isAdminDomain(): bool
     {
         $host = request()->getHost();
-        $parts = explode('.', $host);
-        $subdomain = count($parts) > 2 ? $parts[0] : null;
-
-        return $subdomain;
+        return $host === $this->mainDomain || $host === 'www.' . $this->mainDomain;
     }
 
-    
+    private function getSubdomain(): ?string
+    {
+        $host = request()->getHost();
+
+        if (str_ends_with($host, '.' . $this->mainDomain)) {
+            $subdomain = str_replace('.' . $this->mainDomain, '', $host);
+            return $subdomain !== 'www' ? $subdomain : null;
+        }
+
+        return null;
+    }
 }

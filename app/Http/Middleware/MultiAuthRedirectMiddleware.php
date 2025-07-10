@@ -11,25 +11,33 @@ class MultiAuthRedirectMiddleware
     public function handle(Request $request, Closure $next, $type = 'auth', $guard = null)
     {
         $guard = $guard ?? 'web';
-
+    
+        $host = $request->getHost();
+        $hostWithoutWWW = preg_replace('/^www\./', '', $host);
+        $domain = config('domains.main');
+    
+        $isMainDomain = ($hostWithoutWWW === $domain);
+        $isSubdomain = (!$isMainDomain && str_ends_with($host, '.'.$domain));
+    
         if ($type === 'auth') {
-            // Block unauthenticated users
             if (!Auth::guard($guard)->check()) {
                 abort(403, 'Unauthorized');
             }
         }
-
+    
         if ($type === 'guest') {
-            // Redirect logged-in users from guest routes
             if (Auth::guard($guard)->check()) {
-                if ($guard === 'admin') {
+                if ($isMainDomain && $guard === 'admin') {
                     return redirect()->route('admin.dashboard');
                 }
-
-                return redirect()->route('user.dashboard');
+    
+                if ($isSubdomain && $guard === 'user') {
+                    return redirect()->route('user.dashboard');
+                }
             }
         }
-
+    
         return $next($request);
     }
+    
 }
