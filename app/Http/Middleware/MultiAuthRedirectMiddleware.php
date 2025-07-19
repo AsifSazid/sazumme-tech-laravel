@@ -11,7 +11,9 @@ class MultiAuthRedirectMiddleware
     public function handle(Request $request, Closure $next, $type = 'auth', $guard = null)
     {
         $guard = $guard ?? 'web';
+        Auth::shouldUse($guard);
 
+        // dd($guard);
 
         $host = $request->getHost();
         $hostWithoutWWW = preg_replace('/^www\./', '', $host);

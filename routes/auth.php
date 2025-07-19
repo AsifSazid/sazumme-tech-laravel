@@ -28,10 +28,8 @@ Route::domain('sazumme-tech-laravel.test')->name('admin.')->group(function () {
     // Guest routes (Login, Forgot Password, etc.)
     Route::middleware(['multi.auth:guest,admin'])->group(function () {
         Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
-        Route::post('login', function(){
-            dd(request()->all());
-        });
-        // Route::post('login', [AuthenticatedSessionController::class, 'store']);
+
+        Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
         Route::get('forgot-password', [AdminForgotPasswordController::class, 'create'])->name('password.request');
         Route::post('forgot-password', [AdminForgotPasswordController::class, 'store'])->name('password.email');

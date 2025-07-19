@@ -31,8 +31,8 @@ class AuthenticatedSessionController extends Controller
     public function store(Request $request)
     {
         $credentials = $request->only('email', 'password');
-        dd($credentials);
-
+        // dd($credentials, $request->session());
+        
         if ($this->isAdminDomain()) {
             if (Auth::guard('admin')->attempt($credentials)) {
                 $request->session()->regenerate();
