@@ -17,7 +17,7 @@ class DashboardController extends Controller
         $wing = $domainController->getWingInfos();
 
 
-        dd($sub, $wing);
+        // dd($sub, $wing);
 
 
         return view('dashboard'); // User dashboard view

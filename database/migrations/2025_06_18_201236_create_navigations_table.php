@@ -15,12 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('uuid', '36')->unique();
             $table->string('title');
+            $table->foreignId('parent_id')->nullable()->constrained('navigations')->onDelete('cascade');
             $table->foreignId('navigation_for')->nullable()->constrained('wings')->nullOnDelete();
             $table->string('navigation_for_title')->nullable();
             $table->string('navigation_for_uuid')->nullable();
+            $table->string('subdomain')->nullable();
+            $table->string('nav_icon')->nullable();
             $table->unsignedBigInteger('created_by'); // Better to use user ID (foreign key)
             $table->string('created_by_uuid')->nullable(); 
-            $table->timestamp('url')->nullable(); // When the announcement should start showing
+            $table->string('url')->nullable(); 
+            $table->string('route')->nullable();
             $table->boolean('is_active')->default(true); // Quick toggle for visibility
             $table->timestamps();
         });

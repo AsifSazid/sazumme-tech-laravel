@@ -43,7 +43,7 @@ class DomainController extends Controller
     public function getNavigations(){
         $wing = $this->getWingInfos();
 
-        $navigations = Wing::where('subdomain', $wing->uuid)->first();
+        $navigations = Wing::where('wing_id', $wing->uuid)->first();
 
         return $navigations;
     }

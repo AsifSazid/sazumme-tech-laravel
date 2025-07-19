@@ -19,16 +19,19 @@ class NavigationController extends Controller
     public function create()
     {
         $wings = Wing::get();
-        return view('backend.navigations.create', compact('wings'));
+        $navigations = Navigation::get();
+        return view('backend.navigations.create', compact('wings', 'navigations'));
     }
 
     public function store(Request $request)
     {
-        // dd($request->all());
         $request['is_active'] = $request->has('is_active') ? 1 : 0;
 
         $request->validate([
             'title' => 'required|string',
+            'nav_icon' => 'string',
+            'url' => 'string',
+            'route' => 'string',
             'is_active' => 'nullable|boolean',
         ]);
 
@@ -40,23 +43,18 @@ class NavigationController extends Controller
             $navigation = Navigation::create([
                 'uuid' => (string) \Str::uuid(),
                 'title' => $request->title,
+                'nav_icon' => $request->nav_icon,
+                'url' => $request->url,
+                'route' => $request->route,
+                'parent_id' => $request->parent_id ?? null,
                 'navigation_for' => $wing->id ?? null,
                 'navigation_for_title' => $wing->title ?? null,
                 'navigation_for_uuid' => $wing->uuid ?? null,
+                'subdomain' => $wing->subdomain ?? null,
                 'created_by' => Auth::user()->id,
                 'created_by_uuid' => Auth::user()->uuid,
-                'url' => strtolower($request->title),
                 'is_active' => $request->has('is_active'),
             ]);
-
-            if ($request->hasFile('image')) {
-                $path = $request->file('image')->store('images', 'public');
-
-                $navigation->image()->create([
-                    'uuid' => (string) \Str::uuid(),
-                    'url' => $path,
-                ]);
-            }
 
             return redirect()->route('admin.navigations.index')->with('success', 'Navigation created successfully!');
         } catch (\Throwable $th) {

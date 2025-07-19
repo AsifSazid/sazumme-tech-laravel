@@ -17,47 +17,47 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Role::create([
-        //     'uuid' => (string) \Illuminate\Support\Str::uuid(),
-        //     'name' => 'Super Admin',
-        //     'alias' => 'super_admin',
-        //     'created_by' => 'Super Admin',
-        //     'access_control' => null
-        // ]);
+        Role::create([
+            'uuid' => (string) \Illuminate\Support\Str::uuid(),
+            'name' => 'Super Admin',
+            'alias' => 'super_admin',
+            'created_by' => 'Super Admin',
+            'access_control' => null
+        ]);
 
-        // Role::create([
-        //     'uuid' => (string) \Illuminate\Support\Str::uuid(),
-        //     'name' => 'Admin',
-        //     'alias' => 'admin',
-        //     'created_by' => 'Super Admin',
-        //     'access_control' => null
-        // ]);
+        Role::create([
+            'uuid' => (string) \Illuminate\Support\Str::uuid(),
+            'name' => 'Admin',
+            'alias' => 'admin',
+            'created_by' => 'Super Admin',
+            'access_control' => null
+        ]);
 
-        // Role::create([
-        //     'uuid' => (string) \Illuminate\Support\Str::uuid(),
-        //     'name' => 'Client',
-        //     'alias' => 'client',
-        //     'created_by' => 'Super Admin',
-        //     'access_control' => null
-        // ]);
+        Role::create([
+            'uuid' => (string) \Illuminate\Support\Str::uuid(),
+            'name' => 'Client',
+            'alias' => 'client',
+            'created_by' => 'Super Admin',
+            'access_control' => null
+        ]);
 
-        // // User::factory(10)->create();
+        // User::factory(10)->create();
 
-        // Admin::create([
-        //     'uuid' => (string) \Illuminate\Support\Str::uuid(),
-        //     'name' => 'Super Admin',
-        //     'email' => 'superadmin@sazumme.com',
-        //     'phone_no' => '01684576384',
-        //     'password' => Hash::make("87654321")
-        // ]);
+        Admin::create([
+            'uuid' => (string) \Illuminate\Support\Str::uuid(),
+            'name' => 'Super Admin',
+            'email' => 'superadmin@sazumme.com',
+            'phone_no' => '01684576384',
+            'password' => Hash::make("87654321")
+        ]);
 
-        // User::factory()->create([
-        //     'uuid' => (string) \Illuminate\Support\Str::uuid(),
-        //     'name' => 'Asif Mostofa Sazid',
-        //     'email' => 'asif83sazid@gmail.com',
-        //     'phone_no' => '01751906710',
-        //     'password' => Hash::make("12345678")
-        // ]);
+        User::factory()->create([
+            'uuid' => (string) \Illuminate\Support\Str::uuid(),
+            'name' => 'Asif Mostofa Sazid',
+            'email' => 'asif83sazid@gmail.com',
+            'phone_no' => '01751906710',
+            'password' => Hash::make("12345678")
+        ]);
 
         // Wings
         Wing::create([

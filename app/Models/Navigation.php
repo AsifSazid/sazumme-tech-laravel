@@ -22,6 +22,6 @@ class Navigation extends Model
 
     public function wing()
     {
-        return $this->belongsTo(Wing::class, 'announcement_for');
+        return $this->belongsTo(Wing::class, 'navigation_for');
     }
 }

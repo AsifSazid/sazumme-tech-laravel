@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\NavigationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VisitorLogController;
@@ -25,6 +26,12 @@ Route::middleware(['web', 'auth:admin'])->prefix('/admin')->name('admin.')->grou
         Route::get('/blogs/trash', [BlogController::class, 'trash'])->name('blogs.trash');
         Route::post('/blogs/{id}/restore', [BlogController::class, 'restore'])->name('blogs.restore');
         Route::delete('/blogs/{id}/force-delete', [BlogController::class, 'forceDelete'])->name('blogs.forceDelete');
+        // Blog
+        Route::get('/navigations/list', [NavigationController::class, 'getData'])->name('navigations.getData');
+        Route::get('/navigations/download/pdf', [NavigationController::class, 'downloadPdf'])->name('navigations.download.pdf');
+        Route::get('/navigations/trash', [NavigationController::class, 'trash'])->name('navigations.trash');
+        Route::post('/navigations/{id}/restore', [NavigationController::class, 'restore'])->name('navigations.restore');
+        Route::delete('/navigations/{id}/force-delete', [NavigationController::class, 'forceDelete'])->name('navigations.forceDelete');
         // Role
         Route::get('/roles/list', [RoleController::class, 'getData'])->name('roles.getData');
         Route::get('/roles/download/pdf', [RoleController::class, 'downloadPdf'])->name('roles.download.pdf');
@@ -43,6 +50,7 @@ Route::middleware(['web', 'auth:admin'])->prefix('/admin')->name('admin.')->grou
         Route::resources([
             'announcements' => AnnouncementController::class,
             'blogs' => BlogController::class,
+            'navigations' => NavigationController::class,
             'roles' => RoleController::class,
             'users' => UserController::class,
             'wings' => WingController::class,
