@@ -15,6 +15,8 @@ use App\Http\Controllers\Auth\PhoneVerificationController;
 use App\Http\Controllers\Admin\Auth\AdminForgotPasswordController;
 use App\Http\Controllers\Admin\Auth\AdminResetPasswordController;
 use App\Http\Controllers\Admin\Auth\AdminPasswordController;
+use App\Http\Controllers\DashboardController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,9 +41,7 @@ Route::domain('sazumme-tech-laravel.test')->name('admin.')->group(function () {
 
     // Authenticated admin routes
     Route::middleware(['multi.auth:auth,admin'])->group(function () {
-        Route::get('dashboard', function () {
-            return view('admin.dashboard');
-        })->name('dashboard');
+        Route::get('dashboard', [DashboardController::class, 'adminDashboard'])->name('dashboard');
 
         Route::get('change-password', [AdminPasswordController::class, 'edit'])->name('password.edit');
         Route::put('change-password', [AdminPasswordController::class, 'update'])->name('password.change');
@@ -91,8 +91,6 @@ Route::domain('{subdomain}.sazumme-tech-laravel.test')->name('user.')->group(fun
 
         Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
-        Route::get('/dashboard', function () {
-            return view('dashboard'); // User dashboard view
-        })->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'userDashboard'])->name('dashboard');
     });
 });

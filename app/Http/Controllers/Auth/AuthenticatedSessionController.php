@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\DomainController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -10,10 +11,13 @@ use Illuminate\View\View;
 class AuthenticatedSessionController extends Controller
 {
     protected string $mainDomain;
+    protected DomainController $domainController;
 
     public function __construct()
     {
         $this->mainDomain = config('domains.main');
+        $this->domainController = new DomainController;
+
     }
 
     public function create(): View
@@ -33,7 +37,7 @@ class AuthenticatedSessionController extends Controller
         $credentials = $request->only('email', 'password');
         // dd($credentials, $request->session());
         
-        if ($this->isAdminDomain()) {
+        if ($this->domainController->isAdminDomain()) {
             if (Auth::guard('admin')->attempt($credentials)) {
                 $request->session()->regenerate();
                 return redirect()->intended(route('admin.dashboard'));
@@ -41,7 +45,7 @@ class AuthenticatedSessionController extends Controller
         } else {
             if (Auth::guard('web')->attempt($credentials)) {
                 $request->session()->regenerate();
-                return redirect()->intended(route('user.dashboard', ['subdomain' => $this->getSubdomain()]));
+                return redirect()->intended(route('user.dashboard', ['subdomain' => $this->domainController->getSubdomain()]));
             }
         }
 
@@ -52,7 +56,7 @@ class AuthenticatedSessionController extends Controller
 
     public function destroy(Request $request)
     {
-        $guard = $this->isAdminDomain() ? 'admin' : 'web';
+        $guard = $this->domainController->isAdminDomain() ? 'admin' : 'web';
 
         Auth::guard($guard)->logout();
 
@@ -61,24 +65,7 @@ class AuthenticatedSessionController extends Controller
 
         return $guard === 'admin'
             ? redirect()->route('admin.login')
-            : redirect()->route('user.login', ['subdomain' => $this->getSubdomain()]);
+            : redirect()->route('user.login', ['subdomain' => $this->domainController->getSubdomain()]);
     }
 
-    private function isAdminDomain(): bool
-    {
-        $host = request()->getHost();
-        return $host === $this->mainDomain || $host === 'www.' . $this->mainDomain;
-    }
-
-    private function getSubdomain(): ?string
-    {
-        $host = request()->getHost();
-
-        if (str_ends_with($host, '.' . $this->mainDomain)) {
-            $subdomain = str_replace('.' . $this->mainDomain, '', $host);
-            return $subdomain !== 'www' ? $subdomain : null;
-        }
-
-        return null;
-    }
 }
