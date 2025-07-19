@@ -1,4 +1,4 @@
-<x-app-layout>
+{{-- <x-app-layout>
     <x-auth-card>
         <x-slot name="logo">
             <h2 class="text-xl font-bold text-center">Admin Reset Password</h2>
@@ -34,4 +34,4 @@
             </div>
         </form>
     </x-auth-card>
-</x-app-layout>
+</x-app-layout> --}}
