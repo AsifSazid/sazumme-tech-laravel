@@ -13,7 +13,7 @@ class MultiAuthRedirectMiddleware
         $guard = $guard ?? 'web';
         Auth::shouldUse($guard);
 
-        // dd($guard);
+        // dd($guard, Auth::user(), Auth::guard('admin')->check());
 
         $host = $request->getHost();
         $hostWithoutWWW = preg_replace('/^www\./', '', $host);
