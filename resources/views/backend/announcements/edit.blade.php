@@ -1,8 +1,10 @@
-<x-app-layout>
+<x-sb-admin-master>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Edit Announcement') }}
-        </h2>
+        <div class="flex items-center justify-between px-4 py-4 border-b lg:py-6 dark:border-primary-darker">
+            <h2 class="text-2xl font-semibold">
+                {{ __('Edit Announcement') }}
+            </h2>
+        </div>
     </x-slot>
 
     <div class="py-12">
@@ -20,23 +22,30 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('admin.announcements.update', $announcement->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admin.announcements.update', $announcement->id) }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
                             <div class="mb-4">
                                 <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
-                                <input type="text" name="title" id="title" value="{{ old('title', $announcement->title) }}" required
+                                <input type="text" name="title" id="title"
+                                    value="{{ old('title', $announcement->title) }}" required
                                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                             </div>
 
                             <div class="mb-4">
-                                <label for="announcement_for" class="block text-sm font-medium text-gray-700">Announcement For</label>
-                                <select name="announcement_for" id="announcement_for" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                <label for="announcement_for"
+                                    class="block text-sm font-medium text-gray-700">Announcement For</label>
+                                <select name="announcement_for" id="announcement_for"
+                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                                     <option value="" disabled>Select Any One</option>
-                                    <option value="main_website" {{ old('announcement_for', $announcement->announcement_for) === 'main_website' ? 'selected' : '' }}>Main Website</option>
+                                    <option value="main_website"
+                                        {{ old('announcement_for', $announcement->announcement_for) === 'main_website' ? 'selected' : '' }}>
+                                        Main Website</option>
                                     @foreach ($wings as $wing)
-                                        <option value="{{ $wing->id }}" {{ old('announcement_for', $announcement->announcement_for) == $wing->id ? 'selected' : '' }}>
+                                        <option value="{{ $wing->id }}"
+                                            {{ old('announcement_for', $announcement->announcement_for) == $wing->id ? 'selected' : '' }}>
                                             {{ $wing->title }}
                                         </option>
                                     @endforeach
@@ -50,12 +59,13 @@
                             </div>
 
                             <div class="mb-4">
-                                <label for="image" class="block text-sm font-medium text-gray-700">Replace Image</label>
+                                <label for="image" class="block text-sm font-medium text-gray-700">Replace
+                                    Image</label>
                                 <input type="file" name="image" id="image"
                                     class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border file:border-gray-300 file:rounded-md file:text-sm file:font-semibold file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100">
                             </div>
 
-                            @if($announcement->image)
+                            @if ($announcement->image)
                                 <div class="mb-6 flex justify-center">
                                     <img src="{{ asset('storage/' . $announcement->image->url) }}" alt="Current Image"
                                         class="rounded-lg shadow-md w-1/2 max-w-md">
@@ -64,18 +74,21 @@
 
                             <div class="mb-4">
                                 <label for="starts_at" class="block text-sm font-medium text-gray-700">Starts At</label>
-                                <input type="datetime-local" name="starts_at" id="starts_at" value="{{ old('starts_at', optional($announcement->starts_at)->format('Y-m-d\TH:i')) }}"
+                                <input type="datetime-local" name="starts_at" id="starts_at"
+                                    value="{{ old('starts_at', optional($announcement->starts_at)->format('Y-m-d\TH:i')) }}"
                                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                             </div>
 
                             <div class="mb-4">
                                 <label for="ends_at" class="block text-sm font-medium text-gray-700">Ends At</label>
-                                <input type="datetime-local" name="ends_at" id="ends_at" value="{{ old('ends_at', optional($announcement->ends_at)->format('Y-m-d\TH:i')) }}"
+                                <input type="datetime-local" name="ends_at" id="ends_at"
+                                    value="{{ old('ends_at', optional($announcement->ends_at)->format('Y-m-d\TH:i')) }}"
                                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                             </div>
 
                             <div class="mb-4 flex items-center">
-                                <input type="checkbox" name="is_active" id="is_active" {{ old('is_active', $announcement->is_active) ? 'checked' : '' }}
+                                <input type="checkbox" name="is_active" id="is_active"
+                                    {{ old('is_active', $announcement->is_active) ? 'checked' : '' }}
                                     class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
                                 <label for="is_active" class="ml-2 block text-sm text-gray-900">Active</label>
                             </div>
@@ -92,4 +105,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-sb-admin-master>

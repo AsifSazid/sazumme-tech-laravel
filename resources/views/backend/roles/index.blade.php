@@ -1,7 +1,7 @@
-<x-app-layout>
+<x-sb-admin-master>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <div class="flex items-center justify-between px-4 py-4 border-b lg:py-6 dark:border-primary-darker">
+            <h2 class="text-2xl font-semibold">
                 {{ __('Roles') }}
             </h2>
             <a href="{{ route('admin.roles.create') }}" class="text-green-500 hover:text-green-700 mx-1" title="Create"><i
@@ -169,4 +169,4 @@
             });
         </script>
     @endpush
-</x-app-layout>
+</x-sb-admin-master>

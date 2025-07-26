@@ -1,7 +1,7 @@
-<x-app-layout>
+<x-sb-admin-master>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <div class="flex items-center justify-between px-4 py-4 border-b lg:py-6 dark:border-primary-darker">
+            <h2 class="text-2xl font-semibold">
                 {{ __('Blog Trash Lists') }}
             </h2>
         </div>
@@ -77,4 +77,4 @@
     @push('js')
         <script></script>
     @endpush
-</x-app-layout>
+</x-sb-admin-master>

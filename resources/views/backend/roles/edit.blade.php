@@ -1,8 +1,10 @@
-<x-app-layout>
+<x-sb-admin-master>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Create Role') }}
-        </h2>
+        <div class="flex items-center justify-between px-4 py-4 border-b lg:py-6 dark:border-primary-darker">
+            <h2 class="text-2xl font-semibold">
+                {{ __('Create Role') }}
+            </h2>
+        </div>
     </x-slot>
 
     <div class="py-12">
@@ -20,19 +22,23 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('admin.roles.update', $role->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admin.roles.update', $role->id) }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
                             <div class="mb-4">
                                 <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
-                                <input type="text" name="title" id="title" value="{{ old('name', $role->name) }}" required
+                                <input type="text" name="title" id="title"
+                                    value="{{ old('name', $role->name) }}" required
                                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                             </div>
 
                             <div class="mb-4">
-                                <label for="alias" class="block text-sm font-medium text-gray-700">Announcement For</label>
-                                <input type="text" name="alias" id="alias" value="{{ old('alias', $role->alias) }}" readonly
+                                <label for="alias" class="block text-sm font-medium text-gray-700">Announcement
+                                    For</label>
+                                <input type="text" name="alias" id="alias"
+                                    value="{{ old('alias', $role->alias) }}" readonly
                                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                             </div>
 
@@ -61,4 +67,4 @@
             });
         </script>
     @endpush
-</x-app-layout>
+</x-sb-admin-master>

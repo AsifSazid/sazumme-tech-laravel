@@ -1,8 +1,10 @@
-<x-app-layout>
+<x-sb-admin-master>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Create Role') }}
-        </h2>
+        <div class="flex items-center justify-between px-4 py-4 border-b lg:py-6 dark:border-primary-darker">
+            <h2 class="text-2xl font-semibold">
+                {{ __('Create Role') }}
+            </h2>
+        </div>
     </x-slot>
 
     <div class="py-12">
@@ -60,4 +62,4 @@
             });
         </script>
     @endpush
-</x-app-layout>
+</x-sb-admin-master>

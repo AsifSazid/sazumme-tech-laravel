@@ -96,4 +96,4 @@
     @push('js')
         <script></script>
     @endpush
-    </x-app-layout>
+    </x-sb-admin-master>
