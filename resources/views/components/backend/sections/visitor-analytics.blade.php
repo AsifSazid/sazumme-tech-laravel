@@ -42,6 +42,8 @@
 
 {{-- Scripts --}}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
 <script>
     const barCtx = document.getElementById('barChart').getContext('2d');
     const pieCtx = document.getElementById('pieChart').getContext('2d');
@@ -72,6 +74,17 @@
             },
             options: {
                 responsive: true,
+                plugins: {
+                    datalabels: {
+                        anchor: 'end', // top of the bar
+                        align: 'top', // center, end, start
+                        formatter: Math.round,
+                        color: '#111',
+                        font: {
+                            weight: 'bold'
+                        }
+                    }
+                },
                 scales: {
                     y: {
                         beginAtZero: true,
