@@ -8,7 +8,6 @@ class DashboardController extends Controller
 {
     public function adminDashboard()
     {
-        dd(Auth::guard('admin')->check());
         return view('admin.dashboard');
     }
 
