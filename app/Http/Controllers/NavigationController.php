@@ -6,6 +6,7 @@ use App\Models\Navigation;
 use App\Models\Wing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 class NavigationController extends Controller
 {
@@ -169,5 +170,72 @@ class NavigationController extends Controller
         $view = view('backend.navigations.pdf', compact('navigations'));
         $mpdf->WriteHTML($view);
         $mpdf->Output();
+    }
+
+    public function syncRoutes()
+    {
+        $routes = Route::getRoutes();
+
+        dd($routes);
+
+        $parentRoutes = [];
+        $childRoutes = [];
+
+        // Group routes by parent-child relationship based on route name dot notation
+        foreach ($routes as $route) {
+            $name = $route->getName();
+            if (!$name) continue;
+
+            if (!str_contains($name, '.')) {
+                $parentRoutes[$name] = $route;
+            } else {
+                $parentName = explode('.', $name)[0];
+                $childRoutes[$parentName][] = $route;
+            }
+        }
+
+        foreach ($parentRoutes as $parentName => $parentRoute) {
+            $parentNav = Navigation::updateOrCreate(
+                ['route' => $parentName],  // route = route name
+                [
+                    'uuid' => (string) \Str::uuid(),
+                    'title' => ucfirst(str_replace('_', ' ', $parentName)),
+                    'url' => url($parentRoute->uri()),
+                    'parent_id' => null,
+                    'navigation_for' => null, // তোমার app অনুযায়ী set করতে পারো
+                    'navigation_for_title' => null,
+                    'navigation_for_uuid' => null,
+                    'subdomain' => null,
+                    'nav_icon' => null,
+                    'created_by' => Auth::id() ?? 1, // logged in user id or fallback
+                    'created_by_uuid' => null,
+                    'is_active' => true,
+                ]
+            );
+
+            if (isset($childRoutes[$parentName])) {
+                foreach ($childRoutes[$parentName] as $childRoute) {
+                    Navigation::updateOrCreate(
+                        ['route' => $childRoute->getName()],
+                        [
+                            'uuid' => (string) \Str::uuid(),
+                            'title' => ucfirst(str_replace(['_', '.'], [' ', ' '], $childRoute->getName())),
+                            'url' => url($childRoute->uri()),
+                            'parent_id' => $parentNav->id,
+                            'navigation_for' => null,
+                            'navigation_for_title' => null,
+                            'navigation_for_uuid' => null,
+                            'subdomain' => null,
+                            'nav_icon' => null,
+                            'created_by' => Auth::id() ?? 1,
+                            'created_by_uuid' => null,
+                            'is_active' => true,
+                        ]
+                    );
+                }
+            }
+        }
+
+        return redirect()->route('admin.navigations.index')->with('success', 'Routes synced successfully!');
     }
 }

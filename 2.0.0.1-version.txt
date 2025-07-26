@@ -17,3 +17,10 @@ In 1.1.0.1
 - Announcement Management.
 - Wing Management
 - Blog Management
+
+In 2.0.0.1
+- Login for admin in Main website
+- Login/Registration for User in SubDomain
+- Navigation Management
+- Visitor Log Management
+- Visitor Log Analytics

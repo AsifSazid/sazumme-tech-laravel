@@ -12,7 +12,9 @@
                     <div class="p-6 dark:text-gray-100">
                         {{ __('Welcome, Mr. ' . Auth::user()->name . "! You're logged in and the floor is your!") }}
                     </div>
-
+                    {{-- <a href="{{ route('admin.navigations.syncRoutes') }}" class="btn btn-primary mb-3">
+                        Sync Routes to Navigations
+                    </a> --}}
                 </div>
             </div>
         </div>
