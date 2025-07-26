@@ -1,6 +1,6 @@
 <?php
 
 return [
-    // 'main' => 'sazumme.com',
-    'main' => 'sazumme-tech-laravel.test',
+    'main' => 'sazumme.com',
+    // 'main' => 'sazumme-tech-laravel.test',
 ];
