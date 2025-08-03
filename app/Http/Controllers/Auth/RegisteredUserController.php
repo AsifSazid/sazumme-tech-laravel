@@ -16,6 +16,16 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
+    protected string $mainDomain;
+    protected DomainController $domainController;
+
+    public function __construct()
+    {
+        $this->mainDomain = config('domains.main');
+        $this->domainController = new DomainController;
+
+    }
+
     public function create(): View
     {
         return view('auth.register');
@@ -30,6 +40,7 @@ class RegisteredUserController extends Controller
     {
         $domainController = new DomainController;
         $wing = $domainController->getWingInfos();
+        // dd($wing);
     
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -73,7 +84,8 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        // return redirect(route('dashboard', absolute: false));
+        return redirect()->intended(route('user.dashboard', ['subdomain' => $this->domainController->getSubdomain()]));
     }
     
 }

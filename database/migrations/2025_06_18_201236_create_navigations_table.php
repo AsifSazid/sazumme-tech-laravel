@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('url')->nullable(); 
             $table->string('route')->nullable();
             $table->boolean('is_active')->default(true); // Quick toggle for visibility
+            $table->boolean('is_for_user')->default(true); // Quick toggle for visibility
             $table->timestamps();
         });
     }
