@@ -303,7 +303,7 @@ class NavigationController extends Controller
                         'subdomain' => $subdomain,
                         'created_by' => Auth::id() ?? 1,
                         'created_by_uuid' => optional(Auth::user())->uuid,
-                        'is_active' => false,
+                        'is_active' => true,
                     ]
                 );
 
@@ -322,7 +322,7 @@ class NavigationController extends Controller
                 'subdomain' => $subdomain,
                 'created_by' => Auth::id() ?? 1,
                 'created_by_uuid' => optional(Auth::user())->uuid,
-                'is_active' => false,
+                'is_active' => true,
                 'parent_id' => $parents[$base],
             ]);
         }
@@ -339,14 +339,14 @@ class NavigationController extends Controller
         // $subdomain = request()->getHost(); // or however you detect
         $query = Navigation::query()
             ->whereNull('parent_id')
-            ->where('is_active', false);
+            ->where('is_active', true);
     
         // if ($subdomain) {
         //     $query->where('subdomain', $subdomain);
         // }
     
         $navigations = $query->with(['children' => function ($q) {
-            $q->where('is_active', false);
+            $q->where('is_active', true);
         }])->get();
 
         // dd($navigations);
