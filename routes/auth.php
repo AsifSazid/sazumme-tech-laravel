@@ -25,8 +25,8 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |--------------------------------------------------------------------------
 */
 
-// Route::domain('sazumme-tech-laravel.test')->name('admin.')->group(function () {
-Route::domain('sazumme.com')->name('admin.')->group(function () {
+Route::domain('sazumme-tech-laravel.test')->name('admin.')->group(function () {
+// Route::domain('sazumme.com')->name('admin.')->group(function () {
 
     // Guest routes (Login, Forgot Password, etc.)
     Route::middleware(['multi.auth:guest,admin'])->group(function () {
@@ -62,8 +62,8 @@ Route::domain('sazumme.com')->name('admin.')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-// Route::domain('{subdomain}.sazumme-tech-laravel.test')->name('user.')->group(function () {
-Route::domain('{subdomain}.sazumme.com')->name('user.')->group(function () {
+Route::domain('{subdomain}.sazumme-tech-laravel.test')->name('user.')->group(function () {
+// Route::domain('{subdomain}.sazumme.com')->name('user.')->group(function () {
 
     // Guest user routes (registration, login, forgot password)
     Route::middleware(['multi.auth:guest,web'])->group(function () {

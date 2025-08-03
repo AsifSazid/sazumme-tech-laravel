@@ -8,7 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VisitorLogController;
 use App\Http\Controllers\WingController;
 use Illuminate\Support\Facades\Route;
-
+use SazUmme\Publication\Http\Controllers\EbookController;
 
 // admin panel er jonno middlewere diye
 // Route::middleware(['web', 'auth:admin'])->prefix('/admin')->name('admin.')->group(function () {
@@ -26,7 +26,14 @@ Route::middleware(['web', 'auth:admin'])->prefix('/admin')->name('admin.')->grou
     Route::get('/blogs/trash', [BlogController::class, 'trash'])->name('blogs.trash');
     Route::post('/blogs/{id}/restore', [BlogController::class, 'restore'])->name('blogs.restore');
     Route::delete('/blogs/{id}/force-delete', [BlogController::class, 'forceDelete'])->name('blogs.forceDelete');
-    // Blog
+    // Ebooks
+    Route::get('/ebooks/list', [EbookController::class, 'getData'])->name('ebooks.getData');
+    Route::get('/ebooks/download/pdf', [EbookController::class, 'downloadPdf'])->name('ebooks.download.pdf');
+    Route::get('/ebooks/trash', [EbookController::class, 'trash'])->name('ebooks.trash');
+    Route::post('/ebooks/{id}/restore', [EbookController::class, 'restore'])->name('ebooks.restore');
+    Route::delete('/ebooks/{id}/force-delete', [EbookController::class, 'forceDelete'])->name('ebooks.forceDelete');
+    // Navigation
+    Route::get('/navigations/sidebar', [NavigationController::class, 'getSidebarNavigation'])->name('navigations.getSidebarNavigation');
     Route::get('/navigations/list', [NavigationController::class, 'getData'])->name('navigations.getData');
     Route::get('/navigations/download/pdf', [NavigationController::class, 'downloadPdf'])->name('navigations.download.pdf');
     Route::get('/navigations/trash', [NavigationController::class, 'trash'])->name('navigations.trash');
@@ -50,6 +57,7 @@ Route::middleware(['web', 'auth:admin'])->prefix('/admin')->name('admin.')->grou
     Route::resources([
         'announcements' => AnnouncementController::class,
         'blogs' => BlogController::class,
+        'ebooks' => EbookController::class,
         'navigations' => NavigationController::class,
         'roles' => RoleController::class,
         'users' => UserController::class,

@@ -5,6 +5,11 @@
             <a href="{{ route('admin.navigations.create') }}" class="text-green-500 hover:text-green-700 mx-1"
                 title="Create"><i class="fas fa-plus"></i> Create New</a>
         </div>
+        <div>
+            <a href="{{ route('admin.navigations.syncRoutes') }}" class="btn btn-primary mb-3">
+                Sync Routes to Navigations
+            </a>
+        </div>
     </x-slot>
 
     <div class="py-12">

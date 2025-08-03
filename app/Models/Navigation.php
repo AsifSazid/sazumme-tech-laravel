@@ -24,4 +24,9 @@ class Navigation extends Model
     {
         return $this->belongsTo(Wing::class, 'navigation_for');
     }
+
+    public function children()
+    {
+        return $this->hasMany(Navigation::class, 'parent_id');
+    }
 }

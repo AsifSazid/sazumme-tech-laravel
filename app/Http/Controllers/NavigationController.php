@@ -7,6 +7,8 @@ use App\Models\Wing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class NavigationController extends Controller
 {
@@ -172,70 +174,184 @@ class NavigationController extends Controller
         $mpdf->Output();
     }
 
+    // public function syncRoutes()
+    // {
+    //     $routeCollection = Route::getRoutes();
+    //     $allRoutes = $routeCollection->getRoutes();
+
+
+    //     $parentRoutes = [];
+    //     $childRoutes = [];
+
+    //     // Group routes by parent-child relationship based on route name dot notation
+    //     foreach ($allRoutes as $route) {
+    //         dd([
+    //             'uri' => $route->uri(),
+    //             'name' => $route->getName(),
+    //             'action' => $route->getActionName(),
+    //             'methods' => $route->methods(),
+    //             'middleware' => $route->middleware(),
+    //         ]);
+    //         $name = $route->getName();
+    //         if (!$name) continue;
+
+    //         if (!str_contains($name, '.')) {
+    //             $parentRoutes[$name] = $route;
+    //         } else {
+    //             $parentName = explode('.', $name)[0];
+    //             $childRoutes[$parentName][] = $route;
+    //         }
+    //     }
+
+    //     foreach ($parentRoutes as $parentName => $parentRoute) {
+    //         $parentNav = Navigation::updateOrCreate(
+    //             ['route' => $parentName],  // route = route name
+    //             [
+    //                 'uuid' => (string) \Str::uuid(),
+    //                 'title' => ucfirst(str_replace('_', ' ', $parentName)),
+    //                 'url' => url($parentRoute->uri()),
+    //                 'parent_id' => null,
+    //                 'navigation_for' => null, // তোমার app অনুযায়ী set করতে পারো
+    //                 'navigation_for_title' => null,
+    //                 'navigation_for_uuid' => null,
+    //                 'subdomain' => null,
+    //                 'nav_icon' => null,
+    //                 'created_by' => Auth::id() ?? 1, // logged in user id or fallback
+    //                 'created_by_uuid' => null,
+    //                 'is_active' => true,
+    //             ]
+    //         );
+
+    //         if (isset($childRoutes[$parentName])) {
+    //             foreach ($childRoutes[$parentName] as $childRoute) {
+    //                 Navigation::updateOrCreate(
+    //                     ['route' => $childRoute->getName()],
+    //                     [
+    //                         'uuid' => (string) \Str::uuid(),
+    //                         'title' => ucfirst(str_replace(['_', '.'], [' ', ' '], $childRoute->getName())),
+    //                         'url' => url($childRoute->uri()),
+    //                         'parent_id' => $parentNav->id,
+    //                         'navigation_for' => null,
+    //                         'navigation_for_title' => null,
+    //                         'navigation_for_uuid' => null,
+    //                         'subdomain' => null,
+    //                         'nav_icon' => null,
+    //                         'created_by' => Auth::id() ?? 1,
+    //                         'created_by_uuid' => null,
+    //                         'is_active' => true,
+    //                     ]
+    //                 );
+    //             }
+    //         }
+    //     }
+
+    //     return redirect()->route('admin.navigations.index')->with('success', 'Routes synced successfully!');
+    // }
+
     public function syncRoutes()
     {
         $routes = Route::getRoutes();
+        $inserted = [];
 
-        dd($routes);
+        $parents = [];
 
-        $parentRoutes = [];
-        $childRoutes = [];
-
-        // Group routes by parent-child relationship based on route name dot notation
         foreach ($routes as $route) {
-            $name = $route->getName();
-            if (!$name) continue;
+            $routeName = $route->getName();
+            $uri = $route->uri();
+            $action = $route->getActionName();
 
-            if (!str_contains($name, '.')) {
-                $parentRoutes[$name] = $route;
+            if (!$routeName || $action === 'Closure') continue;
+
+            $actionMethod = Str::after($action, '@');
+            $ignored = [
+                'store',
+                'update',
+                'destroy',
+                'edit',
+                'show',
+                'trash',
+                'restore',
+                'forceDelete',
+                'getData',
+                'download',
+                'downloadPdf'
+            ];
+            if (in_array($actionMethod, $ignored)) continue;
+
+            // Route group base
+            $base = Str::before($routeName, '.');
+
+            // Subdomain detection (improved)
+            $subdomain = '';
+            if (isset($route->action['domain'])) {
+                $fullDomain = $route->action['domain'];
+                $subdomain = Str::before($fullDomain, '.');
             } else {
-                $parentName = explode('.', $name)[0];
-                $childRoutes[$parentName][] = $route;
+                $firstSegment = explode('/', $uri)[0] ?? '';
+                $subdomain = in_array($firstSegment, ['publication', 'admin', 'seller']) ? $firstSegment : null;
             }
+
+            // Parent nav (e.g., "Ebooks")
+            if (!isset($parents[$base])) {
+                $parent = Navigation::firstOrCreate(
+                    ['title' => Str::headline(Str::plural($base)), 'parent_id' => null],
+                    [
+                        'uuid' => Str::uuid(),
+                        'url' => '',
+                        'route' => '',
+                        'nav_icon' => '',
+                        'subdomain' => $subdomain,
+                        'created_by' => Auth::id() ?? 1,
+                        'created_by_uuid' => optional(Auth::user())->uuid,
+                        'is_active' => false,
+                    ]
+                );
+
+                $parents[$base] = $parent->id;
+            }
+
+            if (Navigation::where('route', $routeName)->exists()) continue;
+
+            // Final insert
+            $inserted[] = Navigation::create([
+                'uuid' => Str::uuid(),
+                'title' => Str::headline(Str::after($routeName, $base . '.')), // "index" → "Index"
+                'url' => '/' . ltrim($uri, '/'),
+                'route' => $routeName,
+                'nav_icon' => '',
+                'subdomain' => $subdomain,
+                'created_by' => Auth::id() ?? 1,
+                'created_by_uuid' => optional(Auth::user())->uuid,
+                'is_active' => false,
+                'parent_id' => $parents[$base],
+            ]);
         }
 
-        foreach ($parentRoutes as $parentName => $parentRoute) {
-            $parentNav = Navigation::updateOrCreate(
-                ['route' => $parentName],  // route = route name
-                [
-                    'uuid' => (string) \Str::uuid(),
-                    'title' => ucfirst(str_replace('_', ' ', $parentName)),
-                    'url' => url($parentRoute->uri()),
-                    'parent_id' => null,
-                    'navigation_for' => null, // তোমার app অনুযায়ী set করতে পারো
-                    'navigation_for_title' => null,
-                    'navigation_for_uuid' => null,
-                    'subdomain' => null,
-                    'nav_icon' => null,
-                    'created_by' => Auth::id() ?? 1, // logged in user id or fallback
-                    'created_by_uuid' => null,
-                    'is_active' => true,
-                ]
-            );
+        return response()->json([
+            'status' => 'done',
+            'inserted_count' => count($inserted),
+        ]);
+    }
 
-            if (isset($childRoutes[$parentName])) {
-                foreach ($childRoutes[$parentName] as $childRoute) {
-                    Navigation::updateOrCreate(
-                        ['route' => $childRoute->getName()],
-                        [
-                            'uuid' => (string) \Str::uuid(),
-                            'title' => ucfirst(str_replace(['_', '.'], [' ', ' '], $childRoute->getName())),
-                            'url' => url($childRoute->uri()),
-                            'parent_id' => $parentNav->id,
-                            'navigation_for' => null,
-                            'navigation_for_title' => null,
-                            'navigation_for_uuid' => null,
-                            'subdomain' => null,
-                            'nav_icon' => null,
-                            'created_by' => Auth::id() ?? 1,
-                            'created_by_uuid' => null,
-                            'is_active' => true,
-                        ]
-                    );
-                }
-            }
-        }
 
-        return redirect()->route('admin.navigations.index')->with('success', 'Routes synced successfully!');
+    public function getSidebarNavigation($subdomain = null)
+    {
+        // $subdomain = request()->getHost(); // or however you detect
+        $query = Navigation::query()
+            ->whereNull('parent_id')
+            ->where('is_active', false);
+    
+        // if ($subdomain) {
+        //     $query->where('subdomain', $subdomain);
+        // }
+    
+        $navigations = $query->with(['children' => function ($q) {
+            $q->where('is_active', false);
+        }])->get();
+
+        // dd($navigations);
+    
+        return view('backend.navigations.sidebar', compact('navigations'));
+        // return response()->json($formatted);
     }
 }
