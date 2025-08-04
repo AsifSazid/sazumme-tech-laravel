@@ -2,24 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Announcement;
+use App\Models\SoftwareProduct;
 use App\Models\Wing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
-class AnnouncementController extends Controller
+class SoftwareProductController extends Controller
 {
     public function index()
     {
-        $announcementCollection = Announcement::latest();
-        $announcements = $announcementCollection->paginate(10);
-        return view('backend.announcements.index', compact('announcements'));
+        $announcementCollection = SoftwareProduct::latest();
+        $software_products = $announcementCollection->paginate(10);
+        return view('backend.software_products.index', compact('software_products'));
     }
 
     public function create()
     {
         $wings = Wing::get();
-        return view('backend.announcements.create', compact('wings'));
+        return view('backend.software_products.create', compact('wings'));
     }
 
     public function store(Request $request)
@@ -41,7 +42,7 @@ class AnnouncementController extends Controller
                 ? Wing::find($request->announcement_for)
                 : null;
 
-            $announcement = Announcement::create([
+            $software_product = SoftwareProduct::create([
                 'uuid' => (string) \Str::uuid(),
                 'title' => $request->title,
                 'announcement_for' => $wing->id ?? null,
@@ -58,32 +59,32 @@ class AnnouncementController extends Controller
             if ($request->hasFile('image')) {
                 $path = $request->file('image')->store('images', 'public');
 
-                $announcement->image()->create([
+                $software_product->image()->create([
                     'uuid' => (string) \Str::uuid(),
                     'url' => $path,
                 ]);
             }
 
-            return redirect()->route('admin.announcements.index')->with('success', 'Announcement created successfully!');
+            return redirect()->route('admin.software_products.index')->with('success', 'SoftwareProduct created successfully!');
         } catch (\Throwable $th) {
             dd($th);
         }
     }
 
-    public function show($announcement)
+    public function show($software_product)
     {
-        $announcement = Announcement::where('uuid', $announcement)->first();
-        return view('backend.announcements.show', compact('announcement'));
+        $software_product = SoftwareProduct::where('uuid', $software_product)->first();
+        return view('backend.software_products.show', compact('software_product'));
     }
 
-    public function edit($announcement)
+    public function edit($software_product)
     {
-        $announcement = Announcement::where('uuid', $announcement)->first();
+        $software_product = SoftwareProduct::where('uuid', $software_product)->first();
         $wings = Wing::get();
-        return view('backend.announcements.edit', compact('announcement', 'wings'));
+        return view('backend.software_products.edit', compact('software_product', 'wings'));
     }
 
-    public function update(Request $request, Announcement $announcement)
+    public function update(Request $request, SoftwareProduct $software_product)
     {
         $request['is_active'] = $request->has('is_active') ? 1 : 0;
 
@@ -100,7 +101,7 @@ class AnnouncementController extends Controller
             $wing = $request->announcement_for
                 ? Wing::find($request->announcement_for)
                 : null;
-            $announcement->update([
+            $software_product->update([
                 'title' => $request->title,
                 'announcement_for' => $wing->id ?? null,
                 'announcement_for_title' => $wing->title ?? null,
@@ -113,20 +114,20 @@ class AnnouncementController extends Controller
 
             if ($request->hasFile('image')) {
                 // Delete previous image if exists
-                if ($announcement->image) {
-                    Storage::disk('public')->delete($announcement->image->url);
-                    $announcement->image()->delete();
+                if ($software_product->image) {
+                    Storage::disk('public')->delete($software_product->image->url);
+                    $software_product->image()->delete();
                 }
 
                 // Store new image
                 $path = $request->file('image')->store('images', 'public');
-                $announcement->image()->create([
+                $software_product->image()->create([
                     'uuid' => (string) \Str::uuid(),
                     'url' => $path,
                 ]);
             }
 
-            return redirect()->route('admin.announcements.index')->with('success', 'Announcement updated successfully!');
+            return redirect()->route('admin.software_products.index')->with('success', 'SoftwareProduct updated successfully!');
         } catch (\Throwable $th) {
             dd($th);
         }
@@ -134,68 +135,68 @@ class AnnouncementController extends Controller
 
     public function destroy($uuid)
     {
-        $announcement = Announcement::where('uuid', $uuid)->firstOrFail();
-        $announcement->delete(); // soft delete
+        $software_product = SoftwareProduct::where('uuid', $uuid)->firstOrFail();
+        $software_product->delete(); // soft delete
     
         return response()->json([
             'success' => true,
-            'message' => 'Announcement moved to trash.'
+            'message' => 'SoftwareProduct moved to trash.'
         ]);
     }
 
     public function trash()
     {
-        $trashedCollection = Announcement::onlyTrashed()->latest();
+        $trashedCollection = SoftwareProduct::onlyTrashed()->latest();
         $trashed = $trashedCollection->paginate(10);
-        return view('backend.announcements.trash', compact('trashed'));
+        return view('backend.software_products.trash', compact('trashed'));
     }
 
     public function restore($uuid)
     {
-        $announcement = Announcement::onlyTrashed()->where('uuid', $uuid);
-        $announcement->restore();
+        $software_product = SoftwareProduct::onlyTrashed()->where('uuid', $uuid);
+        $software_product->restore();
 
-        return redirect()->route('admin.announcements.trash')->with('success', 'Announcement restored successfully.');
+        return redirect()->route('admin.software_products.trash')->with('success', 'SoftwareProduct restored successfully.');
     }
 
     public function forceDelete($uuid)
     {
-        $announcement = Announcement::onlyTrashed()->where('uuid', $uuid);
-        $announcement->forceDelete();
+        $software_product = SoftwareProduct::onlyTrashed()->where('uuid', $uuid);
+        $software_product->forceDelete();
 
-        return redirect()->route('admin.announcements.trash')->with('success', 'Announcement permanently deleted.');
+        return redirect()->route('admin.software_products.trash')->with('success', 'SoftwareProduct permanently deleted.');
     }
 
     public function getData(Request $request)
     {
-        $query = Announcement::with('user');
+        $query = SoftwareProduct::with('user');
 
         if ($request->has('search') && !empty($request->search)) {
             $search = $request->search;
             $query->where('title', 'like', "%{$search}%");
         }
 
-        $announcements = $query->orderBy('created_at', 'desc')->paginate(10);
+        $software_products = $query->orderBy('created_at', 'desc')->paginate(10);
 
-        return response()->json($announcements);
+        return response()->json($software_products);
     }
 
     public function downloadPdf(Request $request)
     {
         $search = $request->get('search');
 
-        $query = Announcement::with('user');
+        $query = SoftwareProduct::with('user');
 
         if ($search) {
             $query->where('title', 'like', "%{$search}%");
         }
 
-        $announcements = $query->get();
+        $software_products = $query->get();
 
         $mpdf = new \Mpdf\Mpdf();
-        $mpdf->SetHeader("<div style='text-align:center'>Announcement List!</div>");
+        $mpdf->SetHeader("<div style='text-align:center'>SoftwareProduct List!</div>");
         $mpdf->SetFooter("This is a system generated document(s). So no need to show external signature or seal!");
-        $view = view('backend.announcements.pdf', compact('announcements'));
+        $view = view('backend.software_products.pdf', compact('software_products'));
         $mpdf->WriteHTML($view);
         $mpdf->Output();
     }

@@ -2,24 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Announcement;
+use App\Models\Tag;
 use App\Models\Wing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
-class AnnouncementController extends Controller
+class TagController extends Controller
 {
     public function index()
     {
-        $announcementCollection = Announcement::latest();
-        $announcements = $announcementCollection->paginate(10);
-        return view('backend.announcements.index', compact('announcements'));
+        $announcementCollection = Tag::latest();
+        $tags = $announcementCollection->paginate(10);
+        return view('backend.tags.index', compact('tags'));
     }
 
     public function create()
     {
         $wings = Wing::get();
-        return view('backend.announcements.create', compact('wings'));
+        return view('backend.tags.create', compact('wings'));
     }
 
     public function store(Request $request)
@@ -41,7 +42,7 @@ class AnnouncementController extends Controller
                 ? Wing::find($request->announcement_for)
                 : null;
 
-            $announcement = Announcement::create([
+            $tag = Tag::create([
                 'uuid' => (string) \Str::uuid(),
                 'title' => $request->title,
                 'announcement_for' => $wing->id ?? null,
@@ -58,32 +59,32 @@ class AnnouncementController extends Controller
             if ($request->hasFile('image')) {
                 $path = $request->file('image')->store('images', 'public');
 
-                $announcement->image()->create([
+                $tag->image()->create([
                     'uuid' => (string) \Str::uuid(),
                     'url' => $path,
                 ]);
             }
 
-            return redirect()->route('admin.announcements.index')->with('success', 'Announcement created successfully!');
+            return redirect()->route('admin.tags.index')->with('success', 'Tag created successfully!');
         } catch (\Throwable $th) {
             dd($th);
         }
     }
 
-    public function show($announcement)
+    public function show($tag)
     {
-        $announcement = Announcement::where('uuid', $announcement)->first();
-        return view('backend.announcements.show', compact('announcement'));
+        $tag = Tag::where('uuid', $tag)->first();
+        return view('backend.tags.show', compact('tag'));
     }
 
-    public function edit($announcement)
+    public function edit($tag)
     {
-        $announcement = Announcement::where('uuid', $announcement)->first();
+        $tag = Tag::where('uuid', $tag)->first();
         $wings = Wing::get();
-        return view('backend.announcements.edit', compact('announcement', 'wings'));
+        return view('backend.tags.edit', compact('tag', 'wings'));
     }
 
-    public function update(Request $request, Announcement $announcement)
+    public function update(Request $request, Tag $tag)
     {
         $request['is_active'] = $request->has('is_active') ? 1 : 0;
 
@@ -100,7 +101,7 @@ class AnnouncementController extends Controller
             $wing = $request->announcement_for
                 ? Wing::find($request->announcement_for)
                 : null;
-            $announcement->update([
+            $tag->update([
                 'title' => $request->title,
                 'announcement_for' => $wing->id ?? null,
                 'announcement_for_title' => $wing->title ?? null,
@@ -113,20 +114,20 @@ class AnnouncementController extends Controller
 
             if ($request->hasFile('image')) {
                 // Delete previous image if exists
-                if ($announcement->image) {
-                    Storage::disk('public')->delete($announcement->image->url);
-                    $announcement->image()->delete();
+                if ($tag->image) {
+                    Storage::disk('public')->delete($tag->image->url);
+                    $tag->image()->delete();
                 }
 
                 // Store new image
                 $path = $request->file('image')->store('images', 'public');
-                $announcement->image()->create([
+                $tag->image()->create([
                     'uuid' => (string) \Str::uuid(),
                     'url' => $path,
                 ]);
             }
 
-            return redirect()->route('admin.announcements.index')->with('success', 'Announcement updated successfully!');
+            return redirect()->route('admin.tags.index')->with('success', 'Tag updated successfully!');
         } catch (\Throwable $th) {
             dd($th);
         }
@@ -134,68 +135,68 @@ class AnnouncementController extends Controller
 
     public function destroy($uuid)
     {
-        $announcement = Announcement::where('uuid', $uuid)->firstOrFail();
-        $announcement->delete(); // soft delete
+        $tag = Tag::where('uuid', $uuid)->firstOrFail();
+        $tag->delete(); // soft delete
     
         return response()->json([
             'success' => true,
-            'message' => 'Announcement moved to trash.'
+            'message' => 'Tag moved to trash.'
         ]);
     }
 
     public function trash()
     {
-        $trashedCollection = Announcement::onlyTrashed()->latest();
+        $trashedCollection = Tag::onlyTrashed()->latest();
         $trashed = $trashedCollection->paginate(10);
-        return view('backend.announcements.trash', compact('trashed'));
+        return view('backend.tags.trash', compact('trashed'));
     }
 
     public function restore($uuid)
     {
-        $announcement = Announcement::onlyTrashed()->where('uuid', $uuid);
-        $announcement->restore();
+        $tag = Tag::onlyTrashed()->where('uuid', $uuid);
+        $tag->restore();
 
-        return redirect()->route('admin.announcements.trash')->with('success', 'Announcement restored successfully.');
+        return redirect()->route('admin.tags.trash')->with('success', 'Tag restored successfully.');
     }
 
     public function forceDelete($uuid)
     {
-        $announcement = Announcement::onlyTrashed()->where('uuid', $uuid);
-        $announcement->forceDelete();
+        $tag = Tag::onlyTrashed()->where('uuid', $uuid);
+        $tag->forceDelete();
 
-        return redirect()->route('admin.announcements.trash')->with('success', 'Announcement permanently deleted.');
+        return redirect()->route('admin.tags.trash')->with('success', 'Tag permanently deleted.');
     }
 
     public function getData(Request $request)
     {
-        $query = Announcement::with('user');
+        $query = Tag::with('user');
 
         if ($request->has('search') && !empty($request->search)) {
             $search = $request->search;
             $query->where('title', 'like', "%{$search}%");
         }
 
-        $announcements = $query->orderBy('created_at', 'desc')->paginate(10);
+        $tags = $query->orderBy('created_at', 'desc')->paginate(10);
 
-        return response()->json($announcements);
+        return response()->json($tags);
     }
 
     public function downloadPdf(Request $request)
     {
         $search = $request->get('search');
 
-        $query = Announcement::with('user');
+        $query = Tag::with('user');
 
         if ($search) {
             $query->where('title', 'like', "%{$search}%");
         }
 
-        $announcements = $query->get();
+        $tags = $query->get();
 
         $mpdf = new \Mpdf\Mpdf();
-        $mpdf->SetHeader("<div style='text-align:center'>Announcement List!</div>");
+        $mpdf->SetHeader("<div style='text-align:center'>Tag List!</div>");
         $mpdf->SetFooter("This is a system generated document(s). So no need to show external signature or seal!");
-        $view = view('backend.announcements.pdf', compact('announcements'));
+        $view = view('backend.tags.pdf', compact('tags'));
         $mpdf->WriteHTML($view);
         $mpdf->Output();
     }

@@ -74,32 +74,31 @@ class NavigationController extends Controller
     public function edit($navigation)
     {
         $navigation = Navigation::where('uuid', $navigation)->first();
+        $navigations = Navigation::where('uuid', '!=', $navigation)->get();
         $wings = Wing::get();
-        return view('backend.navigations.edit', compact('navigation', 'wings'));
+        return view('backend.navigations.edit', compact('navigation', 'navigations', 'wings'));
     }
 
     public function update(Request $request, Navigation $navigation)
     {
-        $request['is_active'] = $request->has('is_active') ? 1 : 0;
-
-        $request->validate([
-            'title' => 'required|string',
-            'is_active' => 'nullable|boolean',
-        ]);
-
         try {
-            $wing = $request->navigation_for
-                ? Wing::find($request->navigation_for)
-                : null;
+            $validated = $request->validate([
+                'title' => 'required|string|max:255',
+                'navigation_for' => 'nullable|exists:wings,id',
+                'nav_icon' => 'max:255',
+                'url' => 'max:255',
+                'route' => 'max:255',
+                'parent_id' => 'nullable|exists:navigations,id|not_in:' . $navigation, // নিজেকে parent বানানো যাবে না
+                'is_active' => 'nullable|boolean',
+            ]);
+
             $navigation->update([
-                'uuid' => (string) \Str::uuid(),
-                'title' => $request->title,
-                'navigation_for' => $wing->id ?? null,
-                'navigation_for_title' => $wing->title ?? null,
-                'navigation_for_uuid' => $wing->uuid ?? null,
-                'created_by' => Auth::user()->id,
-                'created_by_uuid' => Auth::user()->uuid,
-                'url' => strtolower($request->title),
+                'title' => $validated['title'],
+                'navigation_for' => $validated['navigation_for'] ?? null,
+                'nav_icon' => $validated['nav_icon'],
+                'url' => $validated['url'],
+                'route' => $validated['route'],
+                'parent_id' => $validated['parent_id'] ?? null,
                 'is_active' => $request->has('is_active'),
             ]);
 
@@ -108,6 +107,7 @@ class NavigationController extends Controller
             dd($th);
         }
     }
+
 
     public function destroy($uuid)
     {
@@ -173,80 +173,6 @@ class NavigationController extends Controller
         $mpdf->WriteHTML($view);
         $mpdf->Output();
     }
-
-    // public function syncRoutes()
-    // {
-    //     $routeCollection = Route::getRoutes();
-    //     $allRoutes = $routeCollection->getRoutes();
-
-
-    //     $parentRoutes = [];
-    //     $childRoutes = [];
-
-    //     // Group routes by parent-child relationship based on route name dot notation
-    //     foreach ($allRoutes as $route) {
-    //         dd([
-    //             'uri' => $route->uri(),
-    //             'name' => $route->getName(),
-    //             'action' => $route->getActionName(),
-    //             'methods' => $route->methods(),
-    //             'middleware' => $route->middleware(),
-    //         ]);
-    //         $name = $route->getName();
-    //         if (!$name) continue;
-
-    //         if (!str_contains($name, '.')) {
-    //             $parentRoutes[$name] = $route;
-    //         } else {
-    //             $parentName = explode('.', $name)[0];
-    //             $childRoutes[$parentName][] = $route;
-    //         }
-    //     }
-
-    //     foreach ($parentRoutes as $parentName => $parentRoute) {
-    //         $parentNav = Navigation::updateOrCreate(
-    //             ['route' => $parentName],  // route = route name
-    //             [
-    //                 'uuid' => (string) \Str::uuid(),
-    //                 'title' => ucfirst(str_replace('_', ' ', $parentName)),
-    //                 'url' => url($parentRoute->uri()),
-    //                 'parent_id' => null,
-    //                 'navigation_for' => null, // তোমার app অনুযায়ী set করতে পারো
-    //                 'navigation_for_title' => null,
-    //                 'navigation_for_uuid' => null,
-    //                 'subdomain' => null,
-    //                 'nav_icon' => null,
-    //                 'created_by' => Auth::id() ?? 1, // logged in user id or fallback
-    //                 'created_by_uuid' => null,
-    //                 'is_active' => true,
-    //             ]
-    //         );
-
-    //         if (isset($childRoutes[$parentName])) {
-    //             foreach ($childRoutes[$parentName] as $childRoute) {
-    //                 Navigation::updateOrCreate(
-    //                     ['route' => $childRoute->getName()],
-    //                     [
-    //                         'uuid' => (string) \Str::uuid(),
-    //                         'title' => ucfirst(str_replace(['_', '.'], [' ', ' '], $childRoute->getName())),
-    //                         'url' => url($childRoute->uri()),
-    //                         'parent_id' => $parentNav->id,
-    //                         'navigation_for' => null,
-    //                         'navigation_for_title' => null,
-    //                         'navigation_for_uuid' => null,
-    //                         'subdomain' => null,
-    //                         'nav_icon' => null,
-    //                         'created_by' => Auth::id() ?? 1,
-    //                         'created_by_uuid' => null,
-    //                         'is_active' => true,
-    //                     ]
-    //                 );
-    //             }
-    //         }
-    //     }
-
-    //     return redirect()->route('admin.navigations.index')->with('success', 'Routes synced successfully!');
-    // }
 
     public function syncRoutes()
     {
@@ -340,17 +266,17 @@ class NavigationController extends Controller
         $query = Navigation::query()
             ->whereNull('parent_id')
             ->where('is_active', true);
-    
+
         // if ($subdomain) {
         //     $query->where('subdomain', $subdomain);
         // }
-    
+
         $navigations = $query->with(['children' => function ($q) {
             $q->where('is_active', true);
         }])->get();
 
         // dd($navigations);
-    
+
         return view('backend.navigations.sidebar', compact('navigations'));
         // return response()->json($formatted);
     }

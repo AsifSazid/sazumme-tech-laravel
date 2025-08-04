@@ -2,24 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Announcement;
+use App\Models\Invoice;
 use App\Models\Wing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
-class AnnouncementController extends Controller
+class InvoiceController extends Controller
 {
     public function index()
     {
-        $announcementCollection = Announcement::latest();
-        $announcements = $announcementCollection->paginate(10);
-        return view('backend.announcements.index', compact('announcements'));
+        $announcementCollection = Invoice::latest();
+        $invoices = $announcementCollection->paginate(10);
+        return view('backend.invoices.index', compact('invoices'));
     }
 
     public function create()
     {
         $wings = Wing::get();
-        return view('backend.announcements.create', compact('wings'));
+        return view('backend.invoices.create', compact('wings'));
     }
 
     public function store(Request $request)
@@ -41,7 +42,7 @@ class AnnouncementController extends Controller
                 ? Wing::find($request->announcement_for)
                 : null;
 
-            $announcement = Announcement::create([
+            $announcement = Invoice::create([
                 'uuid' => (string) \Str::uuid(),
                 'title' => $request->title,
                 'announcement_for' => $wing->id ?? null,
@@ -64,7 +65,7 @@ class AnnouncementController extends Controller
                 ]);
             }
 
-            return redirect()->route('admin.announcements.index')->with('success', 'Announcement created successfully!');
+            return redirect()->route('admin.invoices.index')->with('success', 'Invoice created successfully!');
         } catch (\Throwable $th) {
             dd($th);
         }
@@ -72,18 +73,18 @@ class AnnouncementController extends Controller
 
     public function show($announcement)
     {
-        $announcement = Announcement::where('uuid', $announcement)->first();
-        return view('backend.announcements.show', compact('announcement'));
+        $announcement = Invoice::where('uuid', $announcement)->first();
+        return view('backend.invoices.show', compact('announcement'));
     }
 
     public function edit($announcement)
     {
-        $announcement = Announcement::where('uuid', $announcement)->first();
+        $announcement = Invoice::where('uuid', $announcement)->first();
         $wings = Wing::get();
-        return view('backend.announcements.edit', compact('announcement', 'wings'));
+        return view('backend.invoices.edit', compact('announcement', 'wings'));
     }
 
-    public function update(Request $request, Announcement $announcement)
+    public function update(Request $request, Invoice $announcement)
     {
         $request['is_active'] = $request->has('is_active') ? 1 : 0;
 
@@ -126,7 +127,7 @@ class AnnouncementController extends Controller
                 ]);
             }
 
-            return redirect()->route('admin.announcements.index')->with('success', 'Announcement updated successfully!');
+            return redirect()->route('admin.invoices.index')->with('success', 'Invoice updated successfully!');
         } catch (\Throwable $th) {
             dd($th);
         }
@@ -134,68 +135,68 @@ class AnnouncementController extends Controller
 
     public function destroy($uuid)
     {
-        $announcement = Announcement::where('uuid', $uuid)->firstOrFail();
+        $announcement = Invoice::where('uuid', $uuid)->firstOrFail();
         $announcement->delete(); // soft delete
     
         return response()->json([
             'success' => true,
-            'message' => 'Announcement moved to trash.'
+            'message' => 'Invoice moved to trash.'
         ]);
     }
 
     public function trash()
     {
-        $trashedCollection = Announcement::onlyTrashed()->latest();
+        $trashedCollection = Invoice::onlyTrashed()->latest();
         $trashed = $trashedCollection->paginate(10);
-        return view('backend.announcements.trash', compact('trashed'));
+        return view('backend.invoices.trash', compact('trashed'));
     }
 
     public function restore($uuid)
     {
-        $announcement = Announcement::onlyTrashed()->where('uuid', $uuid);
+        $announcement = Invoice::onlyTrashed()->where('uuid', $uuid);
         $announcement->restore();
 
-        return redirect()->route('admin.announcements.trash')->with('success', 'Announcement restored successfully.');
+        return redirect()->route('admin.invoices.trash')->with('success', 'Invoice restored successfully.');
     }
 
     public function forceDelete($uuid)
     {
-        $announcement = Announcement::onlyTrashed()->where('uuid', $uuid);
+        $announcement = Invoice::onlyTrashed()->where('uuid', $uuid);
         $announcement->forceDelete();
 
-        return redirect()->route('admin.announcements.trash')->with('success', 'Announcement permanently deleted.');
+        return redirect()->route('admin.invoices.trash')->with('success', 'Invoice permanently deleted.');
     }
 
     public function getData(Request $request)
     {
-        $query = Announcement::with('user');
+        $query = Invoice::with('user');
 
         if ($request->has('search') && !empty($request->search)) {
             $search = $request->search;
             $query->where('title', 'like', "%{$search}%");
         }
 
-        $announcements = $query->orderBy('created_at', 'desc')->paginate(10);
+        $invoices = $query->orderBy('created_at', 'desc')->paginate(10);
 
-        return response()->json($announcements);
+        return response()->json($invoices);
     }
 
     public function downloadPdf(Request $request)
     {
         $search = $request->get('search');
 
-        $query = Announcement::with('user');
+        $query = Invoice::with('user');
 
         if ($search) {
             $query->where('title', 'like', "%{$search}%");
         }
 
-        $announcements = $query->get();
+        $invoices = $query->get();
 
         $mpdf = new \Mpdf\Mpdf();
-        $mpdf->SetHeader("<div style='text-align:center'>Announcement List!</div>");
+        $mpdf->SetHeader("<div style='text-align:center'>Invoice List!</div>");
         $mpdf->SetFooter("This is a system generated document(s). So no need to show external signature or seal!");
-        $view = view('backend.announcements.pdf', compact('announcements'));
+        $view = view('backend.invoices.pdf', compact('invoices'));
         $mpdf->WriteHTML($view);
         $mpdf->Output();
     }

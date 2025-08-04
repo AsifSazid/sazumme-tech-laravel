@@ -18,6 +18,8 @@ Route::middleware(['web', 'auth:admin'])->prefix('/admin')->name('admin.')->grou
     Route::get('/announcements/list', [AnnouncementController::class, 'getData'])->name('announcements.getData');
     Route::get('/announcements/download/pdf', [AnnouncementController::class, 'downloadPdf'])->name('announcements.download.pdf');
     Route::get('/announcements/trash', [AnnouncementController::class, 'trash'])->name('announcements.trash');
+    // Route::delete('/admin/announcements/{uuid}', [AnnouncementController::class, 'destroy'])
+    // ->name('admin.announcements.destroy');
     Route::post('/announcements/{id}/restore', [AnnouncementController::class, 'restore'])->name('announcements.restore');
     Route::delete('/announcements/{id}/force-delete', [AnnouncementController::class, 'forceDelete'])->name('announcements.forceDelete');
     // Blog
@@ -63,6 +65,7 @@ Route::middleware(['web', 'auth:admin'])->prefix('/admin')->name('admin.')->grou
         'users' => UserController::class,
         'wings' => WingController::class,
     ]);
+    // User
     Route::get('/{user}/assign-roles', [UserController::class, 'assignRoles'])->name('users.assign-roles');
     Route::post('/{user}/assign-roles', [UserController::class, 'storeAssignedRoles'])->name('users.assign.roles');
 })->middleware('role:Super Admin,Editor');

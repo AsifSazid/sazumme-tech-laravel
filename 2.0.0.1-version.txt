@@ -24,3 +24,23 @@ In 2.0.0.1
 - Navigation Management
 - Visitor Log Management
 - Visitor Log Analytics
+
+
+In 2.0.1.1
+- Navigation ta Database theke asteche
+
+- Notun kore
+    - Product er jonno Category, Tag 
+    - Ebook er jonno  Ebook, EbookPages, CategoryEbook
+    - Product hisabe Services, Software Products
+    - Purchasing er jonno Purchases, Invoices, Payments  
+
+    Egular jonno Migration File, Controller, Model Make kora hoiche.... 
+    Blade er page gula copy paste kora hoiche Anoouncement theke.... 
+    Kintu kono kichu change kora hoy nai... 
+    Change kore Database theke Data Ante hbe.... 
+    kintu amar BCS exam kachakachi chole asay r masters er research er jonno 
+    ei kaj aj 4th August 2025 theke 30th September 2025 porjonto bondho thakbe...  
+
+    Ajke last update diye server e push kora hbe...
+    

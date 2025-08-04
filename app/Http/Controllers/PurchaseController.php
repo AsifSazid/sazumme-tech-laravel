@@ -2,24 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Announcement;
+use App\Models\Purchase;
 use App\Models\Wing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
-class AnnouncementController extends Controller
+class PurchaseController extends Controller
 {
     public function index()
     {
-        $announcementCollection = Announcement::latest();
-        $announcements = $announcementCollection->paginate(10);
-        return view('backend.announcements.index', compact('announcements'));
+        $announcementCollection = Purchase::latest();
+        $purchases = $announcementCollection->paginate(10);
+        return view('backend.purchases.index', compact('purchases'));
     }
 
     public function create()
     {
         $wings = Wing::get();
-        return view('backend.announcements.create', compact('wings'));
+        return view('backend.purchases.create', compact('wings'));
     }
 
     public function store(Request $request)
@@ -41,7 +42,7 @@ class AnnouncementController extends Controller
                 ? Wing::find($request->announcement_for)
                 : null;
 
-            $announcement = Announcement::create([
+            $purchase = Purchase::create([
                 'uuid' => (string) \Str::uuid(),
                 'title' => $request->title,
                 'announcement_for' => $wing->id ?? null,
@@ -58,32 +59,32 @@ class AnnouncementController extends Controller
             if ($request->hasFile('image')) {
                 $path = $request->file('image')->store('images', 'public');
 
-                $announcement->image()->create([
+                $purchase->image()->create([
                     'uuid' => (string) \Str::uuid(),
                     'url' => $path,
                 ]);
             }
 
-            return redirect()->route('admin.announcements.index')->with('success', 'Announcement created successfully!');
+            return redirect()->route('admin.purchases.index')->with('success', 'Purchase created successfully!');
         } catch (\Throwable $th) {
             dd($th);
         }
     }
 
-    public function show($announcement)
+    public function show($purchase)
     {
-        $announcement = Announcement::where('uuid', $announcement)->first();
-        return view('backend.announcements.show', compact('announcement'));
+        $purchase = Purchase::where('uuid', $purchase)->first();
+        return view('backend.purchases.show', compact('purchase'));
     }
 
-    public function edit($announcement)
+    public function edit($purchase)
     {
-        $announcement = Announcement::where('uuid', $announcement)->first();
+        $purchase = Purchase::where('uuid', $purchase)->first();
         $wings = Wing::get();
-        return view('backend.announcements.edit', compact('announcement', 'wings'));
+        return view('backend.purchases.edit', compact('purchase', 'wings'));
     }
 
-    public function update(Request $request, Announcement $announcement)
+    public function update(Request $request, Purchase $purchase)
     {
         $request['is_active'] = $request->has('is_active') ? 1 : 0;
 
@@ -100,7 +101,7 @@ class AnnouncementController extends Controller
             $wing = $request->announcement_for
                 ? Wing::find($request->announcement_for)
                 : null;
-            $announcement->update([
+            $purchase->update([
                 'title' => $request->title,
                 'announcement_for' => $wing->id ?? null,
                 'announcement_for_title' => $wing->title ?? null,
@@ -113,20 +114,20 @@ class AnnouncementController extends Controller
 
             if ($request->hasFile('image')) {
                 // Delete previous image if exists
-                if ($announcement->image) {
-                    Storage::disk('public')->delete($announcement->image->url);
-                    $announcement->image()->delete();
+                if ($purchase->image) {
+                    Storage::disk('public')->delete($purchase->image->url);
+                    $purchase->image()->delete();
                 }
 
                 // Store new image
                 $path = $request->file('image')->store('images', 'public');
-                $announcement->image()->create([
+                $purchase->image()->create([
                     'uuid' => (string) \Str::uuid(),
                     'url' => $path,
                 ]);
             }
 
-            return redirect()->route('admin.announcements.index')->with('success', 'Announcement updated successfully!');
+            return redirect()->route('admin.purchases.index')->with('success', 'Purchase updated successfully!');
         } catch (\Throwable $th) {
             dd($th);
         }
@@ -134,68 +135,68 @@ class AnnouncementController extends Controller
 
     public function destroy($uuid)
     {
-        $announcement = Announcement::where('uuid', $uuid)->firstOrFail();
-        $announcement->delete(); // soft delete
+        $purchase = Purchase::where('uuid', $uuid)->firstOrFail();
+        $purchase->delete(); // soft delete
     
         return response()->json([
             'success' => true,
-            'message' => 'Announcement moved to trash.'
+            'message' => 'Purchase moved to trash.'
         ]);
     }
 
     public function trash()
     {
-        $trashedCollection = Announcement::onlyTrashed()->latest();
+        $trashedCollection = Purchase::onlyTrashed()->latest();
         $trashed = $trashedCollection->paginate(10);
-        return view('backend.announcements.trash', compact('trashed'));
+        return view('backend.purchases.trash', compact('trashed'));
     }
 
     public function restore($uuid)
     {
-        $announcement = Announcement::onlyTrashed()->where('uuid', $uuid);
-        $announcement->restore();
+        $purchase = Purchase::onlyTrashed()->where('uuid', $uuid);
+        $purchase->restore();
 
-        return redirect()->route('admin.announcements.trash')->with('success', 'Announcement restored successfully.');
+        return redirect()->route('admin.purchases.trash')->with('success', 'Purchase restored successfully.');
     }
 
     public function forceDelete($uuid)
     {
-        $announcement = Announcement::onlyTrashed()->where('uuid', $uuid);
-        $announcement->forceDelete();
+        $purchase = Purchase::onlyTrashed()->where('uuid', $uuid);
+        $purchase->forceDelete();
 
-        return redirect()->route('admin.announcements.trash')->with('success', 'Announcement permanently deleted.');
+        return redirect()->route('admin.purchases.trash')->with('success', 'Purchase permanently deleted.');
     }
 
     public function getData(Request $request)
     {
-        $query = Announcement::with('user');
+        $query = Purchase::with('user');
 
         if ($request->has('search') && !empty($request->search)) {
             $search = $request->search;
             $query->where('title', 'like', "%{$search}%");
         }
 
-        $announcements = $query->orderBy('created_at', 'desc')->paginate(10);
+        $purchases = $query->orderBy('created_at', 'desc')->paginate(10);
 
-        return response()->json($announcements);
+        return response()->json($purchases);
     }
 
     public function downloadPdf(Request $request)
     {
         $search = $request->get('search');
 
-        $query = Announcement::with('user');
+        $query = Purchase::with('user');
 
         if ($search) {
             $query->where('title', 'like', "%{$search}%");
         }
 
-        $announcements = $query->get();
+        $purchases = $query->get();
 
         $mpdf = new \Mpdf\Mpdf();
-        $mpdf->SetHeader("<div style='text-align:center'>Announcement List!</div>");
+        $mpdf->SetHeader("<div style='text-align:center'>Purchase List!</div>");
         $mpdf->SetFooter("This is a system generated document(s). So no need to show external signature or seal!");
-        $view = view('backend.announcements.pdf', compact('announcements'));
+        $view = view('backend.purchases.pdf', compact('purchases'));
         $mpdf->WriteHTML($view);
         $mpdf->Output();
     }

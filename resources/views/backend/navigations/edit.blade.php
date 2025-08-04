@@ -1,9 +1,7 @@
 <x-sb-admin-master>
     <x-slot name="header">
         <div class="flex items-center justify-between px-4 py-4 border-b lg:py-6 dark:border-primary-darker">
-            <h2 class="text-2xl font-semibold">
-                {{ __('Edit Navigation') }}
-            </h2>
+            <h2 class="text-2xl font-semibold">{{ __('Editing Navigation') }}</h2>
         </div>
     </x-slot>
 
@@ -22,30 +20,24 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('admin.navigations.update', $navigation->id) }}" method="POST"
-                            enctype="multipart/form-data">
+                        <form action="{{ route('admin.navigations.update', $navigation->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
                             <div class="mb-4">
                                 <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
-                                <input type="text" name="title" id="title"
-                                    value="{{ old('title', $navigation->title) }}" required
+                                <input type="text" name="title" id="title" value="{{ old('title', $navigation->title) }}" required
                                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                             </div>
 
                             <div class="mb-4">
-                                <label for="announcement_for" class="block text-sm font-medium text-gray-700">Navigation
-                                    For</label>
-                                <select name="announcement_for" id="announcement_for"
+                                <label for="navigation_for" class="block text-sm font-medium text-gray-700">Navigation For</label>
+                                <select name="navigation_for" id="navigation_for"
                                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                                    <option value="" disabled>Select Any One</option>
-                                    <option value="main_website"
-                                        {{ old('announcement_for', $navigation->announcement_for) === 'main_website' ? 'selected' : '' }}>
-                                        Main Website</option>
+                                    <option value="" disabled {{ is_null($navigation->navigation_for) ? 'selected' : '' }}>Select Any One</option>
+                                    <option value="" {{ $navigation->navigation_for == null ? 'selected' : '' }}>Main Website</option>
                                     @foreach ($wings as $wing)
-                                        <option value="{{ $wing->id }}"
-                                            {{ old('announcement_for', $navigation->announcement_for) == $wing->id ? 'selected' : '' }}>
+                                        <option value="{{ $wing->id }}" {{ $navigation->navigation_for == $wing->id ? 'selected' : '' }}>
                                             {{ $wing->title }}
                                         </option>
                                     @endforeach
@@ -53,42 +45,41 @@
                             </div>
 
                             <div class="mb-4">
-                                <label for="body" class="block text-sm font-medium text-gray-700">Body</label>
-                                <textarea name="body" id="body" rows="5" required
-                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">{{ old('body', $navigation->body) }}</textarea>
-                            </div>
-
-                            <div class="mb-4">
-                                <label for="image" class="block text-sm font-medium text-gray-700">Replace
-                                    Image</label>
-                                <input type="file" name="image" id="image"
-                                    class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border file:border-gray-300 file:rounded-md file:text-sm file:font-semibold file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100">
-                            </div>
-
-                            @if ($navigation->image)
-                                <div class="mb-6 flex justify-center">
-                                    <img src="{{ asset('storage/' . $navigation->image->url) }}" alt="Current Image"
-                                        class="rounded-lg shadow-md w-1/2 max-w-md">
-                                </div>
-                            @endif
-
-                            <div class="mb-4">
-                                <label for="starts_at" class="block text-sm font-medium text-gray-700">Starts At</label>
-                                <input type="datetime-local" name="starts_at" id="starts_at"
-                                    value="{{ old('starts_at', optional($navigation->starts_at)->format('Y-m-d\TH:i')) }}"
+                                <label for="nav_icon" class="block text-sm font-medium text-gray-700">Navigation Icon</label>
+                                <input type="text" name="nav_icon" id="nav_icon" value="{{ old('nav_icon', $navigation->nav_icon) }}" 
                                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                             </div>
 
                             <div class="mb-4">
-                                <label for="ends_at" class="block text-sm font-medium text-gray-700">Ends At</label>
-                                <input type="datetime-local" name="ends_at" id="ends_at"
-                                    value="{{ old('ends_at', optional($navigation->ends_at)->format('Y-m-d\TH:i')) }}"
+                                <label for="url" class="block text-sm font-medium text-gray-700">Navigation URL</label>
+                                <input type="text" name="url" id="url" value="{{ old('url', $navigation->url) }}" 
                                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="route" class="block text-sm font-medium text-gray-700">Navigation Route</label>
+                                <input type="text" name="route" id="route" value="{{ old('route', $navigation->route) }}" 
+                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="parent_id" class="block text-sm font-medium text-gray-700">Parent Navigation</label>
+                                <select name="parent_id" id="parent_id"
+                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="" {{ is_null($navigation->parent_id) ? 'selected' : '' }}>Select (If Any)</option>
+                                    @foreach ($navigations as $parent)
+                                        @if ($parent->id !== $navigation->id)
+                                            <option value="{{ $parent->id }}" {{ $navigation->parent_id == $parent->id ? 'selected' : '' }}>
+                                                {{ $parent->title }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="mb-4 flex items-center">
-                                <input type="checkbox" name="is_active" id="is_active"
-                                    {{ old('is_active', $navigation->is_active) ? 'checked' : '' }}
+                                <input type="checkbox" name="is_active" id="is_active" value="1"
+                                    {{ $navigation->is_active ? 'checked' : '' }}
                                     class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
                                 <label for="is_active" class="ml-2 block text-sm text-gray-900">Active</label>
                             </div>
@@ -105,4 +96,8 @@
             </div>
         </div>
     </div>
+
+    @push('js')
+        <script></script>
+    @endpush
 </x-sb-admin-master>

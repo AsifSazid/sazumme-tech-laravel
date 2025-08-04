@@ -1,14 +1,9 @@
 <x-sb-admin-master>
     <x-slot name="header">
         <div class="flex items-center justify-between px-4 py-4 border-b lg:py-6 dark:border-primary-darker">
-            <h2 class="text-2xl font-semibold">{{ __('Navigation Lists') }}</h2>
-            <a href="{{ route('admin.navigations.create') }}" class="text-green-500 hover:text-green-700 mx-1"
+            <h2 class="text-2xl font-semibold">{{ __('Announcement Lists') }}</h2>
+            <a href="{{ route('admin.announcements.create') }}" class="text-green-500 hover:text-green-700 mx-1"
                 title="Create"><i class="fas fa-plus"></i> Create New</a>
-        </div>
-        <div>
-            <a href="{{ route('admin.navigations.syncRoutes') }}" class="btn btn-primary mb-3">
-                Sync Routes to Navigations
-            </a>
         </div>
     </x-slot>
 
@@ -25,13 +20,11 @@
                             <thead class="bg-gray-100 text-gray-700 uppercase">
                                 <tr>
                                     <th class="px-6 py-4">Sl No.</th>
-                                    <th class="px-6 py-4">Navigation Title</th>
-                                    <th class="px-6 py-4">Parent Navigation</th>
-                                    <th class="px-6 py-4">Navigation For (Wing Name)</th>
-                                    <th class="px-6 py-4">Sub Domain</th>
-                                    <th class="px-6 py-4">Route</th>
+                                    <th class="px-6 py-4">Announcement Title</th>
                                     <th class="px-6 py-4">Created By</th>
-                                    <th class="px-6 py-4">Status</th>
+                                    <th class="px-6 py-4">Started At</th>
+                                    <th class="px-6 py-4">Will be Ended</th>
+                                    <th class="px-6 py-4">Activity</th>
                                     <th class="px-6 py-4">Action</th>
                                 </tr>
                             </thead>
@@ -46,7 +39,7 @@
 
                             <div
                                 class="px-4 py-2 bg-gray-100 border-t text-sm text-gray-500 flex justify-between items-center">
-                                <a href="{{ route('admin.navigations.trash') }}"
+                                <a href="{{ route('admin.announcements.trash') }}"
                                     class="text-red-500 hover:text-red-700 mx-1" title="Trash Lists">
                                     <i class="fas fa-trash-alt"></i> Trash Lists
                                 </a>
@@ -85,39 +78,37 @@
                     const fetchAnnouncements = async (search = '', page = 1) => {
                         try {
                             const response = await fetch(
-                                `{{ route('admin.navigations.getData') }}?search=${search}&page=${page}`);
+                                `{{ route('admin.announcements.getData') }}?search=${search}&page=${page}`);
                             const result = await response.json();
                             renderTable(result.data);
                             renderPagination(result, search);
                         } catch (error) {
-                            console.error("Error fetching navigations:", error);
+                            console.error("Error fetching announcements:", error);
                         }
                     };
 
-                    const renderTable = (navigations) => {
+                    const renderTable = (announcements) => {
                         tableBody.innerHTML = "";
-                        if (navigations.length === 0) {
+                        if (announcements.length === 0) {
                             tableBody.innerHTML =
-                                `<tr><td colspan="7" class="py-4 text-center text-gray-500">No navigations found</td></tr>`;
+                                `<tr><td colspan="7" class="py-4 text-center text-gray-500">No announcements found</td></tr>`;
                             return;
                         }
 
-                        navigations.forEach((navigation, index) => {
+                        announcements.forEach((announcement, index) => {
                             const row = `
                         <tr>
                             <td class="px-6 py-4">${index + 1}</td>
-                            <td class="px-6 py-4">${navigation.title}</td>
-                            <td class="px-6 py-4">${navigation.parent_id }</td>
-                            <td class="px-6 py-4">${navigation.navigation_for_title }</td>
-                            <td class="px-6 py-4">${navigation.subdomain }</td>
-                            <td class="px-6 py-4">${navigation.route ?? 'N/A'}</td>
-                            <td class="px-6 py-4">${navigation.user?.name ?? 'N/A'}</td>
-                            <td class="px-6 py-4">${navigation.is_active ? 'Active' : 'Inactive'}</td>
+                            <td class="px-6 py-4">${announcement.title}</td>
+                            <td class="px-6 py-4">${announcement.user?.name ?? 'N/A'}</td>
+                            <td class="px-6 py-4">${formatDateTime(announcement.starts_at)}</td>
+                            <td class="px-6 py-4">${formatDateTime(announcement.ends_at)}</td>
+                            <td class="px-6 py-4">${announcement.is_active ? 'Active' : 'Inactive'}</td>
                             <td class="px-6 py-4">
                                 <div class="flex justify-center">
-                                    <a href="/admin/navigations/${navigation.uuid}" class="px-1 text-blue-500 hover:text-blue-700" title="View"><i class="fas fa-eye"></i></a>
-                                    <a href="/admin/navigations/${navigation.uuid}/edit" class="px-1 text-yellow-500 hover:text-yellow-700" title="Edit"><i class="fas fa-edit"></i></a>
-                                    <form action="/admin/navigations/${navigation.uuid}" method="POST" onsubmit="return confirm('Move to trash?')">
+                                    <a href="/admin/announcements/${announcement.uuid}" class="px-1 text-blue-500 hover:text-blue-700" title="View"><i class="fas fa-eye"></i></a>
+                                    <a href="/admin/announcements/${announcement.uuid}/edit" class="px-1 text-yellow-500 hover:text-yellow-700" title="Edit"><i class="fas fa-edit"></i></a>
+                                    <form action="/admin/announcements/${announcement.uuid}" method="POST" onsubmit="return confirm('Move to trash?')">
                                         <input type="hidden" name="_token" value="${csrfToken}">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <button type="submit" class="px-1 text-red-500 hover:text-red-700" title="Destroy">
@@ -159,7 +150,7 @@
 
                     document.getElementById("downloadPdfBtn").addEventListener("click", () => {
                         const search = document.getElementById("searchInput").value.trim();
-                        let url = `{{ route('admin.navigations.download.pdf') }}`;
+                        let url = `{{ route('admin.announcements.download.pdf') }}`;
                         if (search) {
                             url += `?search=${encodeURIComponent(search)}`;
                         }
