@@ -15,8 +15,10 @@ use App\Http\Controllers\Auth\PhoneVerificationController;
 use App\Http\Controllers\Admin\Auth\AdminForgotPasswordController;
 use App\Http\Controllers\Admin\Auth\AdminResetPasswordController;
 use App\Http\Controllers\Admin\Auth\AdminPasswordController;
+use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NavigationController;
+use App\Http\Controllers\ProfileController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -25,8 +27,8 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |--------------------------------------------------------------------------
 */
 
-// Route::domain('sazumme-tech-laravel.test')->name('admin.')->group(function () {
-Route::domain('sazumme.com')->name('admin.')->group(function () {
+Route::domain('sazumme-tech-laravel.test')->name('admin.')->group(function () {
+    // Route::domain('sazumme.com')->name('admin.')->group(function () {
 
     // Guest routes (Login, Forgot Password, etc.)
     Route::middleware(['multi.auth:guest,admin'])->group(function () {
@@ -52,6 +54,10 @@ Route::domain('sazumme.com')->name('admin.')->group(function () {
 
         Route::get('/admin/navigations/sync-routes', [NavigationController::class, 'syncRoutes'])
             ->name('navigations.syncRoutes');
+
+        Route::get('/profile', [AdminProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [AdminProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [AdminProfileController::class, 'destroy'])->name('profile.destroy');
     });
 });
 
@@ -62,8 +68,8 @@ Route::domain('sazumme.com')->name('admin.')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-// Route::domain('{subdomain}.sazumme-tech-laravel.test')->name('user.')->group(function () {
-Route::domain('{subdomain}.sazumme.com')->name('user.')->group(function () {
+Route::domain('{subdomain}.sazumme-tech-laravel.test')->name('user.')->group(function () {
+    // Route::domain('{subdomain}.sazumme.com')->name('user.')->group(function () {
 
     // Guest user routes (registration, login, forgot password)
     Route::middleware(['multi.auth:guest,web'])->group(function () {
@@ -96,5 +102,9 @@ Route::domain('{subdomain}.sazumme.com')->name('user.')->group(function () {
         Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
         Route::get('/dashboard', [DashboardController::class, 'userDashboard'])->name('dashboard');
+
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     });
 });
