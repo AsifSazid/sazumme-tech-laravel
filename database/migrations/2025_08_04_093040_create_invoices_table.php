@@ -21,7 +21,7 @@ return new class extends Migration
             $table->decimal('amount', 10, 2);
             $table->date('invoice_date');
             $table->text('billing_address')->nullable();
-            $table->enum('status', ['pending', 'unpaid', 'paid', 'refunded'])->default('initiated');
+            $table->enum('status', ['pending', 'unpaid', 'paid', 'refunded', 'initiated'])->default('initiated');
             $table->timestamps();
             $table->softDeletes();
         });

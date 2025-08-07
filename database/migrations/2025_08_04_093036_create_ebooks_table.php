@@ -17,16 +17,11 @@ return new class extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->string('author')->nullable();
-            $table->string('cover_image')->nullable();
-            $table->string('file_path');
             $table->decimal('price', 10, 2);
             $table->integer('page_count')->nullable();
             $table->boolean('is_active')->default(true);
             $table->unsignedBigInteger('created_by'); // Better to use user ID (foreign key)
-            $table->string('created_by_uuid')->nullable(); 
-            $table->foreignId('tag_id')->constrained()->onDelete('cascade');
-            $table->string('tag_title')->nullable();
-            $table->string('tag_uuid')->nullable();
+            $table->string('created_by_uuid')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
